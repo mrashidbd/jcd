@@ -1,0 +1,264 @@
+<?php
+/**
+ * Template Name: Central Panel
+ * Page template for displaying central panel candidates
+ */
+
+get_header(); ?>
+
+    <!-- Page Header -->
+    <section class="page-header bg-gradient-to-r from-primary-blue to-primary-green py-20">
+        <div class="container mx-auto px-4 text-center text-white">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">কেন্দ্রীয় প্যানেল</h1>
+            <p class="text-lg md:text-xl max-w-2xl mx-auto">বাংলাদেশ জাতীয়তাবাদী ছাত্রদল ডাকসু নির্বাচন ২০২৫ কেন্দ্রীয় প্যানেলের প্রার্থীবৃন্দ</p>
+        </div>
+    </section>
+
+    <!-- Candidates Grid -->
+    <section class="candidates-section py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+
+            <!-- Filter and Search -->
+            <div class="flex flex-col md:flex-row justify-between items-center mb-12">
+                <div class="mb-4 md:mb-0">
+                    <h2 class="text-2xl font-bold text-gray-800">মোট <?php
+                        $total_candidates = wp_count_posts('central_candidate');
+                        echo $total_candidates->publish;
+                        ?>টি প্রার্থী</h2>
+                </div>
+
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <!-- Position Filter -->
+                    <select id="position-filter" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green focus:border-transparent">
+                        <option value="">সব পদ</option>
+                        <option value="ভিপি">ভিপি</option>
+                        <option value="জিএস">জিএস</option>
+                        <option value="এজিএস">এজিএস</option>
+                        <option value="সামাজিক কল্যাণ সম্পাদক">সামাজিক কল্যাণ সম্পাদক</option>
+                        <option value="ক্রীড়া সম্পাদক">ক্রীড়া সম্পাদক</option>
+                    </select>
+
+                    <!-- Department Filter -->
+                    <select id="department-filter" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green focus:border-transparent">
+                        <option value="">সব বিভাগ</option>
+                        <option value="বাংলা">বাংলা</option>
+                        <option value="ইংরেজি">ইংরেজি</option>
+                        <option value="রাষ্ট্রবিজ্ঞান">রাষ্ট্রবিজ্ঞান</option>
+                        <option value="অর্থনীতি">অর্থনীতি</option>
+                        <option value="সমাজবিজ্ঞান">সমাজবিজ্ঞান</option>
+                        <option value="ইতিহাস">ইতিহাস</option>
+                        <option value="দর্শন">দর্শন</option>
+                        <option value="আইন">আইন</option>
+                        <option value="ব্যবসায় প্রশাসন">ব্যবসায় প্রশাসন</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Candidates Grid -->
+            <div id="candidates-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <?php
+                $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+
+                $args = [
+                    'post_type' => 'central_candidate',
+                    'posts_per_page' => 12,
+                    'paged' => $paged,
+                    'post_status' => 'publish',
+                    'orderby' => 'menu_order',
+                    'order' => 'ASC'
+                ];
+
+                $candidates = new WP_Query($args);
+
+                if ($candidates->have_posts()) :
+                    while ($candidates->have_posts()) : $candidates->the_post();
+                        $name_bangla = get_post_meta(get_the_ID(), '_candidate_name_bangla', true);
+                        $position = get_post_meta(get_the_ID(), '_candidate_position', true);
+                        $ballot_number = get_post_meta(get_the_ID(), '_candidate_ballot_number', true);
+                        $department = get_post_meta(get_the_ID(), '_candidate_department', true);
+                        $hall = get_post_meta(get_the_ID(), '_candidate_hall', true);
+                        $session = get_post_meta(get_the_ID(), '_candidate_session', true);
+                        ?>
+                        <div class="candidate-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer group"
+                             data-candidate-id="<?php echo get_the_ID(); ?>"
+                             data-position="<?php echo esc_attr($position); ?>"
+                             data-department="<?php echo esc_attr($department); ?>">
+
+                            <div class="relative overflow-hidden">
+                                <?php if (has_post_thumbnail()) : ?>
+                                    <img src="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'medium'); ?>"
+                                         alt="<?php echo esc_attr($name_bangla ?: get_the_title()); ?>"
+                                         class="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-300">
+                                <?php else : ?>
+                                    <div class="w-full h-56 bg-gradient-to-br from-primary-green to-primary-blue flex items-center justify-center">
+                                        <svg class="w-20 h-20 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                                        </svg>
+                                    </div>
+                                <?php endif; ?>
+
+                                <!-- Ballot Number Badge -->
+                                <?php if ($ballot_number) : ?>
+                                    <div class="absolute top-4 left-4 bg-primary-red text-white px-3 py-1 rounded-full text-sm font-bold">
+                                        <?php echo esc_html($ballot_number); ?>
+                                    </div>
+                                <?php endif; ?>
+
+                                <!-- Hover Overlay -->
+                                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                                    <button class="bg-white text-primary-blue px-6 py-2 rounded-full font-medium opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+                                        বিস্তারিত দেখুন
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold text-gray-800 mb-2 line-clamp-2">
+                                    <?php echo esc_html($name_bangla ?: get_the_title()); ?>
+                                </h3>
+
+                                <div class="space-y-2 mb-4">
+                                    <p class="text-primary-blue font-semibold text-lg"><?php echo esc_html($position); ?></p>
+                                    <p class="text-gray-600 text-sm"><?php echo esc_html($department); ?></p>
+                                    <?php if ($hall) : ?>
+                                        <p class="text-gray-500 text-sm"><?php echo esc_html($hall); ?></p>
+                                    <?php endif; ?>
+                                    <?php if ($session) : ?>
+                                        <p class="text-gray-500 text-sm">সেশন: <?php echo esc_html($session); ?></p>
+                                    <?php endif; ?>
+                                </div>
+
+                                <div class="flex justify-between items-center">
+                                    <button class="text-primary-green hover:text-primary-red font-medium text-sm transition-colors duration-300 flex items-center candidate-details-btn"
+                                            data-candidate-id="<?php echo get_the_ID(); ?>">
+                                        <span>আরও জানুন</span>
+                                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </button>
+
+                                    <button class="bg-primary-green hover:bg-primary-red text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 contact-candidate-btn"
+                                            data-candidate-id="<?php echo get_the_ID(); ?>">
+                                        যোগাযোগ
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    <?php
+                    endwhile;
+                else :
+                    ?>
+                    <div class="col-span-full text-center py-12">
+                        <div class="bg-gray-100 rounded-lg p-8 max-w-md mx-auto">
+                            <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                            </svg>
+                            <h3 class="text-lg font-medium text-gray-800 mb-2">কোনো প্রার্থী পাওয়া যায়নি</h3>
+                            <p class="text-gray-600">এই মুহূর্তে কোনো কেন্দ্রীয় প্যানেলের প্রার্থী যোগ করা হয়নি।</p>
+                        </div>
+                    </div>
+                <?php
+                endif;
+                ?>
+            </div>
+
+            <!-- Pagination -->
+            <?php if ($candidates->max_num_pages > 1) : ?>
+                <div class="pagination-wrapper mt-12 flex justify-center">
+                    <div class="flex space-x-2">
+                        <?php
+                        $pagination = paginate_links([
+                            'total' => $candidates->max_num_pages,
+                            'current' => $paged,
+                            'format' => '?paged=%#%',
+                            'show_all' => false,
+                            'end_size' => 1,
+                            'mid_size' => 2,
+                            'prev_next' => true,
+                            'prev_text' => '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>',
+                            'next_text' => '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>',
+                            'type' => 'array'
+                        ]);
+
+                        if ($pagination) {
+                            foreach ($pagination as $page) {
+                                $page = str_replace('page-numbers', 'page-numbers px-4 py-2 border border-gray-300 text-gray-700 hover:bg-primary-green hover:text-white hover:border-primary-green transition-all duration-300', $page);
+                                $page = str_replace('current', 'current bg-primary-green text-white border-primary-green', $page);
+                                echo $page;
+                            }
+                        }
+                        ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <?php wp_reset_postdata(); ?>
+        </div>
+    </section>
+
+    <!-- Candidate Details Modal -->
+    <div id="candidate-modal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-6xl w-full max-h-[90vh] overflow-y-auto relative">
+            <button id="close-modal" class="absolute top-4 right-4 z-10 text-gray-500 hover:text-gray-700 bg-white rounded-full p-2 shadow-lg">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <div class="candidate-modal-content p-8">
+                <!-- Modal content will be loaded via AJAX -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="fixed inset-0 z-40 hidden bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg p-8 flex items-center space-x-4">
+            <svg class="animate-spin h-8 w-8 text-primary-green" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <span class="text-gray-700">লোড হচ্ছে...</span>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Filter functionality
+            const positionFilter = document.getElementById('position-filter');
+            const departmentFilter = document.getElementById('department-filter');
+
+            function filterCandidates() {
+                const selectedPosition = positionFilter.value;
+                const selectedDepartment = departmentFilter.value;
+                const candidateCards = document.querySelectorAll('.candidate-card');
+
+                candidateCards.forEach(card => {
+                    const cardPosition = card.getAttribute('data-position');
+                    const cardDepartment = card.getAttribute('data-department');
+
+                    let showCard = true;
+
+                    if (selectedPosition && cardPosition !== selectedPosition) {
+                        showCard = false;
+                    }
+
+                    if (selectedDepartment && cardDepartment !== selectedDepartment) {
+                        showCard = false;
+                    }
+
+                    if (showCard) {
+                        card.style.display = 'block';
+                        card.classList.remove('hidden');
+                    } else {
+                        card.style.display = 'none';
+                        card.classList.add('hidden');
+                    }
+                });
+            }
+
+            positionFilter.addEventListener('change', filterCandidates);
+            departmentFilter.addEventListener('change', filterCandidates);
+        });
+    </script>
+
+<?php get_footer(); ?>
