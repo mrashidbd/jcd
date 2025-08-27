@@ -98,69 +98,33 @@ document.addEventListener('DOMContentLoaded', function() {
     // ===========================
     const searchHandler = {
         init() {
-            this.searchToggle = document.querySelector('.search-toggle');
             this.searchInput = document.querySelector('#search-input');
             this.searchResults = document.querySelector('#search-results');
-            this.searchOverlay = document.querySelector('#search-overlay');
 
             this.bindEvents();
         },
 
         bindEvents() {
-            // Search toggle
-            if (this.searchToggle) {
-                this.searchToggle.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    this.toggleSearch();
-                });
-            }
-
-            // Search input
+            // Search input functionality
             if (this.searchInput) {
                 this.searchInput.addEventListener('input', this.debounce((e) => {
                     this.performSearch(e.target.value);
                 }, 300));
+            }
 
-                this.searchInput.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape') {
-                        this.closeSearch();
-                    }
+            // Search suggestions
+            const searchSuggestions = document.querySelectorAll('.search-suggestion');
+            if (searchSuggestions && this.searchInput) {
+                searchSuggestions.forEach(suggestion => {
+                    suggestion.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const query = suggestion.getAttribute('data-query');
+                        if (query) {
+                            this.searchInput.value = query;
+                            this.performSearch(query);
+                        }
+                    });
                 });
-            }
-
-            // Close search overlay
-            if (this.searchOverlay) {
-                this.searchOverlay.addEventListener('click', (e) => {
-                    if (e.target === this.searchOverlay) {
-                        this.closeSearch();
-                    }
-                });
-            }
-
-            // Close search on escape
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    this.closeSearch();
-                }
-            });
-        },
-
-        toggleSearch() {
-            if (this.searchOverlay) {
-                this.searchOverlay.classList.toggle('hidden');
-                if (!this.searchOverlay.classList.contains('hidden')) {
-                    this.searchInput.focus();
-                }
-            }
-        },
-
-        closeSearch() {
-            if (this.searchOverlay) {
-                this.searchOverlay.classList.add('hidden');
-                this.searchInput.value = '';
-                if (this.searchResults) {
-                    this.searchResults.innerHTML = '';
-                }
             }
         },
 
@@ -313,7 +277,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Close on escape key
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && !this.modal.classList.contains('hidden')) {
+                if (e.key === 'Escape' && this.modal && !this.modal.classList.contains('hidden')) {
                     this.closeModal();
                 }
             });
@@ -655,7 +619,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>'
             }
                     <span>${message}</span>
-                    <button class="ml-4 hover:opacity-75">
+                    <button class="ml-4 hover:opacity-75" type="button">
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                         </svg>
@@ -689,48 +653,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }, 300);
             });
-        }
-    };
-
-    // ===========================
-    // MOBILE MENU FUNCTIONALITY
-    // ===========================
-    const mobileMenu = {
-        init() {
-            this.menuToggle = document.querySelector('.mobile-menu-toggle');
-            this.mobileMenu = document.querySelector('.mobile-menu');
-            this.menuOverlay = document.querySelector('.mobile-menu-overlay');
-
-            this.bindEvents();
-        },
-
-        bindEvents() {
-            if (this.menuToggle) {
-                this.menuToggle.addEventListener('click', () => this.toggleMenu());
-            }
-
-            if (this.menuOverlay) {
-                this.menuOverlay.addEventListener('click', () => this.closeMenu());
-            }
-
-            // Close menu on escape key
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    this.closeMenu();
-                }
-            });
-        },
-
-        toggleMenu() {
-            if (this.mobileMenu) {
-                this.mobileMenu.classList.toggle('hidden');
-            }
-        },
-
-        closeMenu() {
-            if (this.mobileMenu) {
-                this.mobileMenu.classList.add('hidden');
-            }
         }
     };
 
@@ -819,7 +741,6 @@ document.addEventListener('DOMContentLoaded', function() {
     heroSlider.init();
     searchHandler.init();
     candidateModal.init();
-    mobileMenu.init();
     scrollAnimations.init();
     generalContactForm.init();
 

@@ -18,40 +18,13 @@ get_header(); ?>
     <section class="candidates-section py-16 bg-gray-50">
         <div class="container mx-auto px-4">
 
-            <!-- Filter and Search -->
-            <div class="flex flex-col md:flex-row justify-between items-center mb-12">
-                <div class="mb-4 md:mb-0">
-                    <h2 class="text-2xl font-bold text-gray-800">মোট <?php
-                        $total_candidates = wp_count_posts('central_candidate');
-                        echo $total_candidates->publish;
-                        ?>টি প্রার্থী</h2>
-                </div>
-
-                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                    <!-- Position Filter -->
-                    <select id="position-filter" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green focus:border-transparent">
-                        <option value="">সব পদ</option>
-                        <option value="ভিপি">ভিপি</option>
-                        <option value="জিএস">জিএস</option>
-                        <option value="এজিএস">এজিএস</option>
-                        <option value="সামাজিক কল্যাণ সম্পাদক">সামাজিক কল্যাণ সম্পাদক</option>
-                        <option value="ক্রীড়া সম্পাদক">ক্রীড়া সম্পাদক</option>
-                    </select>
-
-                    <!-- Department Filter -->
-                    <select id="department-filter" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green focus:border-transparent">
-                        <option value="">সব বিভাগ</option>
-                        <option value="বাংলা">বাংলা</option>
-                        <option value="ইংরেজি">ইংরেজি</option>
-                        <option value="রাষ্ট্রবিজ্ঞান">রাষ্ট্রবিজ্ঞান</option>
-                        <option value="অর্থনীতি">অর্থনীতি</option>
-                        <option value="সমাজবিজ্ঞান">সমাজবিজ্ঞান</option>
-                        <option value="ইতিহাস">ইতিহাস</option>
-                        <option value="দর্শন">দর্শন</option>
-                        <option value="আইন">আইন</option>
-                        <option value="ব্যবসায় প্রশাসন">ব্যবসায় প্রশাসন</option>
-                    </select>
-                </div>
+            <!-- Total Candidates Count -->
+            <div class="text-center mb-12">
+                <h2 class="text-2xl font-bold text-gray-800">মোট <?php
+                    $total_candidates = wp_count_posts('central_candidate');
+                    echo $total_candidates->publish;
+                    ?>টি প্রার্থী</h2>
+                <p class="text-gray-600 mt-2">প্রার্থীর বিস্তারিত দেখতে কার্ডে ক্লিক করুন</p>
             </div>
 
             <!-- Candidates Grid -->
@@ -80,9 +53,7 @@ get_header(); ?>
                         $session = get_post_meta(get_the_ID(), '_candidate_session', true);
                         ?>
                         <div class="candidate-card rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer group"
-                             data-candidate-id="<?php echo get_the_ID(); ?>"
-                             data-position="<?php echo esc_attr($position); ?>"
-                             data-department="<?php echo esc_attr($department); ?>">
+                             data-candidate-id="<?php echo get_the_ID(); ?>">
 
                             <div class="relative overflow-hidden">
                                 <?php if (has_post_thumbnail()) : ?>
@@ -105,7 +76,12 @@ get_header(); ?>
                                 <?php endif; ?>
 
                                 <!-- Hover Overlay -->
-                                <div class="absolute bg-indigo-400/0 group-hover:bg-indigo-400/20 transition-all duration-300 flex items-center justify-center">
+                                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+                                    <div class="transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                        <button class="bg-primary-green text-white px-4 py-2 rounded-lg font-medium hover:bg-primary-blue transition-colors">
+                                            বিস্তারিত দেখুন
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
 
@@ -202,45 +178,5 @@ get_header(); ?>
             <span class="text-gray-700">লোড হচ্ছে...</span>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Filter functionality
-            const positionFilter = document.getElementById('position-filter');
-            const departmentFilter = document.getElementById('department-filter');
-
-            function filterCandidates() {
-                const selectedPosition = positionFilter.value;
-                const selectedDepartment = departmentFilter.value;
-                const candidateCards = document.querySelectorAll('.candidate-card');
-
-                candidateCards.forEach(card => {
-                    const cardPosition = card.getAttribute('data-position');
-                    const cardDepartment = card.getAttribute('data-department');
-
-                    let showCard = true;
-
-                    if (selectedPosition && cardPosition !== selectedPosition) {
-                        showCard = false;
-                    }
-
-                    if (selectedDepartment && cardDepartment !== selectedDepartment) {
-                        showCard = false;
-                    }
-
-                    if (showCard) {
-                        card.style.display = 'block';
-                        card.classList.remove('hidden');
-                    } else {
-                        card.style.display = 'none';
-                        card.classList.add('hidden');
-                    }
-                });
-            }
-
-            positionFilter.addEventListener('change', filterCandidates);
-            departmentFilter.addEventListener('change', filterCandidates);
-        });
-    </script>
 
 <?php get_footer(); ?>

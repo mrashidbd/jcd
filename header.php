@@ -51,14 +51,14 @@
             <div class="header-actions flex items-center space-x-4">
 
                 <!-- Search Toggle -->
-                <button class="search-toggle text-gray-700 hover:text-primary-green transition-colors duration-300 p-2">
+                <button id="search-toggle-btn" class="search-toggle text-gray-700 hover:text-primary-green transition-colors duration-300 p-2" type="button">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
                 </button>
 
                 <!-- Mobile Menu Toggle -->
-                <button class="mobile-menu-toggle lg:hidden text-gray-700 hover:text-primary-green transition-colors duration-300 p-2">
+                <button id="mobile-menu-toggle-btn" class="mobile-menu-toggle lg:hidden text-gray-700 hover:text-primary-green transition-colors duration-300 p-2" type="button">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
@@ -68,7 +68,7 @@
     </div>
 
     <!-- Mobile Navigation -->
-    <div class="mobile-menu hidden lg:hidden bg-white border-t border-gray-200">
+    <div id="mobile-menu" class="mobile-menu hidden lg:hidden bg-white border-t border-gray-200">
         <div class="container mx-auto px-4 py-4">
             <?php
             wp_nav_menu([
@@ -93,7 +93,7 @@
                 <input type="text" id="search-input"
                        placeholder="প্রার্থী, হল বা ইশতেহার খুঁজুন..."
                        class="flex-1 text-lg border-none outline-none">
-                <button class="search-close text-gray-400 hover:text-gray-600 transition-colors">
+                <button id="search-close-btn" class="search-close text-gray-400 hover:text-gray-600 transition-colors" type="button">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
@@ -109,11 +109,11 @@
             <div class="border-t border-gray-200 pt-4 mt-4">
                 <p class="text-sm text-gray-500 mb-3">দ্রুত অনুসন্ধান:</p>
                 <div class="flex flex-wrap gap-2">
-                    <button class="search-suggestion bg-gray-100 hover:bg-primary-green hover:text-white text-gray-700 px-3 py-1 rounded-full text-sm transition-colors" data-query="ভিপি">ভিপি</button>
-                    <button class="search-suggestion bg-gray-100 hover:bg-primary-green hover:text-white text-gray-700 px-3 py-1 rounded-full text-sm transition-colors" data-query="জিএস">জিএস</button>
-                    <button class="search-suggestion bg-gray-100 hover:bg-primary-green hover:text-white text-gray-700 px-3 py-1 rounded-full text-sm transition-colors" data-query="শহীদুল্লাহ হল">শহীদুল্লাহ হল</button>
-                    <button class="search-suggestion bg-gray-100 hover:bg-primary-green hover:text-white text-gray-700 px-3 py-1 rounded-full text-sm transition-colors" data-query="রোকেয়া হল">রোকেয়া হল</button>
-                    <button class="search-suggestion bg-gray-100 hover:bg-primary-green hover:text-white text-gray-700 px-3 py-1 rounded-full text-sm transition-colors" data-query="শিক্ষা">শিক্ষা</button>
+                    <button class="search-suggestion bg-gray-100 hover:bg-primary-green hover:text-white text-gray-700 px-3 py-1 rounded-full text-sm transition-colors" data-query="ভিপি" type="button">ভিপি</button>
+                    <button class="search-suggestion bg-gray-100 hover:bg-primary-green hover:text-white text-gray-700 px-3 py-1 rounded-full text-sm transition-colors" data-query="জিএস" type="button">জিএস</button>
+                    <button class="search-suggestion bg-gray-100 hover:bg-primary-green hover:text-white text-gray-700 px-3 py-1 rounded-full text-sm transition-colors" data-query="শহীদুল্লাহ হল" type="button">শহীদুল্লাহ হল</button>
+                    <button class="search-suggestion bg-gray-100 hover:bg-primary-green hover:text-white text-gray-700 px-3 py-1 rounded-full text-sm transition-colors" data-query="রোকেয়া হল" type="button">রোকেয়া হল</button>
+                    <button class="search-suggestion bg-gray-100 hover:bg-primary-green hover:text-white text-gray-700 px-3 py-1 rounded-full text-sm transition-colors" data-query="শিক্ষা" type="button">শিক্ষা</button>
                 </div>
             </div>
         </div>
@@ -121,7 +121,7 @@
 </div>
 
 <!-- Mobile Menu Overlay -->
-<div class="mobile-menu-overlay fixed inset-0 z-30 hidden bg-black bg-opacity-50 lg:hidden"></div>
+<div id="mobile-menu-overlay" class="mobile-menu-overlay fixed inset-0 z-30 hidden bg-black bg-opacity-50 lg:hidden"></div>
 
 <?php
 /**
@@ -188,99 +188,161 @@ function ducsu_jcd_mobile_fallback_menu()
     echo '<li><a href="/contact" class="block text-gray-700 hover:text-primary-green font-medium transition-colors duration-300 py-3 px-4 rounded-lg hover:bg-gray-50">যোগাযোগ</a></li>';
     echo '</ul>';
 }
-?>
 
+// Initialize header functionality with proper event delegation
+?>
 <script>
-    // Header search and mobile menu functionality
     document.addEventListener('DOMContentLoaded', function() {
-        // Search functionality
-        const searchToggle = document.querySelector('.search-toggle');
+        // Search functionality with proper event binding
+        const searchToggleBtn = document.getElementById('search-toggle-btn');
         const searchOverlay = document.getElementById('search-overlay');
         const searchInput = document.getElementById('search-input');
-        const searchClose = document.querySelector('.search-close');
+        const searchCloseBtn = document.getElementById('search-close-btn');
         const searchSuggestions = document.querySelectorAll('.search-suggestion');
 
-        // Mobile menu functionality
-        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-        const mobileMenu = document.querySelector('.mobile-menu');
-        const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+        // Mobile menu functionality with proper event binding
+        const mobileMenuToggleBtn = document.getElementById('mobile-menu-toggle-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
 
-        // Search toggle
-        if (searchToggle) {
-            searchToggle.addEventListener('click', function() {
+        // Search toggle functionality
+        if (searchToggleBtn && searchOverlay) {
+            searchToggleBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
                 searchOverlay.classList.remove('hidden');
-                setTimeout(() => searchInput.focus(), 100);
+                if (searchInput) {
+                    setTimeout(() => searchInput.focus(), 100);
+                }
             });
         }
 
-        // Search close
-        if (searchClose) {
-            searchClose.addEventListener('click', function() {
-                searchOverlay.classList.add('hidden');
-                searchInput.value = '';
-                document.getElementById('search-results').innerHTML = '';
+        // Search close functionality
+        if (searchCloseBtn && searchOverlay) {
+            searchCloseBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                closeSearchOverlay();
             });
         }
-
-        // Search suggestions
-        searchSuggestions.forEach(suggestion => {
-            suggestion.addEventListener('click', function() {
-                const query = this.getAttribute('data-query');
-                searchInput.value = query;
-                searchInput.dispatchEvent(new Event('input'));
-            });
-        });
 
         // Close search on overlay click
         if (searchOverlay) {
             searchOverlay.addEventListener('click', function(e) {
                 if (e.target === searchOverlay) {
-                    searchOverlay.classList.add('hidden');
-                    searchInput.value = '';
-                    document.getElementById('search-results').innerHTML = '';
+                    closeSearchOverlay();
                 }
             });
         }
 
-        // Mobile menu toggle
-        if (mobileMenuToggle) {
-            mobileMenuToggle.addEventListener('click', function() {
-                mobileMenu.classList.toggle('hidden');
-                mobileMenuOverlay.classList.toggle('hidden');
+        // Search suggestions functionality
+        if (searchSuggestions && searchInput) {
+            searchSuggestions.forEach(suggestion => {
+                suggestion.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const query = this.getAttribute('data-query');
+                    if (query) {
+                        searchInput.value = query;
+                        // Trigger search
+                        searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+                    }
+                });
+            });
+        }
 
-                // Toggle hamburger icon
-                const icon = this.querySelector('svg');
-                if (mobileMenu.classList.contains('hidden')) {
-                    icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
-                } else {
-                    icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
-                }
+        // Mobile menu toggle functionality
+        if (mobileMenuToggleBtn && mobileMenu && mobileMenuOverlay) {
+            mobileMenuToggleBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleMobileMenu();
             });
         }
 
         // Mobile menu overlay close
-        if (mobileMenuOverlay) {
-            mobileMenuOverlay.addEventListener('click', function() {
-                mobileMenu.classList.add('hidden');
-                mobileMenuOverlay.classList.add('hidden');
-
-                // Reset hamburger icon
-                const icon = mobileMenuToggle.querySelector('svg');
-                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+        if (mobileMenuOverlay && mobileMenu) {
+            mobileMenuOverlay.addEventListener('click', function(e) {
+                e.preventDefault();
+                closeMobileMenu();
             });
         }
 
-        // Close mobile menu when clicking on links
-        const mobileNavLinks = document.querySelectorAll('.mobile-nav-list a');
-        mobileNavLinks.forEach(link => {
-            link.addEventListener('click', function() {
+        // Close mobile menu when clicking on navigation links
+        const mobileNavLinks = document.querySelectorAll('#mobile-menu a');
+        if (mobileNavLinks.length > 0) {
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    closeMobileMenu();
+                });
+            });
+        }
+
+        // Close search and mobile menu on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                if (searchOverlay && !searchOverlay.classList.contains('hidden')) {
+                    closeSearchOverlay();
+                }
+                if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                    closeMobileMenu();
+                }
+            }
+        });
+
+        // Helper functions
+        function closeSearchOverlay() {
+            if (searchOverlay) {
+                searchOverlay.classList.add('hidden');
+            }
+            if (searchInput) {
+                searchInput.value = '';
+            }
+            const searchResults = document.getElementById('search-results');
+            if (searchResults) {
+                searchResults.innerHTML = '';
+            }
+        }
+
+        function toggleMobileMenu() {
+            if (mobileMenu && mobileMenuOverlay) {
+                const isHidden = mobileMenu.classList.contains('hidden');
+
+                if (isHidden) {
+                    // Show mobile menu
+                    mobileMenu.classList.remove('hidden');
+                    mobileMenuOverlay.classList.remove('hidden');
+                    // Change hamburger to X
+                    updateMobileMenuIcon(true);
+                } else {
+                    // Hide mobile menu
+                    closeMobileMenu();
+                }
+            }
+        }
+
+        function closeMobileMenu() {
+            if (mobileMenu && mobileMenuOverlay) {
                 mobileMenu.classList.add('hidden');
                 mobileMenuOverlay.classList.add('hidden');
+                // Change X back to hamburger
+                updateMobileMenuIcon(false);
+            }
+        }
 
-                // Reset hamburger icon
-                const icon = mobileMenuToggle.querySelector('svg');
-                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
-            });
-        });
+        function updateMobileMenuIcon(isOpen) {
+            const icon = mobileMenuToggleBtn ? mobileMenuToggleBtn.querySelector('svg') : null;
+            if (icon) {
+                if (isOpen) {
+                    // X icon
+                    icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+                } else {
+                    // Hamburger icon
+                    icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+                }
+            }
+        }
     });
 </script>
+
+</body>
+</html>

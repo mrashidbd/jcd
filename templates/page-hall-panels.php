@@ -147,12 +147,12 @@ $selected_hall = $selected_hall_id ? get_term($selected_hall_id, 'halls') : null
                 <p class="text-lg text-gray-600">আপনার হল নির্বাচন করে প্রার্থীদের দেখুন</p>
             </div>
 
-            <div class="halls-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            <div class="halls-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <?php
                 $all_halls = get_terms([
                     'taxonomy' => 'halls',
                     'hide_empty' => false,
-                    'orderby' => 'name',
+                    'orderby' => 'id',
                     'order' => 'ASC'
                 ]);
 
@@ -176,7 +176,7 @@ $selected_hall = $selected_hall_id ? get_term($selected_hall_id, 'halls') : null
                         ?>
                         <div class="hall-card bg-white rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden">
                             <div class="bg-gradient-to-br from-primary-green to-primary-blue text-white p-6 text-center">
-                                <div class="bg-white bg-opacity-20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                <div class="bg-white bg-opacity-20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-red-500">
                                     <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.84L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.84l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"></path>
                                     </svg>
@@ -187,42 +187,10 @@ $selected_hall = $selected_hall_id ? get_term($selected_hall_id, 'halls') : null
                                 </p>
                             </div>
 
-                            <!-- Sample Candidates Preview -->
-                            <?php if (!empty($sample_candidates)) : ?>
-                                <div class="p-4">
-                                    <h4 class="text-sm font-semibold text-gray-700 mb-3">কিছু প্রার্থী:</h4>
-                                    <div class="space-y-2">
-                                        <?php foreach (array_slice($sample_candidates, 0, 2) as $candidate) : ?>
-                                            <div class="flex items-center space-x-3">
-                                                <?php if ($candidate['image']) : ?>
-                                                    <img src="<?php echo esc_url($candidate['image']); ?>"
-                                                         alt="<?php echo esc_attr($candidate['name']); ?>"
-                                                         class="w-8 h-8 rounded-full object-cover">
-                                                <?php else : ?>
-                                                    <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-                                                        <svg class="w-4 h-4 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
-                                                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
-                                                        </svg>
-                                                    </div>
-                                                <?php endif; ?>
-                                                <div class="flex-1 min-w-0">
-                                                    <p class="text-sm font-medium text-gray-800 truncate"><?php echo esc_html($candidate['name']); ?></p>
-                                                    <p class="text-xs text-gray-500 truncate"><?php echo esc_html($candidate['position']); ?></p>
-                                                </div>
-                                            </div>
-                                        <?php endforeach; ?>
-                                    </div>
-                                </div>
-                            <?php else : ?>
-                                <div class="p-4">
-                                    <p class="text-sm text-gray-500 text-center">এখনো কোনো প্রার্থী যোগ করা হয়নি</p>
-                                </div>
-                            <?php endif; ?>
-
                             <div class="p-4 pt-0">
                                 <a href="?hall=<?php echo $hall->term_id; ?>"
                                    class="block w-full bg-primary-green hover:bg-primary-red text-white text-center font-medium py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-105">
-                                    সব প্রার্থী দেখুন
+                                    সমর্থিত সংসদ
                                 </a>
                             </div>
                         </div>
