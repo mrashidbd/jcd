@@ -220,7 +220,7 @@
             <!-- Developer Credit -->
             <div class="text-center mt-4 pt-4 border-t border-gray-800">
                 <p class="text-gray-500 text-xs">
-                    Developed with ❤️ by <a href="https://mrashid.me" target="_blank" class="text-primary-green hover:text-primary-blue transition-colors">Mamunur Rashid</a>
+                    Developed with ❤️ by <a href="#" class="text-primary-green hover:text-primary-blue transition-colors">তথ্য ও প্রযুক্তি দপ্তর, বিএনপি।</a>
                 </p>
             </div>
         </div>
