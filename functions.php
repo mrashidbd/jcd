@@ -29,12 +29,14 @@ function ducsu_jcd_theme_setup()
         'primary_menu' => __('Primary Menu', 'ducsu-jcd')
     ]);
 }
+
 add_action('after_setup_theme', 'ducsu_jcd_theme_setup');
 
 /**
  * Enqueue Scripts & Styles (Vite + Tailwind)
  */
-function mytheme_enqueue_assets() {
+function mytheme_enqueue_assets()
+{
     $theme_uri = get_template_directory_uri();
     $theme_version = wp_get_theme()->get('Version');
 
@@ -56,23 +58,34 @@ function mytheme_enqueue_assets() {
         }
     }
 
-    // Localize script for AJAX
-    wp_localize_script('mytheme-script', 'ducsu_ajax', array(
-        'ajax_url' => admin_url('admin-ajax.php'),
-        'nonce' => wp_create_nonce('ducsu_nonce')
-    ));
+// Ensure ducsu_ajax is always available
+    wp_add_inline_script('mytheme-main-js', 'window.ducsu_ajax = ' . json_encode(array(
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('ducsu_nonce')
+        )) . ';', 'before');
+
+// For production mode, use the production script handle
+    if (!(defined('WP_DEV_SERVER') && WP_DEV_SERVER)) {
+        wp_add_inline_script('mytheme-script', 'window.ducsu_ajax = ' . json_encode(array(
+                'ajax_url' => admin_url('admin-ajax.php'),
+                'nonce' => wp_create_nonce('ducsu_nonce')
+            )) . ';', 'before');
+    }
 }
+
 add_action('wp_enqueue_scripts', 'mytheme_enqueue_assets');
 
 /**
  * Add "type=module" to the Vite client script tag.
  */
-function jcd_ducsu_add_module_type_attribute($tag, $handle, $src) {
+function jcd_ducsu_add_module_type_attribute($tag, $handle, $src)
+{
     if ('vite-client' === $handle) {
         $tag = str_replace('<script', '<script type="module"', $tag);
     }
     return $tag;
 }
+
 add_filter('script_loader_tag', 'jcd_ducsu_add_module_type_attribute', 10, 3);
 
 /**
@@ -141,6 +154,7 @@ function ducsu_jcd_register_cpts()
         'show_in_rest' => true,
     ]);
 }
+
 add_action('init', 'ducsu_jcd_register_cpts');
 
 /**
@@ -149,7 +163,7 @@ add_action('init', 'ducsu_jcd_register_cpts');
 function ducsu_jcd_insert_default_halls()
 {
     $halls = [
-        'মুক্তিযোদ্ধা জিয়াউর রহমান হল','বিজয় একাত্তর হল','কবি জসিমউদদীন হল','মাস্টারদা সূর্যসেন হল','সলিমুল্লাহ মুসলিম হল','শহীদ সার্জেন্ট জহুরুল হক হল','শেখ মুজিবুর রহমান হল','হাজী মুহম্মদ মুহসীন হল','স্যার এ এফ রহমান হল','রোকেয়া হল','শামসুন্নাহার হল','ফজিলাতুন্নেছা মুজিব হল','বাংলাদেশ কুয়েত মৈত্রী হল','কবি সুফিয়া কামাল হল', 'জগন্নাথ হল', 'ফজলুল হক মুসলিম হল', 'ড. মুহম্মদ শহীদুল্লাহ হল','অমর একুশে হল'
+        'মুক্তিযোদ্ধা জিয়াউর রহমান হল', 'বিজয় একাত্তর হল', 'কবি জসিমউদদীন হল', 'মাস্টারদা সূর্যসেন হল', 'সলিমুল্লাহ মুসলিম হল', 'শহীদ সার্জেন্ট জহুরুল হক হল', 'শেখ মুজিবুর রহমান হল', 'হাজী মুহম্মদ মুহসীন হল', 'স্যার এ এফ রহমান হল', 'রোকেয়া হল', 'শামসুন্নাহার হল', 'ফজিলাতুন্নেছা মুজিব হল', 'বাংলাদেশ কুয়েত মৈত্রী হল', 'কবি সুফিয়া কামাল হল', 'জগন্নাথ হল', 'ফজলুল হক মুসলিম হল', 'ড. মুহম্মদ শহীদুল্লাহ হল', 'অমর একুশে হল'
     ];
 
     foreach ($halls as $hall) {
@@ -158,6 +172,7 @@ function ducsu_jcd_insert_default_halls()
         }
     }
 }
+
 /**  add_action('init', 'ducsu_jcd_insert_default_halls'); */
 
 /**
@@ -181,6 +196,7 @@ function ducsu_jcd_add_meta_boxes()
         ['central_candidate', 'hall_candidate']
     );
 }
+
 add_action('add_meta_boxes', 'ducsu_jcd_add_meta_boxes');
 
 /**
@@ -392,6 +408,7 @@ function ducsu_jcd_save_meta_boxes($post_id)
         }
     }
 }
+
 add_action('save_post', 'ducsu_jcd_save_meta_boxes');
 
 /**
@@ -440,6 +457,7 @@ function ducsu_jcd_ajax_search()
 
     wp_send_json_success($results);
 }
+
 add_action('wp_ajax_ducsu_search', 'ducsu_jcd_ajax_search');
 add_action('wp_ajax_nopriv_ducsu_search', 'ducsu_jcd_ajax_search');
 
@@ -511,6 +529,7 @@ function ducsu_jcd_get_candidate_details()
 
     wp_send_json_success($candidate_data);
 }
+
 add_action('wp_ajax_get_candidate_details', 'ducsu_jcd_get_candidate_details');
 add_action('wp_ajax_nopriv_get_candidate_details', 'ducsu_jcd_get_candidate_details');
 
@@ -572,6 +591,7 @@ function ducsu_jcd_contact_form_handler()
         wp_send_json_error('বার্তা পাঠাতে সমস্যা হয়েছে। পরে চেষ্টা করুন।');
     }
 }
+
 add_action('wp_ajax_ducsu_contact', 'ducsu_jcd_contact_form_handler');
 add_action('wp_ajax_nopriv_ducsu_contact', 'ducsu_jcd_contact_form_handler');
 
@@ -695,6 +715,7 @@ function ducsu_add_featured_meta_box()
         'central_candidate'
     );
 }
+
 add_action('add_meta_boxes', 'ducsu_add_featured_meta_box');
 
 function ducsu_featured_candidate_callback($post)
@@ -721,6 +742,7 @@ function ducsu_save_featured_meta($post_id)
     $featured = isset($_POST['candidate_featured']) ? '1' : '0';
     update_post_meta($post_id, '_candidate_featured', $featured);
 }
+
 add_action('save_post', 'ducsu_save_featured_meta');
 
 /**
@@ -766,6 +788,7 @@ function ducsu_jcd_newsletter_subscribe()
 
     wp_send_json_success('সফলভাবে সাবস্ক্রাইব হয়েছে! আপনার ইমেইল চেক করুন।');
 }
+
 add_action('wp_ajax_ducsu_newsletter_subscribe', 'ducsu_jcd_newsletter_subscribe');
 add_action('wp_ajax_nopriv_ducsu_newsletter_subscribe', 'ducsu_jcd_newsletter_subscribe');
 
@@ -820,6 +843,7 @@ function ducsu_jcd_general_contact_handler()
         wp_send_json_error('বার্তা পাঠাতে সমস্যা হয়েছে। পরে চেষ্টা করুন।');
     }
 }
+
 add_action('wp_ajax_ducsu_general_contact', 'ducsu_jcd_general_contact_handler');
 add_action('wp_ajax_nopriv_ducsu_general_contact', 'ducsu_jcd_general_contact_handler');
 
@@ -837,6 +861,7 @@ function ducsu_add_newsletter_admin_menu()
         'ducsu_newsletter_subscribers_page'
     );
 }
+
 add_action('admin_menu', 'ducsu_add_newsletter_admin_menu');
 
 /**
@@ -923,6 +948,7 @@ function ducsu_add_manifesto_meta_boxes()
         'manifesto'
     );
 }
+
 add_action('add_meta_boxes', 'ducsu_add_manifesto_meta_boxes');
 
 /**
@@ -974,6 +1000,7 @@ function ducsu_save_manifesto_meta($post_id)
         update_post_meta($post_id, '_manifesto_priority', sanitize_text_field($_POST['manifesto_priority']));
     }
 }
+
 add_action('save_post', 'ducsu_save_manifesto_meta');
 
 /**
@@ -988,28 +1015,30 @@ function ducsu_add_hall_image_field($term)
             <label for="hall_image">Hall Image</label>
         </th>
         <td>
-            <input type="hidden" id="hall_image" name="hall_image" value="<?php echo esc_attr($image_id); ?>" />
+            <input type="hidden" id="hall_image" name="hall_image" value="<?php echo esc_attr($image_id); ?>"/>
             <div id="hall_image_preview">
                 <?php if ($image_id) : ?>
                     <?php echo wp_get_attachment_image($image_id, 'medium'); ?>
                 <?php endif; ?>
             </div>
             <button type="button" id="upload_hall_image" class="button">Upload Image</button>
-            <button type="button" id="remove_hall_image" class="button" style="<?php echo $image_id ? '' : 'display:none;'; ?>">Remove Image</button>
+            <button type="button" id="remove_hall_image" class="button"
+                    style="<?php echo $image_id ? '' : 'display:none;'; ?>">Remove Image
+            </button>
         </td>
     </tr>
 
     <script>
-        jQuery(document).ready(function($) {
-            $('#upload_hall_image').click(function() {
+        jQuery(document).ready(function ($) {
+            $('#upload_hall_image').click(function () {
                 var frame = wp.media.frames.hall_image = wp.media({
                     title: 'Select Hall Image',
-                    button: { text: 'Use Image' },
-                    library: { type: 'image' },
+                    button: {text: 'Use Image'},
+                    library: {type: 'image'},
                     multiple: false
                 });
 
-                frame.on('select', function() {
+                frame.on('select', function () {
                     var attachment = frame.state().get('selection').first().toJSON();
                     $('#hall_image').val(attachment.id);
                     $('#hall_image_preview').html('<img src="' + attachment.sizes.medium.url + '" style="max-width: 300px;" />');
@@ -1019,7 +1048,7 @@ function ducsu_add_hall_image_field($term)
                 frame.open();
             });
 
-            $('#remove_hall_image').click(function() {
+            $('#remove_hall_image').click(function () {
                 $('#hall_image').val('');
                 $('#hall_image_preview').html('');
                 $(this).hide();
@@ -1028,6 +1057,7 @@ function ducsu_add_hall_image_field($term)
     </script>
     <?php
 }
+
 add_action('halls_edit_form_fields', 'ducsu_add_hall_image_field');
 
 /**
@@ -1039,6 +1069,7 @@ function ducsu_save_hall_image($term_id)
         update_term_meta($term_id, 'hall_image', absint($_POST['hall_image']));
     }
 }
+
 add_action('edited_halls', 'ducsu_save_hall_image');
 
 /**
@@ -1058,4 +1089,5 @@ function ducsu_enqueue_admin_scripts($hook)
         wp_enqueue_script('jquery');
     }
 }
+
 add_action('admin_enqueue_scripts', 'ducsu_enqueue_admin_scripts');
