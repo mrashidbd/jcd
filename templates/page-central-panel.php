@@ -7,10 +7,11 @@
 get_header(); ?>
 
     <!-- Page Header -->
-    <section class="page-header bg-gradient-to-r from-primary-blue to-primary-green py-20">
-        <div class="container mx-auto px-4 text-center text-white">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4">কেন্দ্রীয় প্যানেল</h1>
-            <p class="text-lg md:text-xl max-w-2xl mx-auto">বাংলাদেশ জাতীয়তাবাদী ছাত্রদল ডাকসু নির্বাচন ২০২৫ কেন্দ্রীয় প্যানেলের প্রার্থীবৃন্দ</p>
+    <section class="page-header bg-cover bg-center bg-no-repeat py-20"
+             style="background-image: linear-gradient(135deg, rgba(0, 213, 190, 0.8), rgba(255, 240, 133, 0.9)), url('/ducsu/wp-content/themes/jcd-ducsu/assets/images/central-bg.jpg');">>
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 text-slate-700">কেন্দ্রীয় সংসদ</h1>
+            <p class="text-lg md:text-xl max-w-2xl mx-auto">ঢাকা বিশ্ববিদ্যালয় কেন্দ্রীয় ছাত্র সংসদ (ডাকসু) ও হল সংসদ নির্বাচন ২০২৫ - এর কেন্দ্রীয় সংসদে বাংলাদেশ জাতীয়তাবাদী ছাত্রদল সমর্থিত ২৭ জন পদপ্রার্থীর বিস্তারিত</p>
         </div>
     </section>
 
@@ -52,7 +53,7 @@ get_header(); ?>
                         $hall = get_post_meta(get_the_ID(), '_candidate_hall', true);
                         $session = get_post_meta(get_the_ID(), '_candidate_session', true);
                         ?>
-                        <div class="candidate-card rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer group"
+                        <div class="candidate-card shadow-xs hover:shadow-sm rounded-lg overflow-hidden transform hover:scale-105 transition-all duration-300 cursor-pointer group"
                              data-candidate-id="<?php echo get_the_ID(); ?>">
 
                             <div class="relative overflow-hidden">
@@ -67,39 +68,23 @@ get_header(); ?>
                                         </svg>
                                     </div>
                                 <?php endif; ?>
-
-                                <!-- Ballot Number Badge -->
-                                <?php if ($ballot_number) : ?>
-                                    <div class="absolute top-4 left-4 bg-primary-red text-white px-3 py-1 rounded-full text-sm font-bold">
-                                        <?php echo esc_html($ballot_number); ?>
-                                    </div>
-                                <?php endif; ?>
-
-                                <!-- Hover Overlay -->
-                                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
-                                    <div class="transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                                        <button class="bg-primary-green text-white px-4 py-2 rounded-lg font-medium hover:bg-primary-blue transition-colors">
-                                            বিস্তারিত দেখুন
-                                        </button>
-                                    </div>
-                                </div>
                             </div>
 
                             <div class="p-6 bg-white">
-                                <h3 class="text-xl font-bold text-gray-800 mb-2 line-clamp-2">
-                                    <?php echo esc_html($name_bangla ?: get_the_title()); ?>
-                                </h3>
-
                                 <div class="space-y-2 mb-4">
                                     <p class="text-primary-blue font-semibold text-lg"><?php echo esc_html($position); ?></p>
-                                    <p class="text-gray-600 text-sm"><?php echo esc_html($department); ?></p>
-                                    <?php if ($hall) : ?>
-                                        <p class="text-gray-500 text-sm"><?php echo esc_html($hall); ?></p>
-                                    <?php endif; ?>
-                                    <?php if ($session) : ?>
-                                        <p class="text-gray-500 text-sm">সেশন: <?php echo esc_html($session); ?></p>
-                                    <?php endif; ?>
                                 </div>
+                                <div class="relative">
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2 line-clamp-2">
+                                        <?php echo esc_html($name_bangla ?: get_the_title()); ?>
+                                    </h3>
+                                </div>
+                                <!-- Ballot Number Badge -->
+                                <?php if ($ballot_number) : ?>
+                                    <div class="bg-primary-red text-white px-3 py-1 rounded-full text-sm font-bold">
+                                        <span>ব্যালট নম্বর: <?php echo esc_html($ballot_number); ?></span>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     <?php
@@ -107,7 +92,7 @@ get_header(); ?>
                 else :
                     ?>
                     <div class="col-span-full text-center py-12">
-                        <div class="bg-gray-100 rounded-lg p-8 max-w-md mx-auto">
+                        <div class="bg-gray-100 p-8 max-w-md mx-auto">
                             <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
                             </svg>
@@ -157,7 +142,7 @@ get_header(); ?>
     <!-- Candidate Details Modal -->
     <div id="candidate-modal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-lg shadow-xl max-w-6xl w-full max-h-[90vh] overflow-y-auto relative">
-            <button id="close-modal" class="absolute top-4 right-4 z-10 text-gray-500 hover:text-gray-700 bg-white rounded-full p-2 shadow-lg">
+            <button id="close-modal" class="absolute top-4 right-4 z-10 cursor-pointer text-gray-500 bg-white border-2 border-gray-500 rounded-full p-2 hover:text-red-500 hover:border-red-500">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>

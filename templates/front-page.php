@@ -7,8 +7,8 @@
 get_header(); ?>
 
     <!-- Hero Slider Section -->
-    <section class="hero-slider relative overflow-hidden min-h-[720px]">
-        <div class="slider-container relative w-full h-[720px]">
+    <section class="hero-slider relative overflow-hidden" style="min-height: calc(100% / (1920 / 700));">
+        <div class="slider-container relative w-full" style="padding-top: calc(100% / (1920 / 700));">
             <?php
             $sliders = ducsu_get_featured_sliders(5);
             $slider_count = 0;
@@ -20,25 +20,8 @@ get_header(); ?>
                     $cta_url = get_post_meta(get_the_ID(), '_slider_cta_url', true);
                     $slider_count++;
                     ?>
-                    <div class="slider-item absolute inset-0 bg-cover bg-center bg-no-repeat <?php echo $slider_count === 1 ? 'active opacity-100' : 'opacity-0'; ?> transition-opacity duration-1000"
-                         style="background-image: linear-gradient(135deg, rgba(30, 183, 224, 0.2), rgba(166, 169, 135, 0.3)), url('<?php echo get_the_post_thumbnail_url(get_the_ID(), 'full'); ?>');">
-
-                        <div class="container mx-auto px-4 h-full flex items-center justify-center">
-                            <div class="text-center text-white max-w-4xl">
-                                <h1 class="text-5xl md:text-7xl font-bold mb-6 animate-fade-in-up"><?php the_title(); ?></h1>
-
-                                <?php if ($subtitle) : ?>
-                                    <p class="text-xl md:text-2xl mb-8 animate-fade-in-up animation-delay-200"><?php echo esc_html($subtitle); ?></p>
-                                <?php endif; ?>
-
-                                <?php if ($cta_text && $cta_url) : ?>
-                                    <a href="<?php echo esc_url($cta_url); ?>"
-                                       class="inline-block bg-primary-green hover:bg-primary-red text-white font-bold py-4 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105 animate-fade-in-up animation-delay-400">
-                                        <?php echo esc_html($cta_text); ?>
-                                    </a>
-                                <?php endif; ?>
-                            </div>
-                        </div>
+                    <div class="slider-item absolute inset-0 bg-cover bg-bottom bg-no-repeat <?php echo $slider_count === 1 ? 'active opacity-100' : 'opacity-0'; ?> transition-opacity duration-1000"
+                         style="background-image:url('<?php echo get_the_post_thumbnail_url(get_the_ID(), 'full'); ?>');">
                     </div>
                 <?php
                 endwhile;
@@ -56,19 +39,21 @@ get_header(); ?>
                 <?php endfor; ?>
             </div>
 
-            <button class="slider-prev absolute p-8 cursor-pointer bg-indigo-900/10 left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-primary-green transition-colors duration-300">
+            <button class="slider-prev absolute p-2 md:p-4 xl:p-6 cursor-pointer bg-indigo-900/10 left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-primary-green transition-colors duration-300">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                 </svg>
             </button>
 
-            <button class="slider-next absolute p-8 cursor-pointer bg-indigo-900/10 right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-primary-green transition-colors duration-300">
+            <button class="slider-next absolute p-2 md:p-4 xl:p-6 cursor-pointer bg-indigo-900/10 right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-primary-green transition-colors duration-300">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
             </button>
         <?php endif; ?>
     </section>
+
+<section class="my-48"></section>
 
     <!-- Central Panel Section -->
     <section

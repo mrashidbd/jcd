@@ -1091,3 +1091,13 @@ function ducsu_enqueue_admin_scripts($hook)
 }
 
 add_action('admin_enqueue_scripts', 'ducsu_enqueue_admin_scripts');
+
+
+//helper functions
+
+function convertEngToBn($englishNumber) {
+    $englishDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    $banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+
+    return str_replace($englishDigits, $banglaDigits, $englishNumber);
+}

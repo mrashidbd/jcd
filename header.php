@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <?php wp_head(); ?>
 </head>
-<body <?php body_class('bg-gray-100 antialiased font-bangla'); ?>>
+<body <?php body_class('bg-white antialiased font-bangla'); ?>>
 
 <!-- Header -->
 <header class="site-header bg-white shadow-lg sticky top-0 z-40">
@@ -51,7 +51,7 @@
             <div class="header-actions flex items-center space-x-4">
 
                 <!-- Search Toggle -->
-                <button id="search-toggle-btn" class="search-toggle text-gray-700 hover:text-primary-green transition-colors duration-300 p-2" type="button">
+                <button id="search-toggle-btn" class="search-toggle text-gray-700 cursor-pointer hover:text-primary-green transition-colors duration-300 p-2" type="button">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
@@ -91,9 +91,9 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                 </svg>
                 <input type="text" id="search-input"
-                       placeholder="প্রার্থী, হল বা ইশতেহার খুঁজুন..."
+                       placeholder=" যা খুঁজতে চান লিখুন ..."
                        class="flex-1 text-lg border-none outline-none">
-                <button id="search-close-btn" class="search-close text-gray-400 hover:text-gray-600 transition-colors" type="button">
+                <button id="search-close-btn" class="search-close text-gray-400 hover:text-gray-600 cursor-pointer transition-colors" type="button">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
@@ -101,20 +101,8 @@
             </div>
 
             <!-- Search Results -->
-            <div id="search-results" class="max-h-96 overflow-y-auto">
+            <div id="search-results" class="max-h-128 overflow-y-auto">
                 <!-- Results will be populated via AJAX -->
-            </div>
-
-            <!-- Search Suggestions -->
-            <div class="border-t border-gray-200 pt-4 mt-4">
-                <p class="text-sm text-gray-500 mb-3">দ্রুত অনুসন্ধান:</p>
-                <div class="flex flex-wrap gap-2">
-                    <button class="search-suggestion bg-gray-100 hover:bg-primary-green hover:text-white text-gray-700 px-3 py-1 rounded-full text-sm transition-colors" data-query="ভিপি" type="button">ভিপি</button>
-                    <button class="search-suggestion bg-gray-100 hover:bg-primary-green hover:text-white text-gray-700 px-3 py-1 rounded-full text-sm transition-colors" data-query="জিএস" type="button">জিএস</button>
-                    <button class="search-suggestion bg-gray-100 hover:bg-primary-green hover:text-white text-gray-700 px-3 py-1 rounded-full text-sm transition-colors" data-query="শহীদুল্লাহ হল" type="button">শহীদুল্লাহ হল</button>
-                    <button class="search-suggestion bg-gray-100 hover:bg-primary-green hover:text-white text-gray-700 px-3 py-1 rounded-full text-sm transition-colors" data-query="রোকেয়া হল" type="button">রোকেয়া হল</button>
-                    <button class="search-suggestion bg-gray-100 hover:bg-primary-green hover:text-white text-gray-700 px-3 py-1 rounded-full text-sm transition-colors" data-query="শিক্ষা" type="button">শিক্ষা</button>
-                </div>
             </div>
         </div>
     </div>

@@ -7,8 +7,8 @@
 get_header(); ?>
 
     <!-- Page Header -->
-    <section class="page-header bg-gradient-to-r from-primary-blue to-primary-green py-20">
-        <div class="container mx-auto px-4 text-center text-white">
+    <section class="page-header py-20 relative overflow-hidden bg-no-repeat bg-center bg-cover" style="background-image: linear-gradient(135deg, rgba(0, 213, 190, 0.8), rgba(255, 240, 133, 0.9)), url('/ducsu/wp-content/themes/jcd-ducsu/assets/images/central-bg.jpg');">
+        <div class="container mx-auto px-4 text-center text-slate-700">
             <h1 class="text-4xl md:text-6xl font-bold mb-4">যোগাযোগ</h1>
             <p class="text-lg md:text-xl max-w-2xl mx-auto">আমাদের সাথে যোগাযোগ করুন এবং আপনার মতামত, পরামর্শ ও সহযোগিতা জানান</p>
         </div>
@@ -16,138 +16,9 @@ get_header(); ?>
 
     <!-- Contact Section -->
     <section class="contact-section py-16">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 max-w-7xl mx-auto">
-
-                <!-- Contact Information -->
-                <div class="contact-info">
-                    <h2 class="text-3xl font-bold text-gray-800 mb-8">যোগাযোগের তথ্য</h2>
-
-                    <div class="space-y-8">
-                        <!-- Office Address -->
-                        <div class="contact-item flex items-start">
-                            <div class="bg-primary-blue text-white rounded-full w-12 h-12 flex items-center justify-center mr-6 mt-1 flex-shrink-0">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-semibold text-gray-800 mb-2">অফিস ঠিকানা</h3>
-                                <p class="text-gray-600 leading-relaxed">
-                                    বাংলাদেশ জাতীয়তাবাদী ছাত্রদল<br>
-                                    ঢাকা বিশ্ববিদ্যালয় শাখা<br>
-                                    ঢাকা বিশ্ববিদ্যালয়<br>
-                                    ঢাকা ১০০০, বাংলাদেশ
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Phone Numbers -->
-                        <div class="contact-item flex items-start">
-                            <div class="bg-primary-green text-white rounded-full w-12 h-12 flex items-center justify-center mr-6 mt-1 flex-shrink-0">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-semibold text-gray-800 mb-2">ফোন নম্বর</h3>
-                                <div class="space-y-1">
-                                    <p class="text-gray-600">প্রধান অফিস: <a href="tel:+8801712345678" class="text-primary-green hover:text-primary-red transition-colors">+৮৮০ ১৭১২ ৩৪৫৬৭৮</a></p>
-                                    <p class="text-gray-600">জরুরি যোগাযোগ: <a href="tel:+8801887654321" class="text-primary-green hover:text-primary-red transition-colors">+৮৮০ ১৮৮৭ ৬৫৪৩২১</a></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Email -->
-                        <div class="contact-item flex items-start">
-                            <div class="bg-primary-red text-white rounded-full w-12 h-12 flex items-center justify-center mr-6 mt-1 flex-shrink-0">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-                                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-semibold text-gray-800 mb-2">ইমেইল</h3>
-                                <div class="space-y-1">
-                                    <p class="text-gray-600">সাধারণ যোগাযোগ: <a href="mailto:info@jcdducsu.org" class="text-primary-green hover:text-primary-red transition-colors">info@jcdducsu.org</a></p>
-                                    <p class="text-gray-600">প্রেস ও মিডিয়া: <a href="mailto:press@jcdducsu.org" class="text-primary-green hover:text-primary-red transition-colors">press@jcdducsu.org</a></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Social Media -->
-                        <div class="contact-item flex items-start">
-                            <div class="bg-gradient-to-br from-primary-green to-primary-blue text-white rounded-full w-12 h-12 flex items-center justify-center mr-6 mt-1 flex-shrink-0">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-semibold text-gray-800 mb-2">সামাজিক যোগাযোগ</h3>
-                                <div class="flex flex-wrap gap-4">
-                                    <a href="https://facebook.com/jcdducsu" target="_blank"
-                                       class="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                                        </svg>
-                                        <span>Facebook</span>
-                                    </a>
-
-                                    <a href="https://twitter.com/jcdducsu" target="_blank"
-                                       class="flex items-center space-x-2 bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-500 transition-colors">
-                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                                        </svg>
-                                        <span>Twitter</span>
-                                    </a>
-
-                                    <a href="https://youtube.com/@jcdducsu" target="_blank"
-                                       class="flex items-center space-x-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
-                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                                        </svg>
-                                        <span>YouTube</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Office Hours -->
-                        <div class="contact-item flex items-start">
-                            <div class="bg-gray-700 text-white rounded-full w-12 h-12 flex items-center justify-center mr-6 mt-1 flex-shrink-0">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.414-1.415L11 9.586V6z" clip-rule="evenodd"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-semibold text-gray-800 mb-2">অফিসের সময়</h3>
-                                <div class="space-y-1 text-gray-600">
-                                    <p>সোমবার - শুক্রবার: সকাল ৯:০০ - বিকাল ৫:০০</p>
-                                    <p>শনিবার: সকাল ১০:০০ - দুপুর ২:০০</p>
-                                    <p>রবিবার: বন্ধ</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Map Section -->
-                    <div class="mt-12">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-6">আমাদের অবস্থান</h3>
-                        <div class="bg-gray-200 rounded-lg h-64 flex items-center justify-center">
-                            <div class="text-center text-gray-600">
-                                <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                </svg>
-                                <p class="text-lg font-medium">ঢাকা বিশ্ববিদ্যালয়</p>
-                                <p class="text-sm">ইন্টারেক্টিভ ম্যাপ শীঘ্রই আসছে</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+        <div class="container mx-auto px-4 ">
                 <!-- Contact Form -->
-                <div class="contact-form">
+                <div class="contact-form mx-0 md:mx-96">
                     <div class="bg-white rounded-2xl shadow-xl p-8">
                         <h2 class="text-3xl font-bold text-gray-800 mb-2">বার্তা পাঠান</h2>
                         <p class="text-gray-600 mb-8">আপনার মতামত, পরামর্শ বা যেকোনো প্রশ্ন আমাদের জানান। আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।</p>
@@ -227,52 +98,6 @@ get_header(); ?>
                                 বার্তা পাঠান
                             </button>
                         </form>
-                    </div>
-
-                    <!-- Quick Links -->
-                    <div class="mt-8 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-8">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-6">দ্রুত লিঙ্ক</h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <a href="/central-panel"
-                               class="flex items-center space-x-3 bg-white rounded-lg p-4 hover:bg-primary-green hover:text-white transition-all duration-300 group">
-                                <div class="bg-primary-blue group-hover:bg-white group-hover:text-primary-blue text-white rounded-full w-10 h-10 flex items-center justify-center transition-all duration-300">
-                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"></path>
-                                    </svg>
-                                </div>
-                                <span class="font-medium">কেন্দ্রীয় প্যানেল</span>
-                            </a>
-
-                            <a href="/hall-panels"
-                               class="flex items-center space-x-3 bg-white rounded-lg p-4 hover:bg-primary-green hover:text-white transition-all duration-300 group">
-                                <div class="bg-primary-green group-hover:bg-white group-hover:text-primary-green text-white rounded-full w-10 h-10 flex items-center justify-center transition-all duration-300">
-                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.84L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.84l-7-3z"></path>
-                                    </svg>
-                                </div>
-                                <span class="font-medium">হল প্যানেল</span>
-                            </a>
-
-                            <a href="/manifesto"
-                               class="flex items-center space-x-3 bg-white rounded-lg p-4 hover:bg-primary-green hover:text-white transition-all duration-300 group">
-                                <div class="bg-primary-red group-hover:bg-white group-hover:text-primary-red text-white rounded-full w-10 h-10 flex items-center justify-center transition-all duration-300">
-                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
-                                    </svg>
-                                </div>
-                                <span class="font-medium">ইশতেহার</span>
-                            </a>
-
-                            <a href="/#"
-                               class="flex items-center space-x-3 bg-white rounded-lg p-4 hover:bg-primary-green hover:text-white transition-all duration-300 group">
-                                <div class="bg-gray-600 group-hover:bg-white group-hover:text-gray-600 text-white rounded-full w-10 h-10 flex items-center justify-center transition-all duration-300">
-                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
-                                    </svg>
-                                </div>
-                                <span class="font-medium">হোম পেজে ফিরুন</span>
-                            </a>
-                        </div>
                     </div>
                 </div>
             </div>

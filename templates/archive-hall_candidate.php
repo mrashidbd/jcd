@@ -14,7 +14,7 @@ if (is_tax('halls')) {
 ?>
 
     <!-- Page Header -->
-    <section class="page-header bg-gradient-to-r from-primary-green to-primary-blue py-20">
+    <section class="page-header bg-gradient-to-r py-20 from-pink-300 to-red-500">
         <div class="container mx-auto px-4 text-center text-white">
             <?php if ($current_hall) : ?>
                 <nav class="flex justify-center mb-6">

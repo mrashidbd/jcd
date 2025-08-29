@@ -7,20 +7,11 @@
 get_header(); ?>
 
     <!-- Page Header -->
-    <section class="page-header bg-gradient-to-r from-primary-red to-primary-blue py-20 relative overflow-hidden">
-        <div class="absolute inset-0 bg-black opacity-20"></div>
-        <div class="container mx-auto px-4 text-center text-white relative z-10">
+    <section class="page-header py-20 relative overflow-hidden bg-no-repeat bg-center bg-cover" style="background-image: linear-gradient(135deg, rgba(0, 213, 190, 0.8), rgba(255, 240, 133, 0.9)), url('/ducsu/wp-content/themes/jcd-ducsu/assets/images/central-bg.jpg');">
+        <div class="container mx-auto px-4 text-center relative z-10">
             <div class="max-w-4xl mx-auto">
-                <div class="mb-6">
-                    <svg class="w-20 h-20 text-white mx-auto mb-4 opacity-90" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
-                    </svg>
-                </div>
-                <h1 class="text-4xl md:text-6xl font-bold mb-6">আমাদের ইশতেহার</h1>
-                <p class="text-lg md:text-xl leading-relaxed">
-                    শিক্ষার্থীদের উন্নয়ন এবং কল্যাণের জন্য বাংলাদেশ জাতীয়তাবাদী ছাত্রদল ডাকসুর প্রতিশ্রুতি ও পরিকল্পনা।
-                    আমরা বিশ্বাস করি যে একটি উন্নত শিক্ষাব্যবস্থা এবং সুন্দর ক্যাম্পাস পরিবেশ প্রতিটি শিক্ষার্থীর মৌলিক অধিকার।
-                </p>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 text-slate-700">আমাদের ইশতিহার</h1>
+                <p class="text-lg md:text-xl leading-relaxed text-slate-800">"প্রতিশ্রুতি নয়, পরিবর্তনে প্রতিজ্ঞাবদ্ধ"</p>
             </div>
         </div>
 
@@ -30,61 +21,10 @@ get_header(); ?>
         <div class="absolute top-1/2 left-1/4 w-16 h-16 bg-white opacity-5 rounded-full"></div>
     </section>
 
-    <!-- Manifesto Statistics -->
-    <section class="manifesto-stats py-12 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div class="text-center">
-                    <div class="bg-primary-green text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-800">শিক্ষার মান উন্নয়ন</h3>
-                    <p class="text-gray-600">মানসম্পন্ন শিক্ষার নিশ্চয়তা</p>
-                </div>
-
-                <div class="text-center">
-                    <div class="bg-primary-blue text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-800">ন্যায্য অধিকার</h3>
-                    <p class="text-gray-600">সবার জন্য সমান সুযোগ</p>
-                </div>
-
-                <div class="text-center">
-                    <div class="bg-primary-red text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-800">কল্যাণমুখী কর্মসূচি</h3>
-                    <p class="text-gray-600">শিক্ষার্থী বান্ধব নীতি</p>
-                </div>
-
-                <div class="text-center">
-                    <div class="bg-green-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-800">স্বচ্ছতা ও জবাবদিহিতা</h3>
-                    <p class="text-gray-600">দুর্নীতিমুক্ত প্রশাসন</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Manifesto Items -->
     <section class="manifesto-content py-16 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">আমাদের প্রতিশ্রুতি</h2>
-                    <p class="text-lg text-gray-600">নিম্নোক্ত বিষয়গুলোতে আমরা কাজ করার অঙ্গীকার করছি</p>
-                </div>
 
                 <div id="manifesto-accordion" class="space-y-4">
                     <?php
@@ -159,8 +99,8 @@ get_header(); ?>
                                 <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                 </svg>
-                                <h3 class="text-lg font-medium text-gray-800 mb-2">ইশতেহার আপডেট হচ্ছে</h3>
-                                <p class="text-gray-600">আমাদের বিস্তারিত ইশতেহার শীঘ্রই প্রকাশিত হবে।</p>
+                                <h3 class="text-lg font-medium text-gray-800 mb-2">ইশতিহার আপডেট হচ্ছে</h3>
+                                <p class="text-gray-600">আমাদের বিস্তারিত ইশতিহার শীঘ্রই প্রকাশিত হবে।</p>
                             </div>
                         </div>
                     <?php
@@ -178,7 +118,7 @@ get_header(); ?>
             <div class="max-w-3xl mx-auto">
                 <h2 class="text-3xl md:text-4xl font-bold mb-6">আপনার মতামত আমাদের কাছে গুরুত্বপূর্ণ</h2>
                 <p class="text-lg md:text-xl mb-8 opacity-90">
-                    আমাদের ইশতেহার সম্পর্কে আপনার কোনো প্রশ্ন বা পরামর্শ থাকলে আমাদের সাথে যোগাযোগ করুন।
+                    আমাদের ইশতিহার সম্পর্কে আপনার কোনো প্রশ্ন বা পরামর্শ থাকলে আমাদের সাথে যোগাযোগ করুন।
                     আমরা সবসময় আপনাদের মতামতের জন্য প্রস্তুত।
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">

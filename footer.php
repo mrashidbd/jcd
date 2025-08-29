@@ -9,18 +9,15 @@
                 <div class="footer-brand">
                     <div class="flex items-center space-x-3 mb-6">
                         <div class="bg-gradient-to-br from-primary-green to-primary-blue rounded-full w-12 h-12 flex items-center justify-center">
-                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
+                            <img src="<?php echo get_site_icon_url(); ?>" alt="Chatradal Logo">
                         </div>
                         <div>
-                            <h3 class="text-xl font-bold">JCD DUCSU</h3>
+                            <h3 class="text-xl font-bold">বাংলাদেশ জাতীয়তাবাদী ছাত্রদল</h3>
                             <p class="text-sm text-gray-300">২০২৫ নির্বাচন</p>
                         </div>
                     </div>
-                    <p class="text-gray-300 mb-6 leading-relaxed">
-                        বাংলাদেশ জাতীয়তাবাদী ছাত্রদল ঢাকা বিশ্ববিদ্যালয় শাখা।
-                        শিক্ষার্থীদের অধিকার রক্ষা এবং উন্নত শিক্ষা পরিবেশ সৃষ্টিতে প্রতিশ্রুতিবদ্ধ।
+                    <p class="text-gray-300 mb-6 leading-relaxed">বাংলাদেশ জাতীয়তাবাদী দলের ছাত্র সংগঠন। বাংলাদেশ জাতীয়তাবাদী ছাত্রদল ১৯৭৯ সালে প্রতিষ্ঠিত হয়।
+                        ছাত্রদলের প্রধান শ্লোগান হচ্ছে - শিক্ষা, ঐক্য, প্রগতি। এই সংগঠনটির প্রধান কার্যালয় ঢাকার নয়া পল্টনে অবস্থিত।
                     </p>
 
                     <!-- Social Media Links -->
@@ -229,7 +226,7 @@
 
 <!-- Scroll to Top Button -->
 <button id="scroll-to-top"
-        class="fixed bottom-8 right-8 bg-primary-green hover:bg-primary-blue text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 opacity-0 translate-y-4 pointer-events-none z-30">
+        class="fixed bottom-8 right-8 bg-primary-green hover:bg-primary-blue cursor-pointer text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 opacity-0 translate-y-4 pointer-events-none z-30">
     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
     </svg>

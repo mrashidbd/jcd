@@ -13,13 +13,16 @@ $selected_hall = $selected_hall_id ? get_term($selected_hall_id, 'halls') : null
 
 <?php if ($selected_hall && !is_wp_error($selected_hall)) : ?>
     <!-- Single Hall View -->
-    <section class="page-header bg-gradient-to-r from-primary-green to-primary-blue py-20">
+    <section class="page-header bg-cover bg-center bg-no-repeat py-20"
+             style="background-image: linear-gradient(135deg, rgba(0, 213, 190, 0.8), rgba(255, 240, 133, 0.9)), url('/ducsu/wp-content/themes/jcd-ducsu/assets/images/central-bg.jpg');">
+        >
         <div class="container mx-auto px-4 text-center text-white">
             <div class="mb-4">
                 <a href="<?php echo remove_query_arg('hall'); ?>"
                    class="inline-flex items-center text-white hover:text-gray-200 transition-colors">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M15 19l-7-7 7-7"></path>
                     </svg>
                     সব হল দেখুন
                 </a>
@@ -49,7 +52,7 @@ $selected_hall = $selected_hall_id ? get_term($selected_hall_id, 'halls') : null
                         $department = get_post_meta(get_the_ID(), '_candidate_department', true);
                         $session = get_post_meta(get_the_ID(), '_candidate_session', true);
                         ?>
-                        <div class="candidate-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer group"
+                        <div class="candidate-card bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer group"
                              data-candidate-id="<?php echo get_the_ID(); ?>">
 
                             <div class="relative overflow-hidden">
@@ -60,7 +63,9 @@ $selected_hall = $selected_hall_id ? get_term($selected_hall_id, 'halls') : null
                                 <?php else : ?>
                                     <div class="w-full h-56 bg-gradient-to-br from-primary-green to-primary-blue flex items-center justify-center">
                                         <svg class="w-20 h-20 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                                            <path fill-rule="evenodd"
+                                                  d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                                  clip-rule="evenodd"></path>
                                         </svg>
                                     </div>
                                 <?php endif; ?>
@@ -98,7 +103,8 @@ $selected_hall = $selected_hall_id ? get_term($selected_hall_id, 'halls') : null
                                             data-candidate-id="<?php echo get_the_ID(); ?>">
                                         <span>আরও জানুন</span>
                                         <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                  d="M9 5l7 7-7 7"></path>
                                         </svg>
                                     </button>
 
@@ -115,8 +121,10 @@ $selected_hall = $selected_hall_id ? get_term($selected_hall_id, 'halls') : null
                     ?>
                     <div class="col-span-full text-center py-12">
                         <div class="bg-gray-100 rounded-lg p-8 max-w-md mx-auto">
-                            <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                            <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor"
+                                 viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
                             </svg>
                             <h3 class="text-lg font-medium text-gray-800 mb-2">কোনো প্রার্থী পাওয়া যায়নি</h3>
                             <p class="text-gray-600">এই হলে এখনো কোনো প্রার্থী যোগ করা হয়নি।</p>
@@ -132,21 +140,17 @@ $selected_hall = $selected_hall_id ? get_term($selected_hall_id, 'halls') : null
 
 <?php else : ?>
     <!-- All Halls View -->
-    <section class="page-header bg-gradient-to-r from-primary-green to-primary-blue py-20">
-        <div class="container mx-auto px-4 text-center text-white">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4">হল প্যানেল</h1>
-            <p class="text-lg md:text-xl max-w-2xl mx-auto">বাংলাদেশ জাতীয়তাবাদী ছাত্রদল ডাকসু নির্বাচন ২০২৫ হল প্যানেলসমূহ</p>
+    <section class="page-header bg-cover bg-center bg-no-repeat py-20"
+             style="background-image: linear-gradient(135deg, rgba(0, 213, 190, 0.8), rgba(255, 240, 133, 0.9)), url('/ducsu/wp-content/themes/jcd-ducsu/assets/images/central-bg.jpg');">>
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 text-slate-700">হল সংসদ</h1>
+            <p class="text-lg md:text-xl max-w-2xl mx-auto">ঢাকা বিশ্ববিদ্যালয় কেন্দ্রীয় ছাত্র সংসদ (ডাকসু) ও হল সংসদ নির্বাচন ২০২৫ - এর হল সংসদে বাংলাদেশ জাতীয়তাবাদী ছাত্রদল সমর্থিত পদপ্রার্থীর বিস্তারিত।</p>
         </div>
     </section>
 
     <!-- Halls Grid -->
     <section class="halls-section py-16 bg-gray-50">
         <div class="container mx-auto px-4">
-            <div class="mb-12 text-center">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">সকল হল</h2>
-                <p class="text-lg text-gray-600">আপনার হল নির্বাচন করে প্রার্থীদের দেখুন</p>
-            </div>
-
             <div class="halls-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <?php
                 $all_halls = get_terms([
@@ -158,57 +162,40 @@ $selected_hall = $selected_hall_id ? get_term($selected_hall_id, 'halls') : null
 
                 if ($all_halls && !is_wp_error($all_halls)) :
                     foreach ($all_halls as $hall) :
-                        $candidate_count = $hall->count;
-                        $hall_candidates_query = ducsu_get_hall_candidates($hall->term_id, 3);
-                        $sample_candidates = [];
+                        $candidate_count = convertEngToBn($hall->count);
 
-                        if ($hall_candidates_query->have_posts()) {
-                            while ($hall_candidates_query->have_posts()) {
-                                $hall_candidates_query->the_post();
-                                $sample_candidates[] = [
-                                    'name' => get_post_meta(get_the_ID(), '_candidate_name_bangla', true) ?: get_the_title(),
-                                    'position' => get_post_meta(get_the_ID(), '_candidate_position', true),
-                                    'image' => get_the_post_thumbnail_url(get_the_ID(), 'thumbnail')
-                                ];
-                            }
-                            wp_reset_postdata();
-                        }
                         // Get the image URL from the term meta
                         $hall_image_id = get_term_meta($hall->term_id, 'hall_image', true);
                         $hall_image_url = wp_get_attachment_url($hall_image_id);
                         ?>
 
-                        <div class="hall-card bg-white rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden">
-                            <div class="relative bg-white rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden text-center text-white" style="background-image: url('<?php echo esc_url($hall_image_url); ?>'); background-size: cover; background-position: center; min-height: 200px;">
-                                <div class="absolute inset-0 bg-black opacity-50"></div>
-                                <div class="relative p-6">
-                                    <div class="bg-white bg-opacity-20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-red-500">
-                                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                                            <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.84L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.84l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"></path>
-                                        </svg>
-                                    </div>
-                                    <h3 class="text-xl font-bold mb-2"><?php echo esc_html($hall->name); ?></h3>
-                                    <p class="text-sm opacity-90">
-                                        <?php echo sprintf('%dটি প্রার্থী', $candidate_count); ?>
+                        <a href="?hall=<?php echo $hall->term_id; ?>"
+                           class="block w-full transition-all duration-500 ease-out transform group relative z-10">
+                            <div class="hall-card rounded-xl flex flex-col shadow hover:drop-shadow-xs min-h-[320px] transform group-hover:scale-105 transition-all duration-500 ease-out overflow-hidden relative">
+                                <div class="absolute inset-0 grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out"
+                                     style="background-image: url('<?php echo esc_url($hall_image_url); ?>'); background-size: cover; background-position: center;"></div>
+                                <!-- Glossy sweep effect -->
+                                <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100"></div>
+                                <div class="grow relative z-10">
+                                    <p class="absolute right-2 top-2 text-sm text-green-800 font-bold px-3 py-2 rounded-md opacity-90 bg-white">
+                                        <?php echo sprintf('%s জন প্রার্থী', $candidate_count); ?>
                                     </p>
                                 </div>
+                                <div class="relative flex-none z-10">
+                                    <h3 class="text-xl bg-green-800 block font-bold m-0 py-4 text-center transition-all duration-300 text-green-100 group-hover:bg-green-700"><?php echo esc_html($hall->name); ?></h3>
+                                </div>
                             </div>
-
-                            <div class="p-4 pt-0">
-                                <a href="?hall=<?php echo $hall->term_id; ?>"
-                                   class="block w-full bg-primary-green hover:bg-primary-red text-white text-center font-medium py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-105">
-                                    সমর্থিত সংসদ
-                                </a>
-                            </div>
-                        </div>
+                        </a>
                     <?php
                     endforeach;
                 else :
                     ?>
                     <div class="col-span-full text-center py-12">
                         <div class="bg-gray-100 rounded-lg p-8 max-w-md mx-auto">
-                            <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                            <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor"
+                                 viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                             </svg>
                             <h3 class="text-lg font-medium text-gray-800 mb-2">কোনো হল পাওয়া যায়নি</h3>
                             <p class="text-gray-600">এই মুহূর্তে কোনো হল যোগ করা হয়নি।</p>
@@ -221,11 +208,14 @@ $selected_hall = $selected_hall_id ? get_term($selected_hall_id, 'halls') : null
 <?php endif; ?>
 
     <!-- Candidate Details Modal -->
-    <div id="candidate-modal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center p-4">
+    <div id="candidate-modal"
+         class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-lg shadow-xl max-w-6xl w-full max-h-[90vh] overflow-y-auto relative">
-            <button id="close-modal" class="absolute top-4 right-4 z-10 text-gray-500 hover:text-gray-700 bg-white rounded-full p-2 shadow-lg">
+            <button id="close-modal"
+                    class="absolute top-4 right-4 z-10 text-gray-500 hover:text-gray-700 bg-white rounded-full p-2 shadow-lg">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
             <div class="candidate-modal-content p-8">
@@ -237,9 +227,11 @@ $selected_hall = $selected_hall_id ? get_term($selected_hall_id, 'halls') : null
     <!-- Loading Spinner -->
     <div id="loading-spinner" class="fixed inset-0 z-40 hidden bg-black bg-opacity-50 flex items-center justify-center">
         <div class="bg-white rounded-lg p-8 flex items-center space-x-4">
-            <svg class="animate-spin h-8 w-8 text-primary-green" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <svg class="animate-spin h-8 w-8 text-primary-green" xmlns="http://www.w3.org/2000/svg" fill="none"
+                 viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                <path class="opacity-75" fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
             <span class="text-gray-700">লোড হচ্ছে...</span>
         </div>
