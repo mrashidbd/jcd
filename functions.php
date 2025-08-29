@@ -17,8 +17,8 @@ function ducsu_jcd_theme_setup()
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
     add_theme_support('custom-logo', [
-        'height' => 100,
-        'width' => 300,
+        'height' => '80px',
+        'width' => 'auto',
         'flex-height' => true,
         'flex-width' => true,
     ]);
@@ -163,7 +163,7 @@ add_action('init', 'ducsu_jcd_register_cpts');
 function ducsu_jcd_insert_default_halls()
 {
     $halls = [
-        'মুক্তিযোদ্ধা জিয়াউর রহমান হল', 'বিজয় একাত্তর হল', 'কবি জসিমউদদীন হল', 'মাস্টারদা সূর্যসেন হল', 'সলিমুল্লাহ মুসলিম হল', 'শহীদ সার্জেন্ট জহুরুল হক হল', 'শেখ মুজিবুর রহমান হল', 'হাজী মুহম্মদ মুহসীন হল', 'স্যার এ এফ রহমান হল', 'রোকেয়া হল', 'শামসুন্নাহার হল', 'ফজিলাতুন্নেছা মুজিব হল', 'বাংলাদেশ কুয়েত মৈত্রী হল', 'কবি সুফিয়া কামাল হল', 'জগন্নাথ হল', 'ফজলুল হক মুসলিম হল', 'ড. মুহম্মদ শহীদুল্লাহ হল', 'অমর একুশে হল'
+        'মুক্তিযোদ্ধা জিয়াউর রহমান হল', 'বিজয় একাত্তর হল', 'কবি জসিমউদদীন হল', 'মাস্টারদা সূর্যসেন হল', 'সলিমুল্লাহ মুসলিম হল', 'শহীদ সার্জেন্ট জহুরুল হক হল', 'শেখ মুজিবুর রহমান হল', 'হাজী মুহম্মদ মুহসীন হল', 'স্যার এ এফ রহমান হল', 'রোকেয়া হল', 'শামসুন্নাহার হল', 'ফজিলাতুন্নেছা মুজিব হল', 'বাংলাদেশ কুয়েত মৈত্রী হল', 'কবি সুফিয়া কামাল হল', 'জগন্নাথ হল', 'ফজলুল হক মুসলিম হল', 'ড. মুহম্মদ শহীদুল্লাহ হল', 'অমর একুশে হল'
     ];
 
     foreach ($halls as $hall) {
@@ -239,17 +239,45 @@ function ducsu_jcd_candidate_meta_box_callback($post)
         '_candidate_mother_name' => "Mother's Name (Bangla)",
         '_candidate_mother_profession' => "Mother's Profession (Bangla)",
         '_candidate_permanent_address' => 'Permanent Address (Bangla)',
-        '_candidate_ssc_info' => 'SSC Information',
-        '_candidate_hsc_info' => 'HSC Information',
-        '_candidate_graduation_info' => 'Graduation Information',
         '_candidate_special_achievements' => 'Special Achievements (Bangla)',
         '_candidate_political_journey' => 'Political Journey (Bangla)',
         '_candidate_vision' => 'Vision (Bangla)',
         '_candidate_facebook_url' => 'Facebook URL',
         '_candidate_twitter_url' => 'Twitter URL',
-        '_candidate_email' => 'Candidate Email'
+        '_candidate_email' => 'Candidate Email',
+        '_candidate_gallery' => 'Candidate Gallery'
     ];
 
+    // SSC fields
+    $ssc_fields = [
+        '_candidate_ssc_school' => 'SSC School Name',
+        '_candidate_ssc_gpa' => 'SSC GPA',
+        '_candidate_ssc_year' => 'SSC Passing Year'
+    ];
+
+    // HSC fields
+    $hsc_fields = [
+        '_candidate_hsc_college' => 'HSC College Name',
+        '_candidate_hsc_gpa' => 'HSC GPA',
+        '_candidate_hsc_year' => 'HSC Passing Year'
+    ];
+
+    // Graduation fields
+    $graduation_fields = [
+        '_candidate_graduation_university' => 'University Name',
+        '_candidate_graduation_cgpa' => 'CGPA',
+        '_candidate_graduation_year' => 'Graduation Year',
+        '_candidate_graduation_subject' => 'Subject'
+    ];
+
+    echo '<div class="candidate-meta-tabs">';
+    echo '<ul class="subsubsub">';
+    echo '<li><a href="#basic-info" class="current">Basic Info</a> |</li>';
+    echo '<li><a href="#education">Education</a> |</li>';
+    echo '<li><a href="#other-info">Other Info</a></li>';
+    echo '</ul>';
+
+    echo '<div id="basic-info" class="tab-content">';
     echo '<table class="form-table">';
     foreach ($fields as $key => $label) {
         $value = get_post_meta($post->ID, $key, true);
@@ -265,7 +293,43 @@ function ducsu_jcd_candidate_meta_box_callback($post)
         }
     }
     echo '</table>';
+    echo '</div>';
 
+    echo '<div id="education" class="tab-content" style="display:none;">';
+    echo '<h3>Educational Information</h3>';
+
+    // SSC Section
+    echo '<h4 style="color: #0073aa; margin-top: 20px;">SSC Information</h4>';
+    echo '<table class="form-table">';
+    foreach ($ssc_fields as $key => $label) {
+        $value = get_post_meta($post->ID, $key, true);
+        echo '<tr><th><label for="' . esc_attr($key) . '">' . esc_html($label) . '</label></th>';
+        echo '<td><input type="text" id="' . esc_attr($key) . '" name="' . esc_attr($key) . '" value="' . esc_attr($value) . '" class="widefat" /></td></tr>';
+    }
+    echo '</table>';
+
+    // HSC Section
+    echo '<h4 style="color: #0073aa; margin-top: 20px;">HSC Information</h4>';
+    echo '<table class="form-table">';
+    foreach ($hsc_fields as $key => $label) {
+        $value = get_post_meta($post->ID, $key, true);
+        echo '<tr><th><label for="' . esc_attr($key) . '">' . esc_html($label) . '</label></th>';
+        echo '<td><input type="text" id="' . esc_attr($key) . '" name="' . esc_attr($key) . '" value="' . esc_attr($value) . '" class="widefat" /></td></tr>';
+    }
+    echo '</table>';
+
+    // Graduation Section
+    echo '<h4 style="color: #0073aa; margin-top: 20px;">Graduation Information</h4>';
+    echo '<table class="form-table">';
+    foreach ($graduation_fields as $key => $label) {
+        $value = get_post_meta($post->ID, $key, true);
+        echo '<tr><th><label for="' . esc_attr($key) . '">' . esc_html($label) . '</label></th>';
+        echo '<td><input type="text" id="' . esc_attr($key) . '" name="' . esc_attr($key) . '" value="' . esc_attr($value) . '" class="widefat" /></td></tr>';
+    }
+    echo '</table>';
+    echo '</div>';
+
+    echo '<div id="other-info" class="tab-content" style="display:none;">';
     // Image Gallery Section
     echo '<h3>Image Gallery (Max 5 images)</h3>';
     echo '<div id="candidate-gallery">';
@@ -285,10 +349,25 @@ function ducsu_jcd_candidate_meta_box_callback($post)
     echo '</div>';
     echo '<input type="hidden" id="candidate_gallery" name="candidate_gallery" value="' . esc_attr($gallery_images) . '" />';
     echo '<button type="button" id="add-gallery-image" class="button">Add Image</button>';
+    echo '</div>';
 
-    // Add JavaScript for gallery management
+    echo '</div>'; // Close tabs container
+
+    // Add JavaScript for tabs and gallery management
     echo '<script>
     jQuery(document).ready(function($) {
+        // Tab functionality
+        $(".subsubsub a").click(function(e) {
+            e.preventDefault();
+            $(".subsubsub a").removeClass("current");
+            $(this).addClass("current");
+            
+            var target = $(this).attr("href");
+            $(".tab-content").hide();
+            $(target).show();
+        });
+
+        // Gallery functionality
         $("#add-gallery-image").click(function() {
             var frame = wp.media.frames.gallery = wp.media({
                 title: "Select Images",
@@ -335,6 +414,36 @@ function ducsu_jcd_candidate_meta_box_callback($post)
         });
     });
     </script>';
+
+    // Add CSS for tabs
+    echo '<style>
+    .candidate-meta-tabs .subsubsub {
+        margin-bottom: 15px;
+    }
+    .tab-content {
+        border: 1px solid #ccd0d4;
+        padding: 20px;
+        background: #fff;
+    }
+    .gallery-image {
+        display: inline-block;
+        margin: 10px;
+        position: relative;
+    }
+    .remove-image {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: red;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
+        cursor: pointer;
+    }
+    </style>';
 }
 
 /**
@@ -382,11 +491,13 @@ function ducsu_jcd_save_meta_boxes($post_id)
         '_candidate_department', '_candidate_hall', '_candidate_session',
         '_candidate_father_name', '_candidate_father_profession',
         '_candidate_mother_name', '_candidate_mother_profession',
-        '_candidate_permanent_address', '_candidate_ssc_info',
-        '_candidate_hsc_info', '_candidate_graduation_info',
-        '_candidate_special_achievements', '_candidate_political_journey',
-        '_candidate_vision', '_candidate_facebook_url', '_candidate_twitter_url',
-        '_candidate_email', 'candidate_gallery'
+        '_candidate_permanent_address', '_candidate_special_achievements',
+        '_candidate_political_journey', '_candidate_vision', '_candidate_facebook_url',
+        '_candidate_twitter_url', '_candidate_email', 'candidate_gallery',
+        '_candidate_ssc_school', '_candidate_ssc_gpa', '_candidate_ssc_year',
+        '_candidate_hsc_college', '_candidate_hsc_gpa', '_candidate_hsc_year',
+        '_candidate_graduation_university', '_candidate_graduation_cgpa',
+        '_candidate_graduation_year', '_candidate_graduation_subject'
     ];
 
     foreach ($candidate_fields as $field) {
@@ -497,15 +608,25 @@ function ducsu_jcd_get_candidate_details()
         'mother_name' => get_post_meta($candidate->ID, '_candidate_mother_name', true),
         'mother_profession' => get_post_meta($candidate->ID, '_candidate_mother_profession', true),
         'permanent_address' => get_post_meta($candidate->ID, '_candidate_permanent_address', true),
-        'ssc_info' => get_post_meta($candidate->ID, '_candidate_ssc_info', true),
-        'hsc_info' => get_post_meta($candidate->ID, '_candidate_hsc_info', true),
-        'graduation_info' => get_post_meta($candidate->ID, '_candidate_graduation_info', true),
         'special_achievements' => get_post_meta($candidate->ID, '_candidate_special_achievements', true),
         'political_journey' => get_post_meta($candidate->ID, '_candidate_political_journey', true),
         'vision' => get_post_meta($candidate->ID, '_candidate_vision', true),
         'facebook_url' => get_post_meta($candidate->ID, '_candidate_facebook_url', true),
         'twitter_url' => get_post_meta($candidate->ID, '_candidate_twitter_url', true),
-        'email' => get_post_meta($candidate->ID, '_candidate_email', true)
+        'email' => get_post_meta($candidate->ID, '_candidate_email', true),
+        // SSC Information
+        'ssc_school' => get_post_meta($candidate->ID, '_candidate_ssc_school', true),
+        'ssc_gpa' => get_post_meta($candidate->ID, '_candidate_ssc_gpa', true),
+        'ssc_year' => get_post_meta($candidate->ID, '_candidate_ssc_year', true),
+        // HSC Information
+        'hsc_college' => get_post_meta($candidate->ID, '_candidate_hsc_college', true),
+        'hsc_gpa' => get_post_meta($candidate->ID, '_candidate_hsc_gpa', true),
+        'hsc_year' => get_post_meta($candidate->ID, '_candidate_hsc_year', true),
+        // Graduation Information
+        'graduation_university' => get_post_meta($candidate->ID, '_candidate_graduation_university', true),
+        'graduation_cgpa' => get_post_meta($candidate->ID, '_candidate_graduation_cgpa', true),
+        'graduation_year' => get_post_meta($candidate->ID, '_candidate_graduation_year', true),
+        'graduation_subject' => get_post_meta($candidate->ID, '_candidate_graduation_subject', true)
     ];
 
     // Get gallery images
@@ -1091,7 +1212,6 @@ function ducsu_enqueue_admin_scripts($hook)
 }
 
 add_action('admin_enqueue_scripts', 'ducsu_enqueue_admin_scripts');
-
 
 //helper functions
 

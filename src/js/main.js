@@ -248,18 +248,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (e.target.closest('.candidate-card') || e.target.closest('.candidate-details-btn')) {
                     e.preventDefault();
                     const candidateId = e.target.closest('[data-candidate-id]').getAttribute('data-candidate-id');
-                    this.openModal(candidateId);
-                }
-            });
-
-            // Contact candidate button
-            document.addEventListener('click', (e) => {
-                if (e.target.closest('.contact-candidate-btn')) {
-                    e.preventDefault();
-                    const candidateId = e.target.closest('[data-candidate-id]').getAttribute('data-candidate-id');
                     this.openModal(candidateId, true);
                 }
             });
+
+            // // Contact candidate button
+            // document.addEventListener('click', (e) => {
+            //     if (e.target.closest('a.contact-candidate-btn')) {
+            //         e.preventDefault();
+            //         const candidateId = e.target.closest('[data-candidate-id]').getAttribute('data-candidate-id');
+            //         this.openModal(candidateId, true);
+            //     }
+            // });
 
             // Close modal
             if (this.closeBtn) {
@@ -315,6 +315,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     this.displayCandidateDetails(data.data, showContactForm);
                     if (this.modal) {
                         this.modal.classList.remove('hidden');
+                        document.body.style.overflow = 'hidden'; // Prevent background scrolling
                     }
                 } else {
                     this.showError('প্রার্থীর তথ্য লোড করতে সমস্যা হয়েছে');
@@ -330,15 +331,123 @@ document.addEventListener('DOMContentLoaded', function() {
         displayCandidateDetails(candidate, showContactForm = false) {
             if (!this.modalContent) return;
 
+            // Generate educational information HTML
+            let educationHtml = '';
+            if (candidate.ssc_school || candidate.hsc_college || candidate.graduation_university) {
+                educationHtml = `
+                    <div class="content-section">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">শিক্ষাগত যোগ্যতা</h3>
+                        <div class="space-y-6">
+                `;
+
+                // SSC Information
+                if (candidate.ssc_school || candidate.ssc_gpa || candidate.ssc_year) {
+                    educationHtml += `
+                        <div class="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-6 border-l-4 border-green-500">
+                            <h4 class="text-lg font-bold text-green-700 mb-4">এসএসসি</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                                ${candidate.ssc_school ? `
+                                    <div>
+                                        <span class="font-semibold text-gray-700">স্কুলের নাম:</span>
+                                        <p class="text-gray-800">${candidate.ssc_school}</p>
+                                    </div>
+                                ` : ''}
+                                ${candidate.ssc_gpa ? `
+                                    <div>
+                                        <span class="font-semibold text-gray-700">জিপিএ:</span>
+                                        <p class="text-gray-800">${candidate.ssc_gpa}</p>
+                                    </div>
+                                ` : ''}
+                                ${candidate.ssc_year ? `
+                                    <div>
+                                        <span class="font-semibold text-gray-700">পাশের বছর:</span>
+                                        <p class="text-gray-800">${candidate.ssc_year}</p>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                // HSC Information
+                if (candidate.hsc_college || candidate.hsc_gpa || candidate.hsc_year) {
+                    educationHtml += `
+                        <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-6 border-l-4 border-blue-500">
+                            <h4 class="text-lg font-bold text-blue-700 mb-4">এইচএসসি</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                                ${candidate.hsc_college ? `
+                                    <div>
+                                        <span class="font-semibold text-gray-700">কলেজের নাম:</span>
+                                        <p class="text-gray-800">${candidate.hsc_college}</p>
+                                    </div>
+                                ` : ''}
+                                ${candidate.hsc_gpa ? `
+                                    <div>
+                                        <span class="font-semibold text-gray-700">জিপিএ:</span>
+                                        <p class="text-gray-800">${candidate.hsc_gpa}</p>
+                                    </div>
+                                ` : ''}
+                                ${candidate.hsc_year ? `
+                                    <div>
+                                        <span class="font-semibold text-gray-700">পাশের বছর:</span>
+                                        <p class="text-gray-800">${candidate.hsc_year}</p>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                // Graduation Information
+                if (candidate.graduation_university || candidate.graduation_cgpa || candidate.graduation_year || candidate.graduation_subject) {
+                    educationHtml += `
+                        <div class="bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg p-6 border-l-4 border-purple-500">
+                            <h4 class="text-lg font-bold text-purple-700 mb-4">স্নাতক</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                ${candidate.graduation_university ? `
+                                    <div>
+                                        <span class="font-semibold text-gray-700">বিশ্ববিদ্যালয়ের নাম:</span>
+                                        <p class="text-gray-800">${candidate.graduation_university}</p>
+                                    </div>
+                                ` : ''}
+                                ${candidate.graduation_subject ? `
+                                    <div>
+                                        <span class="font-semibold text-gray-700">বিষয়:</span>
+                                        <p class="text-gray-800">${candidate.graduation_subject}</p>
+                                    </div>
+                                ` : ''}
+                                ${candidate.graduation_cgpa ? `
+                                    <div>
+                                        <span class="font-semibold text-gray-700">সিজিপিএ:</span>
+                                        <p class="text-gray-800">${candidate.graduation_cgpa}</p>
+                                    </div>
+                                ` : ''}
+                                ${candidate.graduation_year ? `
+                                    <div>
+                                        <span class="font-semibold text-gray-700">পাশের বছর:</span>
+                                        <p class="text-gray-800">${candidate.graduation_year}</p>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                educationHtml += `
+                        </div>
+                    </div>
+                `;
+            }
+
             let galleryHtml = '';
             if (candidate.gallery && candidate.gallery.length > 0) {
                 galleryHtml = `
-                    <div class="mb-8">
-                        <h3 class="text-xl font-bold text-gray-800 mb-4">ছবি গ্যালারি</h3>
-                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="content-section">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">ছবি গ্যালারি</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                             ${candidate.gallery.map(image => `
                                 <img src="${image.url}" alt="Gallery Image" 
-                                     class="w-full h-32 object-cover rounded-lg cursor-pointer hover:opacity-80 transition-opacity"
+                                     class="w-full h-32 object-cover rounded-lg cursor-pointer hover:opacity-80 transition-opacity shadow-md hover:shadow-lg"
                                      onclick="window.open('${image.full_url}', '_blank')">
                             `).join('')}
                         </div>
@@ -387,151 +496,159 @@ document.addEventListener('DOMContentLoaded', function() {
             ` : '';
 
             this.modalContent.innerHTML = `
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <!-- Left Column: Image and Basic Info -->
-                    <div class="lg:col-span-1">
-                        <div class="sticky top-8">
-                            ${candidate.image ?
+                <div class="space-y-8 overflow-y-auto max-h-[800px]">
+                    <!-- Header Section -->
+                    <div class="flex flex-col lg:flex-row gap-8 items-start">
+                        <!-- Candidate Image -->
+                        <div class="w-full lg:w-80 flex-shrink-0">
+                            <div class="text-center">
+                                ${candidate.image ?
                 `<img src="${candidate.image}" alt="${candidate.name_bangla || candidate.title}" 
-                                     class="w-full h-80 object-cover rounded-xl shadow-lg mb-6">` :
-                `<div class="w-full h-80 bg-gradient-to-br from-primary-green to-primary-blue rounded-xl shadow-lg mb-6 flex items-center justify-center">
-                                    <svg class="w-20 h-20 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
-                                    </svg>
-                                </div>`
+                                         class="w-full lg:w-80 h-80 object-cover rounded-xl shadow-xl mx-auto">` :
+                `<div class="w-full lg:w-80 h-80 bg-gradient-to-br from-primary-green to-primary-blue rounded-xl shadow-xl mx-auto flex items-center justify-center">
+                                        <svg class="w-20 h-20 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                                        </svg>
+                                    </div>`
             }
+                            </div>
+                        </div>
+                        
+                        <!-- Basic Information -->
+                        <div class="flex-1">
+                            <div class="bg-gradient-to-br from-primary-blue to-primary-green text-white rounded-xl p-6 mb-6">
+                                <h2 class="text-3xl lg:text-4xl font-bold mb-2">${candidate.name_bangla || candidate.title}</h2>
+                                <p class="text-xl lg:text-2xl mb-2">${candidate.position || ''}</p>
+                                ${candidate.ballot_number ? `<p class="text-lg lg:text-xl">ব্যালট নং: ${candidate.ballot_number}</p>` : ''}
+                            </div>
                             
-                            <div class="bg-gradient-to-br from-primary-blue to-primary-green text-white rounded-xl p-6">
-                                <h2 class="text-2xl font-bold mb-2">${candidate.name_bangla || candidate.title}</h2>
-                                <p class="text-xl mb-2">${candidate.position || ''}</p>
-                                ${candidate.ballot_number ? `<p class="text-lg">ব্যালট নং: ${candidate.ballot_number}</p>` : ''}
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                                ${candidate.department ? `
+                                    <div class="bg-gray-50 rounded-lg p-4">
+                                        <h4 class="font-semibold text-gray-700 mb-1">বিভাগ</h4>
+                                        <p class="text-gray-800">${candidate.department}</p>
+                                    </div>
+                                ` : ''}
+                                
+                                ${candidate.hall ? `
+                                    <div class="bg-gray-50 rounded-lg p-4">
+                                        <h4 class="font-semibold text-gray-700 mb-1">হল</h4>
+                                        <p class="text-gray-800">${candidate.hall}</p>
+                                    </div>
+                                ` : ''}
+                                
+                                ${candidate.session ? `
+                                    <div class="bg-gray-50 rounded-lg p-4">
+                                        <h4 class="font-semibold text-gray-700 mb-1">সেশন</h4>
+                                        <p class="text-gray-800">${candidate.session}</p>
+                                    </div>
+                                ` : ''}
+                                
+                                ${candidate.permanent_address ? `
+                                    <div class="bg-gray-50 rounded-lg p-4">
+                                        <h4 class="font-semibold text-gray-700 mb-1">স্থায়ী ঠিকানা</h4>
+                                        <p class="text-gray-800">${candidate.permanent_address}</p>
+                                    </div>
+                                ` : ''}
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Right Column: Detailed Information -->
-                    <div class="lg:col-span-2 space-y-8">
-                        <!-- Basic Information -->
-                        <div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-4">মৌলিক তথ্য</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                ${candidate.department ? `<div class="bg-gray-50 rounded-lg p-4">
-                                    <h4 class="font-semibold text-gray-700">বিভাগ</h4>
-                                    <p class="text-gray-600">${candidate.department}</p>
-                                </div>` : ''}
-                                
-                                ${candidate.hall ? `<div class="bg-gray-50 rounded-lg p-4">
-                                    <h4 class="font-semibold text-gray-700">হল</h4>
-                                    <p class="text-gray-600">${candidate.hall}</p>
-                                </div>` : ''}
-                                
-                                ${candidate.session ? `<div class="bg-gray-50 rounded-lg p-4">
-                                    <h4 class="font-semibold text-gray-700">সেশন</h4>
-                                    <p class="text-gray-600">${candidate.session}</p>
-                                </div>` : ''}
-                            </div>
+                    <!-- Educational Information -->
+                    ${educationHtml}
+                    
+                    <!-- Family Information -->
+                    ${(candidate.father_name || candidate.mother_name) ? `
+                    <div class="content-section">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">পারিবারিক তথ্য</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            ${candidate.father_name ? `
+                                <div class="bg-gray-50 rounded-lg p-6">
+                                    <h4 class="font-semibold text-gray-700 mb-2">পিতার নাম</h4>
+                                    <p class="text-gray-800 mb-1">${candidate.father_name}</p>
+                                    ${candidate.father_profession ? `<p class="text-sm text-gray-600">পেশা: ${candidate.father_profession}</p>` : ''}
+                                </div>
+                            ` : ''}
+                            
+                            ${candidate.mother_name ? `
+                                <div class="bg-gray-50 rounded-lg p-6">
+                                    <h4 class="font-semibold text-gray-700 mb-2">মাতার নাম</h4>
+                                    <p class="text-gray-800 mb-1">${candidate.mother_name}</p>
+                                    ${candidate.mother_profession ? `<p class="text-sm text-gray-600">পেশা: ${candidate.mother_profession}</p>` : ''}
+                                </div>
+                            ` : ''}
                         </div>
-                        
-                        <!-- Family Information -->
-                        ${(candidate.father_name || candidate.mother_name) ? `
-                        <div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-4">পারিবারিক তথ্য</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                ${candidate.father_name ? `<div class="bg-gray-50 rounded-lg p-4">
-                                    <h4 class="font-semibold text-gray-700">পিতার নাম</h4>
-                                    <p class="text-gray-600">${candidate.father_name}</p>
-                                    ${candidate.father_profession ? `<p class="text-sm text-gray-500 mt-1">পেশা: ${candidate.father_profession}</p>` : ''}
-                                </div>` : ''}
-                                
-                                ${candidate.mother_name ? `<div class="bg-gray-50 rounded-lg p-4">
-                                    <h4 class="font-semibold text-gray-700">মাতার নাম</h4>
-                                    <p class="text-gray-600">${candidate.mother_name}</p>
-                                    ${candidate.mother_profession ? `<p class="text-sm text-gray-500 mt-1">পেশা: ${candidate.mother_profession}</p>` : ''}
-                                </div>` : ''}
-                            </div>
-                        </div>` : ''}
-                        
-                        <!-- Educational Information -->
-                        ${(candidate.ssc_info || candidate.hsc_info || candidate.graduation_info) ? `
-                        <div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-4">শিক্ষাগত যোগ্যতা</h3>
-                            <div class="space-y-3">
-                                ${candidate.ssc_info ? `<div class="bg-gray-50 rounded-lg p-4">
-                                    <h4 class="font-semibold text-gray-700">এসএসসি</h4>
-                                    <p class="text-gray-600">${candidate.ssc_info}</p>
-                                </div>` : ''}
-                                
-                                ${candidate.hsc_info ? `<div class="bg-gray-50 rounded-lg p-4">
-                                    <h4 class="font-semibold text-gray-700">এইচএসসি</h4>
-                                    <p class="text-gray-600">${candidate.hsc_info}</p>
-                                </div>` : ''}
-                                
-                                ${candidate.graduation_info ? `<div class="bg-gray-50 rounded-lg p-4">
-                                    <h4 class="font-semibold text-gray-700">স্নাতক</h4>
-                                    <p class="text-gray-600">${candidate.graduation_info}</p>
-                                </div>` : ''}
-                            </div>
-                        </div>` : ''}
-                        
-                        <!-- Special Achievements -->
-                        ${candidate.special_achievements ? `
-                        <div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-4">বিশেষ অর্জন</h3>
-                            <div class="bg-gray-50 rounded-lg p-6">
-                                <p class="text-gray-700 leading-relaxed">${candidate.special_achievements.replace(/\n/g, '<br>')}</p>
-                            </div>
-                        </div>` : ''}
-                        
-                        <!-- Political Journey -->
-                        ${candidate.political_journey ? `
-                        <div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-4">রাজনৈতিক যাত্রা</h3>
-                            <div class="bg-gray-50 rounded-lg p-6">
-                                <p class="text-gray-700 leading-relaxed">${candidate.political_journey.replace(/\n/g, '<br>')}</p>
-                            </div>
-                        </div>` : ''}
-                        
-                        <!-- Vision -->
-                        ${candidate.vision ? `
-                        <div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-4">ভবিষ্যৎ পরিকল্পনা</h3>
-                            <div class="bg-gradient-to-r from-primary-green/10 to-primary-blue/10 rounded-lg p-6">
-                                <p class="text-gray-700 leading-relaxed">${candidate.vision.replace(/\n/g, '<br>')}</p>
-                            </div>
-                        </div>` : ''}
-                        
-                        <!-- Gallery -->
-                        ${galleryHtml}
-                        
-                        <!-- Social Links -->
-                        ${(candidate.facebook_url || candidate.twitter_url) ? `
-                        <div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-4">সামাজিক যোগাযোগ</h3>
-                            <div class="flex space-x-4">
-                                ${candidate.facebook_url ? `
-                                <a href="${candidate.facebook_url}" target="_blank" 
-                                   class="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                                    </svg>
-                                    <span>Facebook</span>
-                                </a>` : ''}
-                                
-                                ${candidate.twitter_url ? `
-                                <a href="${candidate.twitter_url}" target="_blank" 
-                                   class="flex items-center space-x-2 bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-500 transition-colors">
-                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                                    </svg>
-                                    <span>Twitter</span>
-                                </a>` : ''}
-                            </div>
-                        </div>` : ''}
-                        
-                        <!-- Contact Form -->
-                        ${showContactForm ? contactFormHtml : ''}
-                    </div>
+                    </div>` : ''}
+                    
+                    <!-- Content/Biography -->
+                    ${candidate.content ? `
+                    <div class="content-section">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">জীবনী</h3>
+                        <div class="bg-white rounded-lg p-6 prose prose-lg max-w-none">
+                            ${candidate.content.replace(/\n/g, '<br>')}
+                        </div>
+                    </div>` : ''}
+                    
+                    <!-- Vision -->
+                    ${candidate.vision ? `
+                    <div class="content-section">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">ভবিষ্যৎ পরিকল্পনা ও দৃষ্টিভঙ্গি</h3>
+                        <div class="bg-gradient-to-r from-primary-green/10 to-primary-blue/10 rounded-lg p-6">
+                            <p class="text-gray-700 leading-relaxed">${candidate.vision.replace(/\n/g, '<br>')}</p>
+                        </div>
+                    </div>` : ''}
+                    
+                    <!-- Political Journey -->
+                    ${candidate.political_journey ? `
+                    <div class="content-section">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">রাজনৈতিক যাত্রা</h3>
+                        <div class="bg-white rounded-lg p-6 shadow-md">
+                            <p class="text-gray-700 leading-relaxed">${candidate.political_journey.replace(/\n/g, '<br>')}</p>
+                        </div>
+                    </div>` : ''}
+                    
+                    <!-- Special Achievements -->
+                    ${candidate.special_achievements ? `
+                    <div class="content-section">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">বিশেষ অর্জন</h3>
+                        <div class="bg-white rounded-lg p-6 shadow-md">
+                            <p class="text-gray-700 leading-relaxed">${candidate.special_achievements.replace(/\n/g, '<br>')}</p>
+                        </div>
+                    </div>` : ''}
+                    
+                    <!-- Gallery -->
+                    ${galleryHtml}
+                    
+                    <!-- Social Links -->
+                    ${(candidate.facebook_url || candidate.twitter_url) ? `
+                    <div class="content-section">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">সামাজিক যোগাযোগ</h3>
+                        <div class="flex flex-wrap gap-4">
+                            ${candidate.facebook_url ? `
+                            <a href="${candidate.facebook_url}" target="_blank" 
+                               class="flex items-center space-x-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                </svg>
+                                <span>Facebook</span>
+                            </a>` : ''}
+                            
+                            ${candidate.twitter_url ? `
+                            <a href="${candidate.twitter_url}" target="_blank" 
+                               class="flex items-center space-x-2 bg-blue-400 text-white px-6 py-3 rounded-lg hover:bg-blue-500 transition-colors">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                                </svg>
+                                <span>Twitter</span>
+                            </a>` : ''}
+                                                        
+                        </div>
+                    </div>` : ''}
+                    
+                    <!-- Contact Form -->
+                    ${showContactForm ? contactFormHtml : ''}
                 </div>
+            </div>
             `;
 
             // Initialize contact form if shown

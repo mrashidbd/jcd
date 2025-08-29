@@ -10,8 +10,8 @@ get_header(); ?>
     <section class="page-header bg-cover bg-center bg-no-repeat py-20"
              style="background-image: linear-gradient(135deg, rgba(0, 213, 190, 0.8), rgba(255, 240, 133, 0.9)), url('/ducsu/wp-content/themes/jcd-ducsu/assets/images/central-bg.jpg');">>
         <div class="container mx-auto px-4 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4 text-slate-700">কেন্দ্রীয় সংসদ</h1>
-            <p class="text-lg md:text-xl max-w-2xl mx-auto">ঢাকা বিশ্ববিদ্যালয় কেন্দ্রীয় ছাত্র সংসদ (ডাকসু) ও হল সংসদ নির্বাচন ২০২৫ - এর কেন্দ্রীয় সংসদে বাংলাদেশ জাতীয়তাবাদী ছাত্রদল সমর্থিত ২৭ জন পদপ্রার্থীর বিস্তারিত</p>
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 text-slate-700">কেন্দ্রীয় সংসদ</h1>
+            <p class="text-lg md:text-xl max-w-2xl mx-auto">ঢাকা বিশ্ববিদ্যালয় কেন্দ্রীয় ছাত্র সংসদ (ডাকসু) ও হল সংসদ নির্বাচন ২০২৫ - এর কেন্দ্রীয় সংসদে বাংলাদেশ জাতীয়তাবাদী ছাত্রদল সমর্থিত ২৭ জন পদপ্রার্থীর বিস্তারিত</p>
         </div>
     </section>
 
@@ -139,15 +139,15 @@ get_header(); ?>
         </div>
     </section>
 
-    <!-- Candidate Details Modal -->
-    <div id="candidate-modal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-lg shadow-xl max-w-6xl w-full max-h-[90vh] overflow-y-auto relative">
-            <button id="close-modal" class="absolute top-4 right-4 z-10 cursor-pointer text-gray-500 bg-white border-2 border-gray-500 rounded-full p-2 hover:text-red-500 hover:border-red-500">
+    <!-- Candidate Details Modal - Full Width and Mobile Responsive -->
+    <div id="candidate-modal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-start justify-center pt-4 pb-4 px-2 md:px-4 overflow-y-auto">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-7xl max-h-full overflow-hidden relative mx-auto my-auto">
+            <button id="close-modal" class="absolute top-4 right-4 z-10 cursor-pointer text-gray-500 bg-white border-2 border-gray-300 rounded-full p-2 hover:text-red-500 hover:border-red-500 transition-colors shadow-lg">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
-            <div class="candidate-modal-content p-8">
+            <div class="candidate-modal-content p-4 md:p-8 overflow-y-auto max-h-full">
                 <!-- Modal content will be loaded via AJAX -->
             </div>
         </div>
