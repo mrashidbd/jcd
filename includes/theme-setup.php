@@ -10,7 +10,8 @@ if (!defined('ABSPATH')) {
 class DUCSU_Theme_Setup {
 
     public function __construct() {
-        add_action('after_setup_theme', [$this, 'theme_setup']);
+        // Call setup immediately in constructor
+        $this->theme_setup();
         add_action('init', [$this, 'register_menus']);
     }
 
@@ -20,7 +21,7 @@ class DUCSU_Theme_Setup {
     public function theme_setup() {
         // Enable theme support
         add_theme_support('title-tag');
-        add_theme_support('post-thumbnails');
+        add_theme_support('post-thumbnails'); // This should work now
         add_theme_support('custom-logo', [
             'height' => '80px',
             'width' => 'auto',

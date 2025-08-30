@@ -34,7 +34,7 @@ class DUCSU_Post_Types {
             ],
             'public' => true,
             'menu_icon' => 'dashicons-images-alt2',
-            'supports' => ['title', 'thumbnail'],
+            'supports' => ['title', 'thumbnail'], // thumbnail = featured image
             'show_in_rest' => true,
         ]);
     }
@@ -50,7 +50,7 @@ class DUCSU_Post_Types {
             ],
             'public' => true,
             'menu_icon' => 'dashicons-groups',
-            'supports' => ['title', 'thumbnail', 'editor'],
+            'supports' => ['title', 'thumbnail', 'editor'], // thumbnail = featured image
             'show_in_rest' => true,
             'has_archive' => true,
             'rewrite' => ['slug' => 'central-candidate']
@@ -68,7 +68,7 @@ class DUCSU_Post_Types {
             ],
             'public' => true,
             'menu_icon' => 'dashicons-building',
-            'supports' => ['title', 'thumbnail', 'editor'],
+            'supports' => ['title', 'thumbnail', 'editor'], // thumbnail = featured image
             'taxonomies' => ['halls'],
             'show_in_rest' => true,
             'has_archive' => true,
@@ -87,7 +87,7 @@ class DUCSU_Post_Types {
             ],
             'public' => true,
             'menu_icon' => 'dashicons-yes',
-            'supports' => ['title', 'editor'],
+            'supports' => ['title', 'editor', 'thumbnail'], // Added thumbnail support
             'show_in_rest' => true,
         ]);
     }

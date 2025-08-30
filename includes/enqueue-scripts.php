@@ -83,12 +83,63 @@ class DUCSU_Enqueue_Scripts {
     public function enqueue_admin_scripts($hook) {
         global $post_type, $taxonomy;
 
-        if (in_array($hook, ['post-new.php', 'post.php']) &&
-            in_array($post_type, ['central_candidate', 'hall_candidate'])) {
-            wp_enqueue_media();
-            wp_enqueue_script('jquery');
+        // Enqueue media scripts for post edit screens
+        if (in_array($hook, ['post-new.php', 'post.php'])) {
+            if (in_array($post_type, ['central_candidate', 'hall_candidate', 'slider', 'manifesto'])) {
+                wp_enqueue_media();
+                wp_enqueue_script('jquery');
+
+                // Add custom admin CSS for better styling
+                wp_add_inline_style('wp-admin', '
+                    .gallery-image {
+                        display: inline-block !important;
+                        margin: 5px !important;
+                        position: relative !important;
+                        border: 1px solid #ddd !important;
+                        padding: 5px !important;
+                        background: #fff;
+                        border-radius: 4px;
+                    }
+                    .gallery-image img {
+                        display: block !important;
+                        max-width: 100px !important;
+                        max-height: 100px !important;
+                        object-fit: cover;
+                    }
+                    .remove-image {
+                        position: absolute !important;
+                        top: -5px !important;
+                        right: -5px !important;
+                        background: #dc3232 !important;
+                        color: white !important;
+                        border: none !important;
+                        border-radius: 50% !important;
+                        width: 20px !important;
+                        height: 20px !important;
+                        font-size: 12px !important;
+                        cursor: pointer !important;
+                        line-height: 1 !important;
+                    }
+                    .remove-image:hover {
+                        background: #a00 !important;
+                    }
+                    #candidate-gallery {
+                        min-height: 50px;
+                        padding: 10px;
+                        border: 1px dashed #ccc;
+                        background: #f9f9f9;
+                        margin-bottom: 15px;
+                    }
+                    #candidate-gallery:empty:before {
+                        content: "No images selected yet. Click the button below to add images.";
+                        color: #666;
+                        font-style: italic;
+                    }
+                ');
+            }
         }
 
+        // Enqueue for taxonomy edit screens
         if ($hook === 'term.php' && $taxonomy === 'halls') {
             wp_enqueue_media();
             wp_enqueue_script('jquery');

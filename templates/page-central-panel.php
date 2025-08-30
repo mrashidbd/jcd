@@ -35,7 +35,7 @@ get_header(); ?>
 
                 $args = [
                     'post_type' => 'central_candidate',
-                    'posts_per_page' => 12,
+                    'posts_per_page' => 30,
                     'paged' => $paged,
                     'post_status' => 'publish',
                     'orderby' => 'menu_order',

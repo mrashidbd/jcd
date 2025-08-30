@@ -29,7 +29,7 @@ require_once DUCSU_INCLUDES_PATH . '/admin-functions.php';
 require_once DUCSU_INCLUDES_PATH . '/walker-classes.php';
 
 /**
- * Initialize theme features
+ * Initialize theme features immediately
  */
 function ducsu_jcd_init() {
     // Initialize all components
@@ -42,5 +42,5 @@ function ducsu_jcd_init() {
     new DUCSU_Admin_Functions();
 }
 
-// Initialize theme
-add_action('after_setup_theme', 'ducsu_jcd_init');
+// Initialize theme - CHANGE THIS LINE
+add_action('init', 'ducsu_jcd_init', 1); // Changed from 'after_setup_theme' to 'init' with priority 1
