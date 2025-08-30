@@ -91,7 +91,7 @@ get_header(); ?>
                             </div>
 
                             <button type="submit"
-                                    class="w-full bg-gradient-to-r from-primary-green to-primary-blue hover:from-primary-blue hover:to-primary-green text-white font-bold py-4 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center">
+                                    class="w-full bg-gradient-to-r cursor-pointer from-purple-200 via-blue-400 to-green-300 hover:from-primary-blue hover:to-primary-green text-white font-bold py-4 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center">
                                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
                                 </svg>
@@ -104,64 +104,6 @@ get_header(); ?>
         </div>
     </section>
 
-    <!-- FAQ Section -->
-    <section class="faq-section py-16 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold text-gray-800 mb-4">প্রায়শই জিজ্ঞাসিত প্রশ্ন</h2>
-                    <p class="text-lg text-gray-600">সাধারণ কিছু প্রশ্ন ও তার উত্তর</p>
-                </div>
-
-                <div class="space-y-4">
-                    <div class="faq-item bg-white rounded-lg shadow-lg overflow-hidden">
-                        <button class="faq-header w-full text-left p-6 bg-white hover:bg-gray-50 flex justify-between items-center transition-colors duration-300"
-                                data-target="faq-content-1">
-                            <h3 class="text-lg font-semibold text-gray-800">নির্বাচনে ভোট দেওয়ার যোগ্যতা কী?</h3>
-                            <svg class="faq-icon w-5 h-5 text-gray-400 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </button>
-                        <div id="faq-content-1" class="faq-content overflow-hidden transition-all duration-300 max-h-0">
-                            <div class="p-6 pt-0 border-t border-gray-100">
-                                <p class="text-gray-700">ঢাকা বিশ্ববিদ্যালয়ের যেকোনো নিয়মিত শিক্ষার্থী যিনি বর্তমানে অধ্যয়নরত এবং যার শিক্ষার্থী আইডি কার্ড আছে, তিনি ডাকসু নির্বাচনে ভোট দিতে পারবেন।</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="faq-item bg-white rounded-lg shadow-lg overflow-hidden">
-                        <button class="faq-header w-full text-left p-6 bg-white hover:bg-gray-50 flex justify-between items-center transition-colors duration-300"
-                                data-target="faq-content-2">
-                            <h3 class="text-lg font-semibold text-gray-800">নির্বাচনের তারিখ কবে?</h3>
-                            <svg class="faq-icon w-5 h-5 text-gray-400 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </button>
-                        <div id="faq-content-2" class="faq-content overflow-hidden transition-all duration-300 max-h-0">
-                            <div class="p-6 pt-0 border-t border-gray-100">
-                                <p class="text-gray-700">নির্বাচনের তারিখ শীঘ্রই ঘোষণা করা হবে। সর্বশেষ তথ্যের জন্য আমাদের ওয়েবসাইট ও সামাজিক যোগাযোগ মাধ্যম ফলো করুন।</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="faq-item bg-white rounded-lg shadow-lg overflow-hidden">
-                        <button class="faq-header w-full text-left p-6 bg-white hover:bg-gray-50 flex justify-between items-center transition-colors duration-300"
-                                data-target="faq-content-3">
-                            <h3 class="text-lg font-semibold text-gray-800">কীভাবে প্রার্থীদের সাথে যোগাযোগ করব?</h3>
-                            <svg class="faq-icon w-5 h-5 text-gray-400 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </button>
-                        <div id="faq-content-3" class="faq-content overflow-hidden transition-all duration-300 max-h-0">
-                            <div class="p-6 pt-0 border-t border-gray-100">
-                                <p class="text-gray-700">প্রতিটি প্রার্থীর প্রোফাইলে যোগাযোগ ফর্ম রয়েছে। আপনি সেখান থেকে সরাসরি তাদের সাথে যোগাযোগ করতে পারেন। এছাড়াও তাদের সামাজিক যোগাযোগ মাধ্যমের লিঙ্ক পাবেন।</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -213,36 +155,6 @@ get_header(); ?>
                     }
                 });
             }
-
-            // FAQ Accordion functionality
-            const faqHeaders = document.querySelectorAll('.faq-header');
-
-            faqHeaders.forEach(header => {
-                header.addEventListener('click', function() {
-                    const targetId = this.getAttribute('data-target');
-                    const content = document.getElementById(targetId);
-                    const icon = this.querySelector('.faq-icon');
-                    const isOpen = !content.classList.contains('max-h-0');
-
-                    // Close all FAQs
-                    faqHeaders.forEach(otherHeader => {
-                        const otherTargetId = otherHeader.getAttribute('data-target');
-                        const otherContent = document.getElementById(otherTargetId);
-                        const otherIcon = otherHeader.querySelector('.faq-icon');
-
-                        otherContent.classList.add('max-h-0');
-                        otherContent.classList.remove('max-h-screen');
-                        otherIcon.classList.remove('rotate-180');
-                    });
-
-                    // Toggle current FAQ
-                    if (!isOpen) {
-                        content.classList.remove('max-h-0');
-                        content.classList.add('max-h-screen');
-                        icon.classList.add('rotate-180');
-                    }
-                });
-            });
 
             // Notification function
             function showNotification(message, type = 'info') {

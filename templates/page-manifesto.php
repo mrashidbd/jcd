@@ -14,11 +14,6 @@ get_header(); ?>
                 <p class="text-lg md:text-xl leading-relaxed text-slate-800">"প্রতিশ্রুতি নয়, পরিবর্তনে প্রতিজ্ঞাবদ্ধ"</p>
             </div>
         </div>
-
-        <!-- Decorative Elements -->
-        <div class="absolute top-10 left-10 w-32 h-32 bg-white opacity-5 rounded-full"></div>
-        <div class="absolute bottom-10 right-10 w-24 h-24 bg-white opacity-5 rounded-full"></div>
-        <div class="absolute top-1/2 left-1/4 w-16 h-16 bg-white opacity-5 rounded-full"></div>
     </section>
 
     <!-- Manifesto Items -->
@@ -39,7 +34,7 @@ get_header(); ?>
                             <div class="accordion-item bg-white rounded-lg shadow-md overflow-hidden">
                                 <div class="accordion-header">
                                     <button type="button"
-                                            class="accordion-button flex items-center justify-between w-full p-6 text-left bg-white hover:bg-gray-50 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-green focus:ring-inset"
+                                            class="accordion-button flex cursor-pointer items-center justify-between w-full p-6 text-left bg-white hover:bg-gray-100 transition-colors duration-300 active:bg-gray-200 focus:outline-none"
                                             data-target="#<?php echo $accordion_id; ?>"
                                             aria-expanded="false"
                                             aria-controls="<?php echo $accordion_id; ?>">
@@ -64,28 +59,6 @@ get_header(); ?>
                                     <div class="p-6 pt-0 border-t border-gray-100">
                                         <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
                                             <?php the_content(); ?>
-                                        </div>
-
-                                        <!-- Optional: Add implementation timeline or priority -->
-                                        <div class="mt-6 flex items-center space-x-4 text-sm">
-                                    <span class="inline-flex items-center px-3 py-1 rounded-full bg-primary-green text-white font-medium">
-                                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                                        </svg>
-                                        অগ্রাধিকার
-                                    </span>
-
-                                            <?php
-                                            $implementation_period = get_post_meta(get_the_ID(), '_implementation_period', true);
-                                            if ($implementation_period) :
-                                                ?>
-                                                <span class="inline-flex items-center px-3 py-1 rounded-full bg-gray-100 text-gray-700">
-                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                            </svg>
-                                            <?php echo esc_html($implementation_period); ?>
-                                        </span>
-                                            <?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -115,20 +88,16 @@ get_header(); ?>
     <!-- Call to Action -->
     <section class="cta-section py-16 bg-gradient-to-r from-primary-blue to-primary-green">
         <div class="container mx-auto px-4 text-center text-white">
-            <div class="max-w-3xl mx-auto">
+            <div class="max-w-3xl mx-auto text-slate-700">
                 <h2 class="text-3xl md:text-4xl font-bold mb-6">আপনার মতামত আমাদের কাছে গুরুত্বপূর্ণ</h2>
                 <p class="text-lg md:text-xl mb-8 opacity-90">
                     আমাদের ইশতিহার সম্পর্কে আপনার কোনো প্রশ্ন বা পরামর্শ থাকলে আমাদের সাথে যোগাযোগ করুন।
                     আমরা সবসময় আপনাদের মতামতের জন্য প্রস্তুত।
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-                    <a href="/contact"
-                       class="inline-block bg-white text-primary-blue font-bold py-3 px-8 rounded-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
+                    <a href="<?php echo home_url(); ?>/contact"
+                       class="inline-block font-bold py-3 px-8 rounded-md text-slate-800 bg-gray-200 hover:bg-gray-400 transition-all duration-300 transform">
                         যোগাযোগ করুন
-                    </a>
-                    <a href="/central-panel"
-                       class="inline-block border-2 border-white text-white font-bold py-3 px-8 rounded-lg hover:bg-white hover:text-primary-blue transition-all duration-300 transform hover:scale-105">
-                        প্রার্থীদের দেখুন
                     </a>
                 </div>
             </div>
@@ -161,15 +130,6 @@ get_header(); ?>
                         this.setAttribute('aria-expanded', 'true');
                         target.classList.remove('hidden');
                         icon.style.transform = 'rotate(180deg)';
-
-                        // Smooth scroll to the accordion item
-                        setTimeout(() => {
-                            this.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'start',
-                                inline: 'nearest'
-                            });
-                        }, 300);
                     }
                 });
             });
@@ -178,43 +138,7 @@ get_header(); ?>
             if (accordionButtons.length > 0) {
                 accordionButtons[0].click();
             }
-
-            // Add smooth transitions
-            const style = document.createElement('style');
-            style.textContent = `
-        .accordion-content {
-            transition: all 0.3s ease;
-        }
-
-        .accordion-button:hover .accordion-icon {
-            color: #0B8645;
-        }
-
-        .prose h3 {
-            color: #1f2937;
-            font-weight: 600;
-            margin-top: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .prose ul {
-            list-style-type: disc;
-            padding-left: 1.5rem;
-            margin: 1rem 0;
-        }
-
-        .prose li {
-            margin-bottom: 0.5rem;
-        }
-
-        .prose p {
-            margin-bottom: 1rem;
-            line-height: 1.7;
-        }
-    `;
-            document.head.appendChild(style);
         });
     </script>
 
-<?php get_footer(); ?>
 <?php get_footer(); ?>
