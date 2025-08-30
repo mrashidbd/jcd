@@ -153,7 +153,7 @@ export class CandidateModal {
                         ${candidate.image ?
             `<img src="${candidate.image}" alt="${candidate.name_bangla || candidate.title}" 
                              class="w-full lg:w-80 h-80 object-cover rounded-xl shadow-xl mx-auto">` :
-            `<div class="w-full lg:w-80 h-80 bg-gradient-to-br from-primary-green to-primary-blue rounded-xl shadow-xl mx-auto flex items-center justify-center">
+            `<div class="w-full lg:w-80 h-80 bg-gradient-to-br from-green-800 to-blue-800 rounded-xl shadow-xl mx-auto flex items-center justify-center">
                                 <svg class="w-20 h-20 text-white" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
                                 </svg>
@@ -163,7 +163,7 @@ export class CandidateModal {
                 </div>
                 
                 <div class="flex-1">
-                    <div class="bg-gradient-to-br from-primary-blue to-primary-green text-white rounded-xl p-6 mb-6">
+                    <div class="bg-gradient-to-br from-slate-600 to-cyan-900 text-white rounded-xl p-6 mb-6">
                         <h2 id="modal-title" class="text-3xl lg:text-4xl font-bold mb-2">${candidate.name_bangla || candidate.title}</h2>
                         <p class="text-xl lg:text-2xl mb-2">${candidate.position || ''}</p>
                         ${candidate.ballot_number ? `<p class="text-lg lg:text-xl">ব্যালট নং: ${candidate.ballot_number}</p>` : ''}
@@ -184,7 +184,7 @@ export class CandidateModal {
         if (!value) return '';
 
         return `
-            <div class="bg-gray-50 rounded-lg p-4">
+            <div class="bg-slate-100 rounded-lg p-4">
                 <h4 class="font-semibold text-gray-700 mb-1">${label}</h4>
                 <p class="text-gray-800">${value}</p>
             </div>
@@ -199,9 +199,9 @@ export class CandidateModal {
             <div class="content-section">
                 <h3 class="text-2xl font-bold text-gray-800 mb-6">শিক্ষাজীবন</h3>
                 <div class="space-y-6">
-                    ${this.generateEducationCard('এসএসসি', candidate.ssc_school, candidate.ssc_gpa, candidate.ssc_year, 'from-green-50 to-green-100 border-green-500')}
-                    ${this.generateEducationCard('এইচএসসি', candidate.hsc_college, candidate.hsc_gpa, candidate.hsc_year, 'from-blue-50 to-blue-100 border-blue-500')}
-                    ${this.generateEducationCard('স্নাতক', candidate.graduation_university, candidate.graduation_cgpa, candidate.graduation_year, 'from-purple-50 to-purple-100 border-purple-500', candidate.graduation_subject)}
+                    ${this.generateEducationCard('এসএসসি', candidate.ssc_school, candidate.ssc_gpa, candidate.ssc_year, 'from-green-200 to-green-100 border-green-500')}
+                    ${this.generateEducationCard('এইচএসসি', candidate.hsc_college, candidate.hsc_gpa, candidate.hsc_year, 'from-blue-200 to-blue-100 border-blue-500')}
+                    ${this.generateEducationCard('স্নাতক', candidate.graduation_university, candidate.graduation_cgpa, candidate.graduation_year, 'from-purple-200 to-purple-100 border-purple-500', candidate.graduation_subject)}
                 </div>
             </div>
         `;
@@ -213,7 +213,7 @@ export class CandidateModal {
         return `
             <div class="bg-gradient-to-r ${colorClass} rounded-lg p-6 border-l-4">
                 <h4 class="text-lg font-bold mb-4">${level}</h4>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-2 text-sm">
                     ${institution ? `
                         <div>
                             <span class="font-semibold text-gray-700">প্রতিষ্ঠান:</span>
@@ -252,7 +252,7 @@ export class CandidateModal {
                 <h3 class="text-2xl font-bold text-gray-800 mb-6">পারিবারিক তথ্য</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     ${candidate.father_name ? `
-                        <div class="bg-gray-50 rounded-lg p-6">
+                        <div class="bg-slate-100 rounded-lg p-6">
                             <h4 class="font-semibold text-gray-700 mb-2">পিতার নাম</h4>
                             <p class="text-gray-800 mb-1">${candidate.father_name}</p>
                             ${candidate.father_profession ? `<p class="text-sm text-gray-600">পেশা: ${candidate.father_profession}</p>` : ''}
@@ -260,7 +260,7 @@ export class CandidateModal {
                     ` : ''}
                     
                     ${candidate.mother_name ? `
-                        <div class="bg-gray-50 rounded-lg p-6">
+                        <div class="bg-slate-100 rounded-lg p-6">
                             <h4 class="font-semibold text-gray-700 mb-2">মাতার নাম</h4>
                             <p class="text-gray-800 mb-1">${candidate.mother_name}</p>
                             ${candidate.mother_profession ? `<p class="text-sm text-gray-600">পেশা: ${candidate.mother_profession}</p>` : ''}
@@ -290,7 +290,7 @@ export class CandidateModal {
         return `
             <div class="content-section">
                 <h3 class="text-2xl font-bold text-gray-800 mb-6">ভবিষ্যৎ পরিকল্পনা ও দৃষ্টিভঙ্গি</h3>
-                <div class="bg-gradient-to-r from-primary-green/10 to-primary-blue/10 rounded-lg p-6">
+                <div class="bg-slate-100 rounded-lg p-6 shadow-sm">
                     <p class="text-gray-700 leading-relaxed">${candidate.vision.replace(/\n/g, '<br>')}</p>
                 </div>
             </div>
@@ -303,7 +303,7 @@ export class CandidateModal {
         return `
             <div class="content-section">
                 <h3 class="text-2xl font-bold text-gray-800 mb-6">রাজনৈতিক যাত্রা</h3>
-                <div class="bg-white rounded-lg p-6 shadow-md">
+                <div class="bg-slate-200 rounded-lg p-6 shadow-sm">
                     <p class="text-gray-700 leading-relaxed">${candidate.political_journey.replace(/\n/g, '<br>')}</p>
                 </div>
             </div>
