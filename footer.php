@@ -3,7 +3,7 @@
     <!-- Main Footer -->
     <div class="footer-main py-16">
         <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
                 <!-- Brand Section -->
                 <div class="footer-brand">
@@ -13,11 +13,11 @@
                         </div>
                         <div>
                             <h3 class="text-xl font-bold">বাংলাদেশ জাতীয়তাবাদী ছাত্রদল</h3>
-                            <p class="text-sm text-gray-300">২০২৫ নির্বাচন</p>
+                            <p class="text-sm text-gray-300">ডাকসু নির্বাচন - ২০২৫</p>
                         </div>
                     </div>
-                    <p class="text-gray-300 mb-6 leading-relaxed">বাংলাদেশ জাতীয়তাবাদী দলের ছাত্র সংগঠন। বাংলাদেশ জাতীয়তাবাদী ছাত্রদল ১৯৭৯ সালে প্রতিষ্ঠিত হয়।
-                        ছাত্রদলের প্রধান শ্লোগান হচ্ছে - শিক্ষা, ঐক্য, প্রগতি। এই সংগঠনটির প্রধান কার্যালয় ঢাকার নয়া পল্টনে অবস্থিত।
+                    <p class="text-gray-300 mb-6 sm:pr-0 md:pr-16 leading-relaxed">বাংলাদেশ জাতীয়তাবাদী ছাত্রদল সমর্থিত ঢাকা বিশ্ববিদ্যালয় কেন্দ্রীয় ছাত্র সংসদ (ডাকসু) ও হল সংসদ প্যানেল, ২০২৫।
+                        <br>"প্রতিশ্রুতি নয়, পরিবর্তনে প্রতিজ্ঞাবদ্ধ"
                     </p>
 
                     <!-- Social Media Links -->
@@ -57,31 +57,31 @@
                 <div class="footer-links">
                     <h4 class="text-lg font-bold mb-6 text-white">দ্রুত লিঙ্ক</h4>
                     <ul class="space-y-3">
-                        <li><a href="/" class="text-gray-300 hover:text-primary-green transition-colors duration-300 flex items-center">
+                        <li><a href="<?php echo home_url(); ?>" class="text-gray-300 hover:text-primary-green transition-colors duration-300 flex items-center">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                 </svg>
                                 হোম
                             </a></li>
-                        <li><a href="/central-panel" class="text-gray-300 hover:text-primary-green transition-colors duration-300 flex items-center">
+                        <li><a href="<?php echo home_url(); ?>/central-panel" class="text-gray-300 hover:text-primary-green transition-colors duration-300 flex items-center">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                 </svg>
                                 কেন্দ্রীয় প্যানেল
                             </a></li>
-                        <li><a href="/hall-panels" class="text-gray-300 hover:text-primary-green transition-colors duration-300 flex items-center">
+                        <li><a href="<?php echo home_url(); ?>/hall-panels" class="text-gray-300 hover:text-primary-green transition-colors duration-300 flex items-center">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                 </svg>
                                 হল প্যানেল
                             </a></li>
-                        <li><a href="/manifesto" class="text-gray-300 hover:text-primary-green transition-colors duration-300 flex items-center">
+                        <li><a href="<?php echo home_url(); ?>/manifesto" class="text-gray-300 hover:text-primary-green transition-colors duration-300 flex items-center">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                 </svg>
                                 ইশতেহার
                             </a></li>
-                        <li><a href="/contact" class="text-gray-300 hover:text-primary-green transition-colors duration-300 flex items-center">
+                        <li><a href="<?php echo home_url(); ?>/contact" class="text-gray-300 hover:text-primary-green transition-colors duration-300 flex items-center">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                 </svg>
@@ -94,84 +94,37 @@
                 <div class="footer-info">
                     <h4 class="text-lg font-bold mb-6 text-white">গুরুত্বপূর্ণ তথ্য</h4>
                     <ul class="space-y-3">
-                        <li><a href="/about" class="text-gray-300 hover:text-primary-green transition-colors duration-300 flex items-center">
+                        <li><a href="//ducsu.du.ac.bd/voter.php" target="_blank" class="text-gray-300 hover:text-primary-green transition-colors duration-300 flex items-center">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                 </svg>
-                                আমাদের সম্পর্কে
+                                ভোটার অনুসন্ধান
                             </a></li>
-                        <li><a href="/election-schedule" class="text-gray-300 hover:text-primary-green transition-colors duration-300 flex items-center">
+                        <li><a href="#" class="text-gray-300 hover:text-primary-green transition-colors duration-300 flex items-center">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                 </svg>
                                 নির্বাচনী সূচি
                             </a></li>
-                        <li><a href="/voting-guidelines" class="text-gray-300 hover:text-primary-green transition-colors duration-300 flex items-center">
+                        <li><a href="#" class="text-gray-300 hover:text-primary-green transition-colors duration-300 flex items-center">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                 </svg>
                                 ভোট প্রদান নির্দেশিকা
                             </a></li>
-                        <li><a href="/news" class="text-gray-300 hover:text-primary-green transition-colors duration-300 flex items-center">
+                        <li><a href="#" class="text-gray-300 hover:text-primary-green transition-colors duration-300 flex items-center">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                 </svg>
                                 সংবাদ ও আপডেট
                             </a></li>
-                        <li><a href="/privacy-policy" class="text-gray-300 hover:text-primary-green transition-colors duration-300 flex items-center">
+                        <li><a href="<?php echo home_url(); ?>/privacy-policy" class="text-gray-300 hover:text-primary-green transition-colors duration-300 flex items-center">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                 </svg>
                                 গোপনীয়তা নীতি
                             </a></li>
                     </ul>
-                </div>
-
-                <!-- Contact Info -->
-                <div class="footer-contact">
-                    <h4 class="text-lg font-bold mb-6 text-white">যোগাযোগ</h4>
-                    <div class="space-y-4">
-                        <div class="flex items-start space-x-3">
-                            <svg class="w-5 h-5 text-primary-green mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
-                            </svg>
-                            <div class="text-gray-300">
-                                <p class="font-medium text-white">ঠিকানা</p>
-                                <p class="text-sm">ঢাকা বিশ্ববিদ্যালয়<br>ঢাকা ১০০০, বাংলাদেশ</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start space-x-3">
-                            <svg class="w-5 h-5 text-primary-green mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
-                            </svg>
-                            <div class="text-gray-300">
-                                <p class="font-medium text-white">ফোন</p>
-                                <p class="text-sm">+৮৮০ ১৭১২ ৩৪৫৬৭৮</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start space-x-3">
-                            <svg class="w-5 h-5 text-primary-green mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
-                            </svg>
-                            <div class="text-gray-300">
-                                <p class="font-medium text-white">ইমেইল</p>
-                                <p class="text-sm">info@jcdducsu.org</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start space-x-3">
-                            <svg class="w-5 h-5 text-primary-green mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.414-1.415L11 9.586V6z" clip-rule="evenodd"></path>
-                            </svg>
-                            <div class="text-gray-300">
-                                <p class="font-medium text-white">সময়</p>
-                                <p class="text-sm">সোম-শুক্র: ৯:০০-১৭:০০<br>শনি: ১০:০০-১৪:০০</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -217,7 +170,7 @@
             <!-- Developer Credit -->
             <div class="text-center mt-4 pt-4 border-t border-gray-800">
                 <p class="text-gray-500 text-xs">
-                    Developed with ❤️ by <a href="#" class="text-primary-green hover:text-primary-blue transition-colors">তথ্য ও প্রযুক্তি দপ্তর, বিএনপি।</a>
+                    Developed with ❤️ by <a href="//bnpbd.org/" class="text-primary-green hover:text-primary-blue transition-colors">তথ্য ও প্রযুক্তি দপ্তর, বিএনপি।</a>
                 </p>
             </div>
         </div>
@@ -226,8 +179,8 @@
 
 <!-- Scroll to Top Button -->
 <button id="scroll-to-top"
-        class="fixed bottom-8 right-8 bg-primary-green hover:bg-primary-blue cursor-pointer text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 opacity-0 translate-y-4 pointer-events-none z-30">
-    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        class="fixed bottom-8 right-8 bg-primary-green hover:bg-green-900 cursor-pointer text-white w-12 h-12 rounded-full shadow-lg flex items-center group justify-center transition-all duration-300 opacity-0 translate-y-4 pointer-events-none z-30">
+    <svg class="w-6 h-6 group-hover:-translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
     </svg>
 </button>

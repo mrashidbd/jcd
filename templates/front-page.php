@@ -32,20 +32,20 @@ get_header(); ?>
 
         <!-- Slider Navigation -->
         <?php if ($slider_count > 1) : ?>
-            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3">
+            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 space-x-3 hidden">
                 <?php for ($i = 1; $i <= $slider_count; $i++) : ?>
                     <button class="slider-dot w-3 h-3 rounded-full bg-green-900/10 over:bg-green-900/100 transition-all duration-300"
                             data-slide="<?php echo $i; ?>"></button>
                 <?php endfor; ?>
             </div>
 
-            <button class="slider-prev absolute p-2 md:p-4 xl:p-6 cursor-pointer bg-indigo-900/10 left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-primary-green transition-colors duration-300">
+            <button class="slider-prev absolute p-2 md:p-4 xl:p-6 cursor-pointer bg-indigo-900/20 left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-purple-500 transition-colors duration-300">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                 </svg>
             </button>
 
-            <button class="slider-next absolute p-2 md:p-4 xl:p-6 cursor-pointer bg-indigo-900/10 right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-primary-green transition-colors duration-300">
+            <button class="slider-next absolute p-2 md:p-4 xl:p-6 cursor-pointer bg-indigo-900/20 right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-purple-500 transition-colors duration-300">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
@@ -58,13 +58,12 @@ get_header(); ?>
     <!-- Central Panel Section -->
     <section
             class="central-panel-section min-h-[700px] py-20 bg-cover bg-center relative flex items-center justify-center"
-            style="background-image: linear-gradient(135deg, rgba(30, 183, 224, 0.4), rgba(166, 169, 135, 0.3)), url('/ducsu/wp-content/themes/jcd-ducsu/assets/images/central-bg.jpg');">
+            style="background-image: linear-gradient(135deg, rgba(30, 183, 224, 0.4), rgba(166, 169, 135, 0.3)), url('<?php echo home_url(); ?>/wp-content/themes/jcd-ducsu/assets/images/central-bg.jpg');">
         <div class="container mx-auto px-4">
             <div class="text-center text-white mb-12">
                 <h2 class="text-4xl md:text-5xl font-bold mb-4">কেন্দ্রীয় প্যানেল</h2>
-                <p class="text-lg md:text-xl mb-8">আমাদের দক্ষ এবং অভিজ্ঞ কেন্দ্রীয় প্যানেলের প্রার্থীদের সাথে পরিচিত
-                    হন</p>
-                <a href="/central-panel"
+                <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto">ঢাকা বিশ্ববিদ্যালয় কেন্দ্রীয় ছাত্র সংসদ (ডাকসু) ও হল সংসদ নির্বাচন ২০২৫ - এর কেন্দ্রীয় সংসদে বাংলাদেশ জাতীয়তাবাদী ছাত্রদল সমর্থিত পদপ্রার্থীদের বিস্তারিত</p>
+                <a href="<?php echo home_url(); ?>/central-panel"
                    class="inline-block bg-primary-red hover:bg-primary-green text-white font-bold py-3 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105">
                     সব প্রার্থী দেখুন
                 </a>
@@ -82,7 +81,7 @@ get_header(); ?>
                     <h2 class="text-4xl md:text-5xl font-bold mb-4">হল প্যানেল</h2>
                     <p class="text-lg md:text-xl mb-8">আপনার হলের প্রার্থীদের সাথে পরিচিত হন এবং তাদের ভবিষ্যৎ পরিকল্পনা
                         জানুন</p>
-                    <a href="/hall-panels"
+                    <a href="<?php echo home_url(); ?>/hall-panels"
                        class="inline-block bg-primary-red hover:bg-primary-blue text-white font-bold py-3 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105">
                         সব হল দেখুন
                     </a>

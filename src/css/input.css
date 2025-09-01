@@ -1,6 +1,30 @@
 @import "tailwindcss";
 @plugin "flowbite/plugin";
-@source "../node_modules/flowbite";
+/*@source "../node_modules/flowbite";*/
+
+@layer components {
+    .wp-block-list {
+        /* Apply existing Tailwind utility classes */
+        @apply list-disc ml-6 leading-6 text-lg space-y-4;
+    }
+    .wp-block-list li {
+    }
+    .primary-navigation ul li.menu-item{
+        @apply text-lg;
+    }
+
+    .current-menu-item a{
+        @apply bg-slate-100;
+    }
+    h2.wp-block-heading{
+        @apply text-xl leading-loose mt-8 mb-4 bg-slate-50 p-4 rounded-md shadow-xs;
+    }
+
+
+
+
+
+}
 
 /* New Tailwind v4 Theming */
 @theme {
@@ -16,7 +40,7 @@
     --color-primary-900: #1e3a8a;
 
     --font-sans: 'Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'system-ui', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    --font-bangla: 'Hind Siliguri', 'Noto Sans Bengali', 'Arial', 'sans-serif';
+    --font-bangla: 'Noto Serif Bengali', 'Arial', 'sans-serif';
 }
 
 /* Custom Properties for Theme Colors */
@@ -33,7 +57,6 @@ html {
 body {
     font-family: var(--font-bangla);
     line-height: 1.6;
-    color: white;
     overflow-x: hidden;
 }
 
@@ -49,7 +72,7 @@ p {
 }
 
 img.custom-logo{
-    max-height: 45px;
+    max-height: 60px;
     width: auto;
 }
 

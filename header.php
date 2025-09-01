@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <?php wp_head(); ?>
 </head>
 <body <?php body_class('bg-white antialiased font-bangla'); ?>>
 
 <!-- Header -->
-<header class="site-header bg-white shadow-lg sticky top-0 z-40">
+<header class="site-header bg-white shadow-sm sticky top-0 z-40">
     <div class="container mx-auto px-4">
-        <div class="flex items-center justify-between py-4">
+        <div class="flex items-center justify-between py-2 md:py-0">
 
             <!-- Logo -->
             <div class="site-logo flex items-center space-x-3">
@@ -35,7 +35,7 @@
             </div>
 
             <!-- Desktop Navigation -->
-            <nav class="primary-navigation hidden lg:block">
+            <nav class="primary-navigation py-6 hidden lg:block">
                 <?php
                 wp_nav_menu([
                     'theme_location' => 'primary_menu',
@@ -49,6 +49,10 @@
 
             <!-- Header Actions -->
             <div class="header-actions flex items-center space-x-4">
+                
+                <!-- Secondary Logo -->
+                <img src="<?php echo home_url(); ?>/wp-content/uploads/2025/08/DU-DUCSU-Combined-Logo.png"
+                     class="max-h-[60px]" alt="DU Logo">
 
                 <!-- Search Toggle -->
                 <button id="search-toggle-btn" class="search-toggle text-gray-700 cursor-pointer hover:text-primary-green transition-colors duration-300 p-2" type="button">

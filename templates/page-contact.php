@@ -15,11 +15,11 @@ get_header(); ?>
     </section>
 
     <!-- Contact Section -->
-    <section class="contact-section py-16">
+    <section class="contact-section py-16 bg-slate-100">
         <div class="container mx-auto px-4 ">
                 <!-- Contact Form -->
-                <div class="contact-form mx-0 md:mx-96">
-                    <div class="bg-white rounded-2xl shadow-xl p-8">
+                <div class="contact-form max-w-4xl mx-auto">
+                    <div class="bg-white rounded-2xl shadow-sm p-8">
                         <h2 class="text-3xl font-bold text-gray-800 mb-2">বার্তা পাঠান</h2>
                         <p class="text-gray-600 mb-8">আপনার মতামত, পরামর্শ বা যেকোনো প্রশ্ন আমাদের জানান। আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।</p>
 
@@ -37,29 +37,6 @@ get_header(); ?>
                                     <input type="email" id="contact-email" name="email" required
                                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-green focus:border-transparent transition-all duration-300"
                                            placeholder="example@email.com">
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <label for="contact-phone" class="block text-sm font-semibold text-gray-700 mb-2">ফোন নম্বর</label>
-                                    <input type="tel" id="contact-phone" name="phone"
-                                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-green focus:border-transparent transition-all duration-300"
-                                           placeholder="+৮৮০ ১৭xx xxx xxx">
-                                </div>
-
-                                <div>
-                                    <label for="contact-subject" class="block text-sm font-semibold text-gray-700 mb-2">বিষয়</label>
-                                    <select id="contact-subject" name="subject"
-                                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-green focus:border-transparent transition-all duration-300">
-                                        <option value="">বিষয় নির্বাচন করুন</option>
-                                        <option value="general">সাধারণ তথ্য</option>
-                                        <option value="complaint">অভিযোগ</option>
-                                        <option value="suggestion">পরামর্শ</option>
-                                        <option value="support">সহযোগিতা</option>
-                                        <option value="media">মিডিয়া অনুসন্ধান</option>
-                                        <option value="other">অন্যান্য</option>
-                                    </select>
                                 </div>
                             </div>
 
@@ -90,8 +67,8 @@ get_header(); ?>
                                 </div>
                             </div>
 
-                            <button type="submit"
-                                    class="w-full bg-gradient-to-r cursor-pointer from-purple-200 via-blue-400 to-green-300 hover:from-primary-blue hover:to-primary-green text-white font-bold py-4 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center">
+                            <button type="submit" style="background-image: linear-gradient(135deg, rgba(0, 213, 190, 0.8), rgba(255, 240, 133, 0.9))"
+                                    class="w-full cursor-pointer text-slate-700 font-bold py-4 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center">
                                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
                                 </svg>

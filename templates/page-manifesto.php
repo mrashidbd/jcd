@@ -17,7 +17,7 @@ get_header(); ?>
     </section>
 
     <!-- Manifesto Items -->
-    <section class="manifesto-content py-16 bg-gray-50">
+    <section class="manifesto-content py-16 bg-slate-100">
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto">
 
@@ -31,16 +31,16 @@ get_header(); ?>
                             $item_count++;
                             $accordion_id = 'accordion-item-' . $item_count;
                             ?>
-                            <div class="accordion-item bg-white rounded-lg shadow-md overflow-hidden">
+                            <div class="accordion-item bg-white rounded-lg shadow-sm overflow-hidden">
                                 <div class="accordion-header">
                                     <button type="button"
-                                            class="accordion-button flex cursor-pointer items-center justify-between w-full p-6 text-left bg-white hover:bg-gray-100 transition-colors duration-300 active:bg-gray-200 focus:outline-none"
+                                            class="accordion-button flex cursor-pointer items-center justify-between w-full p-6 text-left bg-green-50 hover:bg-green-100 transition-colors duration-300 active:bg-gray-200 focus:outline-none"
                                             data-target="#<?php echo $accordion_id; ?>"
                                             aria-expanded="false"
                                             aria-controls="<?php echo $accordion_id; ?>">
                                         <div class="flex items-center space-x-4">
                                             <div class="bg-primary-green text-white w-10 h-10 rounded-full flex items-center justify-center font-bold">
-                                                <?php echo str_pad($item_count, 2, '0', STR_PAD_LEFT); ?>
+                                                <?php echo convertEngToBn(str_pad($item_count, 2, '0', STR_PAD_LEFT)); ?>
                                             </div>
                                             <h3 class="text-lg md:text-xl font-semibold text-gray-800">
                                                 <?php the_title(); ?>
@@ -56,7 +56,7 @@ get_header(); ?>
                                 <div id="<?php echo $accordion_id; ?>"
                                      class="accordion-content hidden"
                                      aria-labelledby="accordion-button-<?php echo $item_count; ?>">
-                                    <div class="p-6 pt-0 border-t border-gray-100">
+                                    <div class="p-6 border-t border-gray-100">
                                         <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
                                             <?php the_content(); ?>
                                         </div>
@@ -86,7 +86,7 @@ get_header(); ?>
     </section>
 
     <!-- Call to Action -->
-    <section class="cta-section py-16 bg-gradient-to-r from-primary-blue to-primary-green">
+    <section class="cta-section py-16 bg-gradient-to-r from-teal-400 to-yellow-200">
         <div class="container mx-auto px-4 text-center text-white">
             <div class="max-w-3xl mx-auto text-slate-700">
                 <h2 class="text-3xl md:text-4xl font-bold mb-6">আপনার মতামত আমাদের কাছে গুরুত্বপূর্ণ</h2>

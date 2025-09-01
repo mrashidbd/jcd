@@ -15,18 +15,7 @@ $selected_hall = $selected_hall_id ? get_term($selected_hall_id, 'halls') : null
     <!-- Single Hall View -->
     <section class="page-header bg-cover bg-center bg-no-repeat py-20"
              style="background-image: linear-gradient(135deg, rgba(0, 213, 190, 0.8), rgba(255, 240, 133, 0.9)), url('/ducsu/wp-content/themes/jcd-ducsu/assets/images/central-bg.jpg');">
-        >
-        <div class="container mx-auto px-4 text-center text-white">
-            <div class="mb-4">
-                <a href="<?php echo remove_query_arg('hall'); ?>"
-                   class="inline-flex items-center text-white hover:text-gray-200 transition-colors">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M15 19l-7-7 7-7"></path>
-                    </svg>
-                    সব হল দেখুন
-                </a>
-            </div>
+        <div class="container mx-auto px-4 text-center text-slate-700">
             <h1 class="text-4xl md:text-6xl font-bold mb-4"><?php echo esc_html($selected_hall->name); ?></h1>
             <p class="text-lg md:text-xl">
                 <?php
@@ -38,8 +27,23 @@ $selected_hall = $selected_hall_id ? get_term($selected_hall_id, 'halls') : null
     </section>
 
     <!-- Hall Candidates -->
-    <section class="candidates-section py-16 bg-gray-50">
+    <section class="candidates-section py-8 bg-slate-100">
         <div class="container mx-auto px-4">
+
+            <!-- back button -->
+
+            <div class="mb-8">
+                <a href="<?php echo remove_query_arg('hall'); ?>"
+                   class="inline-flex items-center min-w-16 px-8 py-2 rounded text-yellow-50 bg-teal-700 hover:bg-teal-800 transition-all group">
+                    <svg class="rotate-180 w-6 h-6 mr-2 group-hover:-translate-x-2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                        <g>
+                            <path d="M10.22,9.28a.75.75,0,0,1,0-1.06l2.72-2.72H.75A.75.75,0,0,1,.75,4H12.938L10.22,1.281A.75.75,0,1,1,11.281.22l4,4a.749.749,0,0,1,0,1.06l-4,4a.75.75,0,0,1-1.061,0Z" transform="translate(4.25 7.25)"/>
+                        </g>
+                    </svg>
+                    <span class="text-xl">সকল হল</span>
+                </a>
+            </div>
+
             <div class="candidates-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                 <?php
                 $hall_candidates = ducsu_get_hall_candidates($selected_hall_id);
@@ -52,7 +56,7 @@ $selected_hall = $selected_hall_id ? get_term($selected_hall_id, 'halls') : null
                         $department = get_post_meta(get_the_ID(), '_candidate_department', true);
                         $session = get_post_meta(get_the_ID(), '_candidate_session', true);
                         ?>
-                        <div class="candidate-card bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer group"
+                        <div class="candidate-card bg-white rounded-xl overflow-hidden shadow-xs hover:shadow-sm transform hover:scale-105 transition-all duration-300 cursor-pointer group"
                              data-candidate-id="<?php echo get_the_ID(); ?>">
 
                             <div class="relative overflow-hidden">
@@ -63,55 +67,30 @@ $selected_hall = $selected_hall_id ? get_term($selected_hall_id, 'halls') : null
                                 <?php else : ?>
                                     <div class="w-full h-56 bg-gradient-to-br from-primary-green to-primary-blue flex items-center justify-center">
                                         <svg class="w-20 h-20 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd"
-                                                  d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                                                  clip-rule="evenodd"></path>
+                                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
                                         </svg>
                                     </div>
                                 <?php endif; ?>
-
-                                <!-- Ballot Number Badge -->
-                                <?php if ($ballot_number) : ?>
-                                    <div class="absolute top-4 left-4 bg-primary-red text-white px-3 py-1 rounded-full text-sm font-bold">
-                                        <?php echo esc_html($ballot_number); ?>
-                                    </div>
-                                <?php endif; ?>
-
-                                <!-- Hover Overlay -->
-                                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
-                                    <button class="bg-white text-primary-green px-6 py-2 rounded-full font-medium opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
-                                        বিস্তারিত দেখুন
-                                    </button>
-                                </div>
                             </div>
 
-                            <div class="p-6">
-                                <h3 class="text-xl font-bold text-gray-800 mb-2 line-clamp-2">
-                                    <?php echo esc_html($name_bangla ?: get_the_title()); ?>
-                                </h3>
-
-                                <div class="space-y-2 mb-4">
-                                    <p class="text-primary-green font-semibold text-lg"><?php echo esc_html($position); ?></p>
-                                    <p class="text-gray-600 text-sm"><?php echo esc_html($department); ?></p>
-                                    <?php if ($session) : ?>
-                                        <p class="text-gray-500 text-sm">সেশন: <?php echo esc_html($session); ?></p>
-                                    <?php endif; ?>
+                            <div class="bg-white p-4">
+                                <div>
+                                    <p class="text-center bg-yellow-100 text-yellow-900 py-2 !mb-4">
+                                        <?php echo esc_html($position); ?>
+                                    </p>
                                 </div>
-
-                                <div class="flex justify-between items-center">
-                                    <button class="text-primary-green hover:text-primary-red font-medium text-sm transition-colors duration-300 flex items-center candidate-details-btn"
-                                            data-candidate-id="<?php echo get_the_ID(); ?>">
-                                        <span>আরও জানুন</span>
-                                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                  d="M9 5l7 7-7 7"></path>
-                                        </svg>
-                                    </button>
-
-                                    <button class="bg-primary-green hover:bg-primary-red text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 contact-candidate-btn"
-                                            data-candidate-id="<?php echo get_the_ID(); ?>">
-                                        যোগাযোগ
-                                    </button>
+                                <div class="mb-4">
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2 line-clamp-2">
+                                        <?php echo esc_html($name_bangla ?: get_the_title()); ?>
+                                    </h3>
+                                </div>
+                                <!-- Ballot Number Badge -->
+                                <?php if ($ballot_number) : ?>
+                                    <div class="flex flex-col mx-auto max-w-32 text-center font-semibold">
+                                        <p class="!mb-0 px-4 py-1 text-lg bg-teal-800 rounded-t-lg text-white">ব্যালট নম্বর</p>
+                                        <p class="!mb-0 px-4 py-2 text-4xl bg-teal-100 rounded-b-lg text-teal-900"><?php echo esc_html($ballot_number); ?></p>
+                                    </div>
+                                <?php endif; ?>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +99,7 @@ $selected_hall = $selected_hall_id ? get_term($selected_hall_id, 'halls') : null
                 else :
                     ?>
                     <div class="col-span-full text-center py-12">
-                        <div class="bg-gray-100 rounded-lg p-8 max-w-md mx-auto">
+                        <div class="bg-slate-100 rounded-lg p-8 max-w-md mx-auto">
                             <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor"
                                  viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -132,24 +111,40 @@ $selected_hall = $selected_hall_id ? get_term($selected_hall_id, 'halls') : null
                     </div>
                 <?php
                 endif;
-                wp_reset_postdata();
+
+                //show only if it has more than 8 posts
+                if ($hall_candidates->have_posts() && $hall_candidates->post_count > 8) :
                 ?>
+                <div class="mt-8">
+                    <a href="<?php echo remove_query_arg('hall'); ?>"
+                       class="inline-flex items-center min-w-16 px-8 py-2 rounded text-yellow-50 bg-teal-700 hover:bg-teal-800 transition-all group">
+                        <svg class="rotate-180 w-6 h-6 mr-2 group-hover:-translate-x-2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                            <g>
+                                <path d="M10.22,9.28a.75.75,0,0,1,0-1.06l2.72-2.72H.75A.75.75,0,0,1,.75,4H12.938L10.22,1.281A.75.75,0,1,1,11.281.22l4,4a.749.749,0,0,1,0,1.06l-4,4a.75.75,0,0,1-1.061,0Z" transform="translate(4.25 7.25)"/>
+                            </g>
+                        </svg>
+                        <span class="text-xl">সকল হল</span>
+                    </a>
+                </div>
+                <?php
+                endif;
+                wp_reset_postdata(); ?>
+
             </div>
-        </div>
     </section>
 
 <?php else : ?>
     <!-- All Halls View -->
     <section class="page-header bg-cover bg-center bg-no-repeat py-20"
-             style="background-image: linear-gradient(135deg, rgba(0, 213, 190, 0.8), rgba(255, 240, 133, 0.9)), url('/ducsu/wp-content/themes/jcd-ducsu/assets/images/central-bg.jpg');">>
-        <div class="container mx-auto px-4 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4 text-slate-700">হল সংসদ</h1>
-            <p class="text-lg md:text-xl max-w-2xl mx-auto">ঢাকা বিশ্ববিদ্যালয় কেন্দ্রীয় ছাত্র সংসদ (ডাকসু) ও হল সংসদ নির্বাচন ২০২৫ - এর হল সংসদে বাংলাদেশ জাতীয়তাবাদী ছাত্রদল সমর্থিত পদপ্রার্থীর বিস্তারিত।</p>
+             style="background-image: linear-gradient(135deg, rgba(0, 213, 190, 0.8), rgba(255, 240, 133, 0.9)), url('/ducsu/wp-content/themes/jcd-ducsu/assets/images/central-bg.jpg');">
+        <div class="container mx-auto px-4 text-center text-slate-800">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">হল সংসদ</h1>
+            <p class="text-lg md:text-xl max-w-2xl mx-auto">ঢাকা বিশ্ববিদ্যালয় কেন্দ্রীয় ছাত্র সংসদ (ডাকসু) ও হল সংসদ নির্বাচন ২০২৫ - এর হল সংসদে বাংলাদেশ জাতীয়তাবাদী ছাত্রদল সমর্থিত পদপ্রার্থীদের বিস্তারিত।</p>
         </div>
     </section>
 
     <!-- Halls Grid -->
-    <section class="halls-section py-16 bg-gray-50">
+    <section class="halls-section py-16 bg-slate-100">
         <div class="container mx-auto px-4">
             <div class="halls-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <?php
@@ -191,7 +186,7 @@ $selected_hall = $selected_hall_id ? get_term($selected_hall_id, 'halls') : null
                 else :
                     ?>
                     <div class="col-span-full text-center py-12">
-                        <div class="bg-gray-100 rounded-lg p-8 max-w-md mx-auto">
+                        <div class="bg-slate-100 rounded-lg p-8 max-w-md mx-auto">
                             <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor"
                                  viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

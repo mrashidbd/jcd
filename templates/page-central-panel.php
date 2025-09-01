@@ -8,23 +8,23 @@ get_header(); ?>
 
     <!-- Page Header -->
     <section class="page-header bg-cover bg-center bg-no-repeat py-20"
-             style="background-image: linear-gradient(135deg, rgba(0, 213, 190, 0.8), rgba(255, 240, 133, 0.9)), url('/ducsu/wp-content/themes/jcd-ducsu/assets/images/central-bg.jpg');">>
-        <div class="container mx-auto px-4 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4 text-slate-700">কেন্দ্রীয় সংসদ</h1>
-            <p class="text-lg md:text-xl max-w-2xl mx-auto">ঢাকা বিশ্ববিদ্যালয় কেন্দ্রীয় ছাত্র সংসদ (ডাকসু) ও হল সংসদ নির্বাচন ২০২৫ - এর কেন্দ্রীয় সংসদে বাংলাদেশ জাতীয়তাবাদী ছাত্রদল সমর্থিত ২৭ জন পদপ্রার্থীর বিস্তারিত</p>
+             style="background-image: linear-gradient(135deg, rgba(0, 213, 190, 0.8), rgba(255, 240, 133, 0.9)), url('/ducsu/wp-content/themes/jcd-ducsu/assets/images/central-bg.jpg');">
+        <div class="container mx-auto px-4 text-center text-slate-800">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">কেন্দ্রীয় সংসদ</h1>
+            <p class="text-lg md:text-xl max-w-2xl mx-auto">ঢাকা বিশ্ববিদ্যালয় কেন্দ্রীয় ছাত্র সংসদ (ডাকসু) ও হল সংসদ নির্বাচন ২০২৫ - এর কেন্দ্রীয় সংসদে বাংলাদেশ জাতীয়তাবাদী ছাত্রদল সমর্থিত পদপ্রার্থীদের বিস্তারিত</p>
         </div>
     </section>
 
     <!-- Candidates Grid -->
-    <section class="candidates-section py-16 bg-gray-50">
+    <section class="candidates-section py-16 bg-slate-100">
         <div class="container mx-auto px-4">
 
             <!-- Total Candidates Count -->
             <div class="text-center mb-12">
                 <h2 class="text-2xl font-bold text-gray-800">মোট <?php
                     $total_candidates = wp_count_posts('central_candidate');
-                    echo $total_candidates->publish;
-                    ?>টি প্রার্থী</h2>
+                    echo convertEngToBn($total_candidates->publish);
+                    ?> জন প্রার্থী</h2>
                 <p class="text-gray-600 mt-2">প্রার্থীর বিস্তারিত দেখতে কার্ডে ক্লিক করুন</p>
             </div>
 
@@ -70,19 +70,22 @@ get_header(); ?>
                                 <?php endif; ?>
                             </div>
 
-                            <div class="p-6 bg-white">
-                                <div class="space-y-2 mb-4">
-                                    <p class="text-primary-blue font-semibold text-lg"><?php echo esc_html($position); ?></p>
+                            <div class="bg-white p-4">
+                                <div>
+                                    <p class="text-center bg-yellow-100 text-yellow-900 py-2 !mb-4">
+                                            <?php echo esc_html($position); ?>
+                                    </p>
                                 </div>
-                                <div class="relative">
-                                    <h3 class="text-xl font-bold text-gray-800 mb-2 line-clamp-2">
+                                <div class="mb-4">
+                                    <h3 class="text-xl text-center font-bold text-teal-700 mb-2">
                                         <?php echo esc_html($name_bangla ?: get_the_title()); ?>
                                     </h3>
                                 </div>
                                 <!-- Ballot Number Badge -->
                                 <?php if ($ballot_number) : ?>
-                                    <div class="bg-primary-red text-white px-3 py-1 rounded-full text-sm font-bold">
-                                        <span>ব্যালট নম্বর: <?php echo esc_html($ballot_number); ?></span>
+                                    <div class="flex flex-col mx-auto max-w-32 text-center font-semibold">
+                                        <p class="!mb-0 px-4 py-1 text-lg bg-teal-800 rounded-t-lg text-white">ব্যালট নম্বর</p>
+                                        <p class="!mb-0 px-4 py-2 text-4xl bg-teal-100 rounded-b-lg text-teal-900"><?php echo esc_html($ballot_number); ?></p>
                                     </div>
                                 <?php endif; ?>
                             </div>
@@ -104,6 +107,12 @@ get_header(); ?>
                 endif;
                 ?>
             </div>
+
+
+
+
+
+
 
             <!-- Pagination -->
             <?php if ($candidates->max_num_pages > 1) : ?>

@@ -58,8 +58,8 @@ export class HeroSlider {
 
         // Pause/Resume on hover
         if (this.sliderContainer) {
-            this.sliderContainer.addEventListener('mouseenter', () => this.pauseAutoPlay());
-            this.sliderContainer.addEventListener('mouseleave', () => this.startAutoPlay());
+            this.sliderContainer.addEventListener('mousedown', () => this.pauseAutoPlay());
+            this.sliderContainer.addEventListener('mouseup', () => this.startAutoPlay());
         }
 
         // Touch/Swipe support
@@ -133,7 +133,7 @@ export class HeroSlider {
         this.pauseAutoPlay(); // Clear existing interval
         this.autoPlayInterval = setInterval(() => {
             this.nextSlide();
-        }, 5000);
+        }, 3000);
         this.isPlaying = true;
     }
 

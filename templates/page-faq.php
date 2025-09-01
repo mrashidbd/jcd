@@ -10,9 +10,9 @@ get_header(); ?>
     <section class="page-header py-20 relative overflow-hidden bg-no-repeat bg-center bg-cover"
              style="background-image: linear-gradient(135deg, rgba(0, 213, 190, 0.8), rgba(255, 240, 133, 0.9)), url('/ducsu/wp-content/themes/jcd-ducsu/assets/images/central-bg.jpg');">
         <div class="container mx-auto px-4 text-center relative z-10">
-            <div class="max-w-4xl mx-auto">
-                <h1 class="text-4xl md:text-6xl font-bold mb-6 text-slate-700">সচরাচর জিজ্ঞাসিত প্রশ্নাবলী</h1>
-                <p class="text-lg md:text-xl leading-relaxed text-slate-800">"আপনার প্রশ্ন, আমাদের অবস্থান"</p>
+            <div class="max-w-4xl text-slate-700 mx-auto">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">সচরাচর জিজ্ঞাসিত প্রশ্নাবলী</h1>
+                <p class="text-lg md:text-xl leading-relaxed">"আপনার প্রশ্ন, আমাদের অবস্থান"</p>
             </div>
         </div>
     </section>
@@ -61,7 +61,7 @@ $faq_items = [
 
 
     <!-- faq Items -->
-    <section class="faq-content py-16 bg-gray-50">
+    <section class="faq-content py-16 bg-slate-100">
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto">
 
@@ -74,16 +74,16 @@ $faq_items = [
                             $item_count++;
                             $accordion_id = 'accordion-item-' . $item_count;
                             ?>
-                            <div class="accordion-item bg-white rounded-lg shadow-md overflow-hidden">
+                            <div class="accordion-item bg-white rounded-lg shadow-sm overflow-hidden">
                                 <div class="accordion-header">
                                     <button type="button"
-                                            class="accordion-button flex cursor-pointer items-center justify-between w-full p-6 text-left bg-white hover:bg-gray-100 transition-colors duration-300 active:bg-gray-200 focus:outline-none"
+                                            class="accordion-button flex cursor-pointer items-center justify-between w-full p-6 text-left bg-blue-50 hover:bg-blue-100 transition-colors duration-300 active:bg-gray-200 focus:outline-none"
                                             data-target="#<?php echo $accordion_id; ?>"
                                             aria-expanded="false"
                                             aria-controls="<?php echo $accordion_id; ?>">
                                         <div class="flex items-center space-x-4">
-                                            <div class="bg-primary-green text-white w-10 h-10 rounded-full flex items-center justify-center font-bold">
-                                                <?php echo str_pad($item_count, 2, '0', STR_PAD_LEFT); ?>
+                                            <div class="bg-slate-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold">
+                                                <?php echo convertEngToBn(str_pad($item_count, 2, '0', STR_PAD_LEFT)); ?>
                                             </div>
                                             <h3 class="text-lg md:text-xl font-semibold text-gray-800">
                                                 <?php echo $faq_item['title']; ?>
@@ -100,7 +100,7 @@ $faq_items = [
                                 <div id="<?php echo $accordion_id; ?>"
                                      class="accordion-content hidden"
                                      aria-labelledby="accordion-button-<?php echo $item_count; ?>">
-                                    <div class="p-6 pt-0 border-t border-gray-100">
+                                    <div class="p-6 border-t border-gray-100">
                                         <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
                                             <?php echo $faq_item['content']; ?>
                                         </div>
@@ -137,8 +137,7 @@ $faq_items = [
             <div class="max-w-3xl mx-auto text-slate-700">
                 <h2 class="text-3xl md:text-4xl font-bold mb-6">আপনার মতামত আমাদের কাছে গুরুত্বপূর্ণ</h2>
                 <p class="text-lg md:text-xl mb-8 opacity-90">
-                    আমাদের ইশতিহার সম্পর্কে আপনার কোনো প্রশ্ন বা পরামর্শ থাকলে আমাদের সাথে যোগাযোগ করুন।
-                    আমরা সবসময় আপনাদের মতামতের জন্য প্রস্তুত।
+                    আপনার বিশেষ কোনো প্রশ্ন থাকলে আমাদের সাথে যোগাযোগ করুন। আমরা সবসময় আপনাদের মতামতের জন্য প্রস্তুত।
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
                     <a href="<?php echo home_url(); ?>/contact"

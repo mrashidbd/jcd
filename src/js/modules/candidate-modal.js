@@ -199,21 +199,21 @@ export class CandidateModal {
             <div class="content-section">
                 <h3 class="text-2xl font-bold text-gray-800 mb-6">শিক্ষাজীবন</h3>
                 <div class="space-y-6">
-                    ${this.generateEducationCard('এসএসসি', candidate.ssc_school, candidate.ssc_gpa, candidate.ssc_year, 'from-green-200 to-green-100 border-green-500')}
-                    ${this.generateEducationCard('এইচএসসি', candidate.hsc_college, candidate.hsc_gpa, candidate.hsc_year, 'from-blue-200 to-blue-100 border-blue-500')}
-                    ${this.generateEducationCard('স্নাতক', candidate.graduation_university, candidate.graduation_cgpa, candidate.graduation_year, 'from-purple-200 to-purple-100 border-purple-500', candidate.graduation_subject)}
+                    ${this.generateEducationCard('এসএসসি', candidate.ssc_school, candidate.ssc_gpa, candidate.ssc_year, 'from-green-200 to-green-100 border-green-500', 'border-green-100')}
+                    ${this.generateEducationCard('এইচএসসি', candidate.hsc_college, candidate.hsc_gpa, candidate.hsc_year, 'from-blue-200 to-blue-100 border-blue-500', 'border-blue-100')}
+                    ${this.generateEducationCard('স্নাতক', candidate.graduation_university, candidate.graduation_cgpa, candidate.graduation_year, 'from-purple-200 to-purple-100 border-purple-500', 'border-purple-100', candidate.graduation_subject)}
                 </div>
             </div>
         `;
     }
 
-    generateEducationCard(level, institution, grade, year, colorClass, subject = null) {
+    generateEducationCard(level, institution, grade, year, colorClass, borderClass, subject = null) {
         if (!institution && !grade && !year) return '';
 
         return `
             <div class="bg-gradient-to-r ${colorClass} rounded-lg p-6 border-l-4">
-                <h4 class="text-lg font-bold mb-4">${level}</h4>
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-2 text-sm">
+                <h4 class="text-xl font-bold mb-4 text-slate-700 border-b ${borderClass}">${level}</h4>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-2 text-lg">
                     ${institution ? `
                         <div>
                             <span class="font-semibold text-gray-700">প্রতিষ্ঠান:</span>
@@ -255,7 +255,7 @@ export class CandidateModal {
                         <div class="bg-slate-100 rounded-lg p-6">
                             <h4 class="font-semibold text-gray-700 mb-2">পিতার নাম</h4>
                             <p class="text-gray-800 mb-1">${candidate.father_name}</p>
-                            ${candidate.father_profession ? `<p class="text-sm text-gray-600">পেশা: ${candidate.father_profession}</p>` : ''}
+                            ${candidate.father_profession ? `<p class="text-lg text-gray-600">পেশা: ${candidate.father_profession}</p>` : ''}
                         </div>
                     ` : ''}
                     
@@ -263,7 +263,7 @@ export class CandidateModal {
                         <div class="bg-slate-100 rounded-lg p-6">
                             <h4 class="font-semibold text-gray-700 mb-2">মাতার নাম</h4>
                             <p class="text-gray-800 mb-1">${candidate.mother_name}</p>
-                            ${candidate.mother_profession ? `<p class="text-sm text-gray-600">পেশা: ${candidate.mother_profession}</p>` : ''}
+                            ${candidate.mother_profession ? `<p class="text-lg text-gray-600">পেশা: ${candidate.mother_profession}</p>` : ''}
                         </div>
                     ` : ''}
                 </div>
@@ -290,7 +290,7 @@ export class CandidateModal {
         return `
             <div class="content-section">
                 <h3 class="text-2xl font-bold text-gray-800 mb-6">ভবিষ্যৎ পরিকল্পনা ও দৃষ্টিভঙ্গি</h3>
-                <div class="bg-slate-100 rounded-lg p-6 shadow-sm">
+                <div class="bg-slate-100 rounded-lg p-6">
                     <p class="text-gray-700 leading-relaxed">${candidate.vision.replace(/\n/g, '<br>')}</p>
                 </div>
             </div>
@@ -303,7 +303,7 @@ export class CandidateModal {
         return `
             <div class="content-section">
                 <h3 class="text-2xl font-bold text-gray-800 mb-6">রাজনৈতিক যাত্রা</h3>
-                <div class="bg-slate-200 rounded-lg p-6 shadow-sm">
+                <div class="bg-slate-100 rounded-lg p-6">
                     <p class="text-gray-700 leading-relaxed">${candidate.political_journey.replace(/\n/g, '<br>')}</p>
                 </div>
             </div>
@@ -316,7 +316,7 @@ export class CandidateModal {
         return `
             <div class="content-section">
                 <h3 class="text-2xl font-bold text-gray-800 mb-6">বিশেষ অর্জন</h3>
-                <div class="bg-white rounded-lg p-6 shadow-md">
+                <div class="bg-slate-100 rounded-lg p-6">
                     <p class="text-gray-700 leading-relaxed">${candidate.special_achievements.replace(/\n/g, '<br>')}</p>
                 </div>
             </div>
@@ -328,14 +328,14 @@ export class CandidateModal {
 
         const galleryHtml = candidate.gallery.map(image => `
             <img src="${image.url}" alt="Gallery Image" 
-                 class="w-full h-32 object-cover rounded-lg cursor-pointer hover:opacity-80 transition-opacity shadow-md hover:shadow-lg gallery-image"
+                 class="w-full h-48 object-cover rounded-lg cursor-pointer hover:opacity-80 transition-opacity shadow-md hover:shadow-lg gallery-image"
                  data-full-url="${image.full_url}">
         `).join('');
 
         return `
             <div class="content-section">
                 <h3 class="text-2xl font-bold text-gray-800 mb-6">ছবি গ্যালারি</h3>
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                     ${galleryHtml}
                 </div>
             </div>
@@ -385,25 +385,25 @@ export class CandidateModal {
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label for="contact-name" class="block text-sm font-medium text-gray-700 mb-1">নাম *</label>
+                            <label for="contact-name" class="block text-lg font-medium text-gray-700 mb-1">নাম *</label>
                             <input type="text" id="contact-name" name="name" required
                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-green focus:border-transparent">
                         </div>
                         <div>
-                            <label for="contact-email" class="block text-sm font-medium text-gray-700 mb-1">ইমেইল *</label>
+                            <label for="contact-email" class="block text-lg font-medium text-gray-700 mb-1">ইমেইল *</label>
                             <input type="email" id="contact-email" name="email" required
                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-green focus:border-transparent">
                         </div>
                     </div>
                     
                     <div>
-                        <label for="contact-phone" class="block text-sm font-medium text-gray-700 mb-1">ফোন</label>
+                        <label for="contact-phone" class="block text-lg font-medium text-gray-700 mb-1">ফোন</label>
                         <input type="tel" id="contact-phone" name="phone"
                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-green focus:border-transparent">
                     </div>
                     
                     <div>
-                        <label for="contact-message" class="block text-sm font-medium text-gray-700 mb-1">বার্তা *</label>
+                        <label for="contact-message" class="block text-lg font-medium text-gray-700 mb-1">বার্তা *</label>
                         <textarea id="contact-message" name="message" rows="4" required
                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-green focus:border-transparent"
                                   placeholder="আপনার বার্তা লিখুন..."></textarea>
