@@ -151,12 +151,12 @@ get_header(); ?>
     <!-- Candidate Details Modal - Full Width and Mobile Responsive -->
     <div id="candidate-modal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-start justify-center pt-4 pb-4 px-2 md:px-4 overflow-y-auto">
         <div class="bg-white rounded-lg shadow-xl w-full max-w-7xl max-h-full overflow-hidden relative mx-auto my-auto">
-            <button id="close-modal" class="absolute -top-4 -right-4 z-10 cursor-pointer text-gray-500 bg-white border-2 border-gray-300 rounded-full p-2 hover:text-red-500 hover:border-red-500 transition-colors">
+            <button id="close-modal" class="absolute top-1 right-1 z-60 cursor-pointer text-gray-500 bg-white border-2 border-gray-300 rounded-full p-2 hover:text-red-500 hover:border-red-500 transition-colors">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
-            <div class="candidate-modal-content p-4 md:p-8 overflow-y-auto max-h-full">
+            <div class="candidate-modal-content p-4 md:p-8 max-h-full">
                 <!-- Modal content will be loaded via AJAX -->
             </div>
         </div>

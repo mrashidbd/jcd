@@ -1,6 +1,7 @@
 <?php
 /**
- * AJAX Handlers for Frontend Interactions
+ * Enhanced AJAX Handlers with Meta Search and Modal Auto-Open
+ * Replace your existing ajax-handlers.php content
  */
 
 if (!defined('ABSPATH')) {
@@ -31,7 +32,7 @@ class DUCSU_AJAX_Handlers {
     }
 
     /**
-     * Handle search requests
+     * Enhanced search with meta field support and modal auto-open
      */
     public function handle_search() {
         check_ajax_referer('ducsu_nonce', 'nonce');
@@ -42,24 +43,117 @@ class DUCSU_AJAX_Handlers {
             wp_send_json_error('Empty search query');
         }
 
+        $results = [];
+
+        // Search in candidates with meta fields
+        $candidate_results = $this->search_candidates($query);
+        $results = array_merge($results, $candidate_results);
+
+        // Search in regular posts (manifesto, etc.)
+        $post_results = $this->search_regular_posts($query);
+        $results = array_merge($results, $post_results);
+
+        // Sort results by relevance
+        $results = $this->sort_results_by_relevance($results, $query);
+
+        wp_send_json_success(array_slice($results, 0, 10)); // Limit to 10 results
+    }
+
+    /**
+     * Search candidates with meta fields
+     */
+    private function search_candidates($query) {
+        $results = [];
+
+        // Define searchable meta fields
+        $searchable_meta = [
+            '_candidate_name_bangla' => 'নাম',
+            '_candidate_father_name' => 'পিতার নাম',
+            '_candidate_mother_name' => 'মাতার নাম',
+            '_candidate_department' => 'বিভাগ',
+            '_candidate_hall' => 'হল',
+            '_candidate_position' => 'পদ',
+            '_candidate_ballot_number' => 'ব্যালট নম্বর',
+            '_candidate_session' => 'সেশন',
+            '_candidate_permanent_address' => 'ঠিকানা'
+        ];
+
+        foreach (['central_candidate', 'hall_candidate'] as $post_type) {
+            // Search in post title and content first
+            $title_content_args = [
+                'post_type' => $post_type,
+                's' => $query,
+                'posts_per_page' => 20,
+                'post_status' => 'publish'
+            ];
+
+            $title_content_query = new WP_Query($title_content_args);
+
+            if ($title_content_query->have_posts()) {
+                while ($title_content_query->have_posts()) {
+                    $title_content_query->the_post();
+                    $result = $this->format_candidate_result(get_the_ID(), $post_type, 'title_content', $query);
+                    if ($result) {
+                        $results[] = $result;
+                    }
+                }
+                wp_reset_postdata();
+            }
+
+            // Search in meta fields
+            foreach ($searchable_meta as $meta_key => $meta_label) {
+                $meta_args = [
+                    'post_type' => $post_type,
+                    'posts_per_page' => 20,
+                    'post_status' => 'publish',
+                    'meta_query' => [
+                        [
+                            'key' => $meta_key,
+                            'value' => $query,
+                            'compare' => 'LIKE'
+                        ]
+                    ]
+                ];
+
+                $meta_query = new WP_Query($meta_args);
+
+                if ($meta_query->have_posts()) {
+                    while ($meta_query->have_posts()) {
+                        $meta_query->the_post();
+                        $result = $this->format_candidate_result(get_the_ID(), $post_type, $meta_key, $query, $meta_label);
+                        if ($result && !$this->result_exists($results, get_the_ID())) {
+                            $results[] = $result;
+                        }
+                    }
+                    wp_reset_postdata();
+                }
+            }
+        }
+
+        return $results;
+    }
+
+    /**
+     * Search regular posts (manifesto, etc.)
+     */
+    private function search_regular_posts($query) {
+        $results = [];
+
         $args = [
-            'post_type' => ['central_candidate', 'hall_candidate', 'manifesto'],
+            'post_type' => ['manifesto'],
             's' => $query,
             'posts_per_page' => 10,
             'post_status' => 'publish'
         ];
 
         $search_query = new WP_Query($args);
-        $results = [];
 
         if ($search_query->have_posts()) {
             while ($search_query->have_posts()) {
                 $search_query->the_post();
 
                 $post_type_labels = [
-                    'central_candidate' => 'কেন্দ্রীয় প্যানেল',
-                    'hall_candidate' => 'হল প্যানেল',
-                    'manifesto' => 'ইশতেহার'
+                    'manifesto' => 'ইশতিহার'
                 ];
 
                 $results[] = [
@@ -67,13 +161,153 @@ class DUCSU_AJAX_Handlers {
                     'title' => get_the_title(),
                     'link' => get_permalink(),
                     'type' => $post_type_labels[get_post_type()],
-                    'excerpt' => get_the_excerpt()
+                    'excerpt' => get_the_excerpt(),
+                    'relevance_score' => $this->calculate_relevance(get_the_title() . ' ' . get_the_content(), $query),
+                    'is_candidate' => false
                 ];
             }
             wp_reset_postdata();
         }
 
-        wp_send_json_success($results);
+        return $results;
+    }
+
+    /**
+     * Format candidate result with proper links and modal trigger
+     */
+    private function format_candidate_result($post_id, $post_type, $match_field, $query, $match_label = null) {
+        $name_bangla = get_post_meta($post_id, '_candidate_name_bangla', true);
+        $position = get_post_meta($post_id, '_candidate_position', true);
+        $department = get_post_meta($post_id, '_candidate_department', true);
+        $hall = get_post_meta($post_id, '_candidate_hall', true);
+        $ballot_number = get_post_meta($post_id, '_candidate_ballot_number', true);
+
+        // Determine parent page URL
+        $parent_url = home_url('/central-panel');
+        if ($post_type === 'hall_candidate') {
+            $parent_url = home_url('/hall-panels');
+            // If candidate has hall, add hall parameter
+            $terms = get_the_terms($post_id, 'halls');
+            if ($terms && !is_wp_error($terms)) {
+                $parent_url .= '?hall=' . $terms[0]->term_id;
+            }
+        }
+
+        // Create modal trigger URL
+        $modal_url = $parent_url . '#candidate-' . $post_id;
+
+        // Create excerpt based on match
+        $excerpt_parts = [];
+        if ($name_bangla) $excerpt_parts[] = $name_bangla;
+        if ($position) $excerpt_parts[] = $position;
+        if ($department) $excerpt_parts[] = $department;
+        if ($hall) $excerpt_parts[] = $hall;
+
+        $excerpt = implode(' • ', array_filter($excerpt_parts));
+
+        // Add match context if from meta field
+        if ($match_label && $match_field !== 'title_content') {
+            $meta_value = get_post_meta($post_id, $match_field, true);
+            if ($meta_value) {
+                $excerpt = $match_label . ': ' . $meta_value . ' | ' . $excerpt;
+            }
+        }
+
+        $post_type_labels = [
+            'central_candidate' => 'কেন্দ্রীয় প্যানেল',
+            'hall_candidate' => 'হল প্যানেল'
+        ];
+
+        $title = $name_bangla ?: get_the_title($post_id);
+        if ($ballot_number) {
+            $title .= ' (ব্যালট: ' . $ballot_number . ')';
+        }
+
+        return [
+            'id' => $post_id,
+            'title' => $title,
+            'link' => $modal_url,
+            'type' => $post_type_labels[$post_type],
+            'excerpt' => $excerpt,
+            'relevance_score' => $this->calculate_candidate_relevance($post_id, $query, $match_field),
+            'is_candidate' => true,
+            'candidate_id' => $post_id,
+            'parent_url' => $parent_url
+        ];
+    }
+
+    /**
+     * Calculate relevance score for candidates
+     */
+    private function calculate_candidate_relevance($post_id, $query, $match_field) {
+        $score = 0;
+        $query_lower = strtolower($query);
+
+        // Higher score for exact matches in important fields
+        $important_fields = [
+            '_candidate_name_bangla' => 10,
+            '_candidate_ballot_number' => 8,
+            '_candidate_position' => 6,
+            'title_content' => 5
+        ];
+
+        $base_score = isset($important_fields[$match_field]) ? $important_fields[$match_field] : 3;
+
+        // Check for exact vs partial matches
+        $field_value = '';
+        if ($match_field === 'title_content') {
+            $field_value = strtolower(get_the_title($post_id));
+        } else {
+            $field_value = strtolower(get_post_meta($post_id, $match_field, true));
+        }
+
+        if (strpos($field_value, $query_lower) === 0) {
+            $score = $base_score * 2; // Starts with query
+        } elseif (strpos($field_value, $query_lower) !== false) {
+            $score = $base_score; // Contains query
+        }
+
+        return $score;
+    }
+
+    /**
+     * Calculate relevance score for regular content
+     */
+    private function calculate_relevance($content, $query) {
+        $content_lower = strtolower($content);
+        $query_lower = strtolower($query);
+
+        $score = 0;
+        $score += substr_count($content_lower, $query_lower) * 2;
+
+        if (strpos($content_lower, $query_lower) === 0) {
+            $score += 5;
+        }
+
+        return $score;
+    }
+
+    /**
+     * Check if result already exists
+     */
+    private function result_exists($results, $post_id) {
+        foreach ($results as $result) {
+            if ($result['id'] === $post_id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Sort results by relevance
+     */
+    private function sort_results_by_relevance($results, $query) {
+        usort($results, function($a, $b) {
+            return $b['relevance_score'] - $a['relevance_score'];
+        });
+
+        return $results;
     }
 
     /**
@@ -106,6 +340,8 @@ class DUCSU_AJAX_Handlers {
 
         wp_send_json_success($candidate_data);
     }
+
+    // ... (rest of your existing methods remain the same)
 
     /**
      * Handle candidate contact form

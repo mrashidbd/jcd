@@ -330,3 +330,283 @@ function ducsu_generate_candidate_breadcrumb($post_id) {
 
     return $breadcrumb;
 }
+
+
+/**
+ * Additional Helper Functions for Enhanced Search
+ * Add these functions to your existing helper-functions.php file
+ */
+
+/**
+ * Get searchable meta fields for candidates
+ */
+function ducsu_get_searchable_meta_fields()
+{
+    return [
+        '_candidate_name_bangla' => 'নাম',
+        '_candidate_father_name' => 'পিতার নাম',
+        '_candidate_mother_name' => 'মাতার নাম',
+        '_candidate_department' => 'বিভাগ',
+        '_candidate_hall' => 'হল',
+        '_candidate_position' => 'পদ',
+        '_candidate_ballot_number' => 'ব্যালট নম্বর',
+        '_candidate_session' => 'সেশন',
+        '_candidate_permanent_address' => 'ঠিকানা',
+        '_candidate_special_achievements' => 'অর্জন',
+        '_candidate_political_journey' => 'রাজনৈতিক অভিজ্ঞতা',
+        '_candidate_vision' => 'দৃষ্টিভঙ্গি'
+    ];
+}
+
+/**
+ * Get candidate parent page URL based on post type
+ */
+function ducsu_get_candidate_parent_url($post_id)
+{
+    $post_type = get_post_type($post_id);
+
+    if ($post_type === 'central_candidate') {
+        return home_url('/central-panel');
+    } elseif ($post_type === 'hall_candidate') {
+        $base_url = home_url('/hall-panels');
+
+        // Add hall parameter if candidate has hall
+        $terms = get_the_terms($post_id, 'halls');
+        if ($terms && !is_wp_error($terms)) {
+            $base_url .= '?hall=' . $terms[0]->term_id;
+        }
+
+        return $base_url;
+    }
+
+    return get_permalink($post_id);
+}
+
+/**
+ * Format candidate search excerpt
+ */
+function ducsu_format_candidate_search_excerpt($post_id)
+{
+    $excerpt_parts = [];
+
+    $name_bangla = get_post_meta($post_id, '_candidate_name_bangla', true);
+    $position = get_post_meta($post_id, '_candidate_position', true);
+    $department = get_post_meta($post_id, '_candidate_department', true);
+    $hall = get_post_meta($post_id, '_candidate_hall', true);
+    $ballot_number = get_post_meta($post_id, '_candidate_ballot_number', true);
+
+    if ($name_bangla) $excerpt_parts[] = $name_bangla;
+    if ($position) $excerpt_parts[] = $position;
+    if ($department) $excerpt_parts[] = $department;
+    if ($hall) $excerpt_parts[] = $hall;
+    if ($ballot_number) $excerpt_parts[] = 'ব্যালট: ' . $ballot_number;
+
+    return implode(' • ', array_filter($excerpt_parts));
+}
+
+/**
+ * Get candidate search title with ballot number
+ */
+function ducsu_get_candidate_search_title($post_id)
+{
+    $name_bangla = get_post_meta($post_id, '_candidate_name_bangla', true);
+    $ballot_number = get_post_meta($post_id, '_candidate_ballot_number', true);
+
+    $title = $name_bangla ?: get_the_title($post_id);
+
+    if ($ballot_number) {
+        $title .= ' (ব্যালট: ' . $ballot_number . ')';
+    }
+
+    return $title;
+}
+
+/**
+ * Calculate search relevance score for candidates
+ */
+function ducsu_calculate_search_relevance($post_id, $query, $match_field)
+{
+    $score = 0;
+    $query_lower = strtolower($query);
+
+    // Higher score for exact matches in important fields
+    $important_fields = [
+        '_candidate_name_bangla' => 10,
+        '_candidate_ballot_number' => 8,
+        '_candidate_position' => 6,
+        'title_content' => 5,
+        '_candidate_father_name' => 4,
+        '_candidate_mother_name' => 4,
+        '_candidate_department' => 3,
+        '_candidate_hall' => 3
+    ];
+
+    $base_score = isset($important_fields[$match_field]) ? $important_fields[$match_field] : 2;
+
+    // Get field value
+    $field_value = '';
+    if ($match_field === 'title_content') {
+        $field_value = strtolower(get_the_title($post_id) . ' ' . get_post_field('post_content', $post_id));
+    } else {
+        $field_value = strtolower(get_post_meta($post_id, $match_field, true));
+    }
+
+    // Calculate score based on match quality
+    if ($field_value === $query_lower) {
+        $score = $base_score * 3; // Exact match
+    } elseif (strpos($field_value, $query_lower) === 0) {
+        $score = $base_score * 2; // Starts with query
+    } elseif (strpos($field_value, $query_lower) !== false) {
+        $score = $base_score; // Contains query
+    }
+
+    // Bonus for shorter field values (more relevant)
+    if ($score > 0 && strlen($field_value) > 0) {
+        $relevance_ratio = strlen($query_lower) / strlen($field_value);
+        $score += $relevance_ratio * 2;
+    }
+
+    return $score;
+}
+
+/**
+ * Check if search result already exists in array
+ */
+function ducsu_search_result_exists($results, $post_id)
+{
+    foreach ($results as $result) {
+        if (isset($result['id']) && $result['id'] === $post_id) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * Sort search results by relevance score
+ */
+function ducsu_sort_search_results_by_relevance($results)
+{
+    usort($results, function ($a, $b) {
+        $score_a = isset($a['relevance_score']) ? $a['relevance_score'] : 0;
+        $score_b = isset($b['relevance_score']) ? $b['relevance_score'] : 0;
+
+        if ($score_a === $score_b) {
+            // If scores are equal, sort alphabetically
+            return strcmp($a['title'], $b['title']);
+        }
+
+        return $score_b - $score_a; // Descending order
+    });
+
+    return $results;
+}
+
+/**
+ * Get popular search terms for suggestions
+ */
+function ducsu_get_popular_search_terms()
+{
+    return [
+        'কেন্দ্রীয় প্যানেল',
+        'হল প্যানেল',
+        'ইশতিহার',
+        'সভাপতি',
+        'সাধারণ সম্পাদক',
+        'সহ-সভাপতি',
+        'কোষাধ্যক্ষ',
+        'প্রচার সম্পাদক',
+        'সাংস্কৃতিক সম্পাদক',
+        'ক্রীড়া সম্পাদক',
+        'সমাজকল্যাণ সম্পাদক'
+    ];
+}
+
+/**
+ * Get search context based on match field
+ */
+function ducsu_get_search_match_context($post_id, $match_field, $query)
+{
+    $searchable_fields = ducsu_get_searchable_meta_fields();
+
+    if (!isset($searchable_fields[$match_field])) {
+        return '';
+    }
+
+    $field_label = $searchable_fields[$match_field];
+    $field_value = get_post_meta($post_id, $match_field, true);
+
+    if (empty($field_value)) {
+        return '';
+    }
+
+    // Highlight the matching part
+    $highlighted_value = str_ireplace($query, '<strong>' . $query . '</strong>', $field_value);
+
+    return $field_label . ': ' . $highlighted_value;
+}
+
+/**
+ * Log search queries for analytics
+ */
+function ducsu_log_search_query($query, $results_count = 0)
+{
+    if (empty($query)) return;
+
+    $searches = get_option('ducsu_search_log', []);
+    $today = date('Y-m-d');
+
+    if (!isset($searches[$today])) {
+        $searches[$today] = [];
+    }
+
+    $query_key = strtolower(trim($query));
+
+    if (!isset($searches[$today][$query_key])) {
+        $searches[$today][$query_key] = [
+            'query' => $query,
+            'count' => 0,
+            'results' => 0
+        ];
+    }
+
+    $searches[$today][$query_key]['count']++;
+    $searches[$today][$query_key]['results'] = $results_count;
+
+    // Keep only last 30 days of data
+    $cutoff_date = date('Y-m-d', strtotime('-30 days'));
+    foreach ($searches as $date => $data) {
+        if ($date < $cutoff_date) {
+            unset($searches[$date]);
+        }
+    }
+
+    update_option('ducsu_search_log', $searches);
+}
+
+/**
+ * Get popular search queries from log
+ */
+function ducsu_get_popular_searches($days = 7, $limit = 10)
+{
+    $searches = get_option('ducsu_search_log', []);
+    $popular = [];
+
+    $cutoff_date = date('Y-m-d', strtotime("-{$days} days"));
+
+    foreach ($searches as $date => $queries) {
+        if ($date >= $cutoff_date) {
+            foreach ($queries as $query_data) {
+                $query = $query_data['query'];
+                if (!isset($popular[$query])) {
+                    $popular[$query] = 0;
+                }
+                $popular[$query] += $query_data['count'];
+            }
+        }
+    }
+
+    arsort($popular);
+
+    return array_slice(array_keys($popular), 0, $limit);
+}

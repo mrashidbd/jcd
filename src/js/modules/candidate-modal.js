@@ -1,6 +1,6 @@
 /**
- * Candidate Modal Module
- * Handles candidate detail modals and interactions
+ * Candidate Modal Module - Original Layout with Search Integration
+ * Replace your existing src/js/modules/candidate-modal.js with this version
  */
 
 export class CandidateModal {
@@ -19,10 +19,11 @@ export class CandidateModal {
     init() {
         this.bindEvents();
         this.setupAccessibility();
+        this.handleURLHash(); // Add search integration
     }
 
     bindEvents() {
-        // Candidate card clicks
+        // Candidate card clicks - keep original functionality
         document.addEventListener('click', (e) => {
             const candidateCard = e.target.closest('.candidate-card');
 
@@ -51,7 +52,17 @@ export class CandidateModal {
             });
         }
 
-        // Close on escape key (handled by main app)
+        // Add hash change listener for search integration
+        window.addEventListener('hashchange', () => {
+            this.handleURLHash();
+        });
+
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.isModalOpen()) {
+                this.closeModal();
+            }
+        });
     }
 
     setupAccessibility() {
@@ -63,14 +74,46 @@ export class CandidateModal {
         }
     }
 
-    async openModal(candidateId) {
+    /**
+     * Handle URL hash for auto-opening candidate modals from search
+     */
+    handleURLHash() {
+        const hash = window.location.hash;
+        if (hash.startsWith('#candidate-')) {
+            const candidateId = hash.replace('#candidate-', '');
+            if (candidateId && !isNaN(candidateId)) {
+                // Small delay to ensure page is loaded
+                setTimeout(() => {
+                    this.openModal(parseInt(candidateId), true);
+                }, 100);
+            }
+        }
+    }
+
+    async openModal(candidateId, fromHash = false) {
         if (!candidateId) return;
+
+        // Check if we're on a candidate page (central-panel or hall-panels)
+        const currentPath = window.location.pathname;
+        const isOnCandidatePage = currentPath.includes('/central-panel') || currentPath.includes('/hall-panels');
+
+        if (!isOnCandidatePage && fromHash) {
+            // If not on candidate page but trying to open from hash, we can't open modal
+            console.log('Not on candidate page, cannot open modal');
+            return;
+        }
 
         this.showLoading();
         this.showModal();
 
         try {
             const candidateData = await this.fetchCandidateData(candidateId);
+
+            // Update URL hash if not already set (for direct clicks, not search)
+            if (!fromHash) {
+                history.replaceState(null, null, window.location.pathname + window.location.search + '#candidate-' + candidateId);
+            }
+
             this.displayCandidateDetails(candidateData);
             this.trapFocus();
         } catch (error) {
@@ -121,301 +164,259 @@ export class CandidateModal {
     displayCandidateDetails(candidate) {
         if (!this.modalContent) return;
 
-        const content = this.generateCandidateContent(candidate);
-        this.modalContent.innerHTML = content;
-
-        // Initialize any interactive elements
-        this.initializeModalContent(candidate.id);
-    }
-
-    generateCandidateContent(candidate) {
-        return `
-            <div class="space-y-8 overflow-y-auto max-h-[800px]">
-                ${this.generateHeaderSection(candidate)}
-                ${this.generateEducationSection(candidate)}
-                ${this.generateFamilySection(candidate)}
-                ${this.generateContentSection(candidate)}
-                ${this.generateVisionSection(candidate)}
-                ${this.generatePoliticalJourneySection(candidate)}
-                ${this.generateAchievementsSection(candidate)}
-                ${this.generateGallerySection(candidate)}
-                ${this.generateSocialLinksSection(candidate)}
-                ${this.generateContactFormSection(candidate)}
-            </div>
-        `;
-    }
-
-    generateHeaderSection(candidate) {
-        return `
-            <div class="flex flex-col lg:flex-row gap-8 items-start">
-                <div class="w-full lg:w-80 flex-shrink-0">
-                    <div class="text-center">
-                        ${candidate.image ?
-            `<img src="${candidate.image}" alt="${candidate.name_bangla || candidate.title}" 
-                             class="w-full lg:w-80 h-80 object-cover rounded-xl shadow-xl mx-auto">` :
-            `<div class="w-full lg:w-80 h-80 bg-gradient-to-br from-green-800 to-blue-800 rounded-xl shadow-xl mx-auto flex items-center justify-center">
-                                <svg class="w-20 h-20 text-white" fill="currentColor" viewBox="0 0 20 20">
+        // Use your ORIGINAL layout structure
+        const content = `
+            <div class="flex flex-col lg:grid lg:grid-cols-3 gap-8 max-h-[80vh] overflow-y-auto">
+                <!-- Left Column - Image and Basic Info -->
+                <div class="lg:col-span-1">
+                    <div class="lg:sticky lg:top-8">
+                        ${candidate.image ? `
+                            <img src="${candidate.image}" alt="${candidate.name_bangla || candidate.title}" 
+                                 class="w-full rounded-lg shadow-lg mb-6 object-cover aspect-square">
+                        ` : `
+                            <div class="w-full aspect-square rounded-lg bg-gradient-to-br from-primary-green to-primary-blue flex items-center justify-center mb-6 shadow-lg">
+                                <svg class="w-24 h-24 text-white" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
                                 </svg>
-                            </div>`
-        }
+                            </div>
+                        `}
+                        
+                        <!-- Basic Info Card -->
+                        <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                            <h2 class="text-2xl font-bold text-gray-800 mb-4">${candidate.name_bangla || candidate.title}</h2>
+                            
+                            ${candidate.position ? `<div class="mb-3">
+                                <span class="text-sm font-medium text-gray-600">পদ:</span>
+                                <span class="ml-2 px-3 py-1 bg-primary-green text-white rounded-full text-sm">${candidate.position}</span>
+                            </div>` : ''}
+                            
+                            ${candidate.ballot_number ? `<div class="mb-3">
+                                <span class="text-sm font-medium text-gray-600">ব্যালট নম্বর:</span>
+                                <span class="ml-2 text-2xl font-bold text-primary-blue">${candidate.ballot_number}</span>
+                            </div>` : ''}
+                            
+                            ${candidate.department ? `<div class="mb-3">
+                                <span class="text-sm font-medium text-gray-600">বিভাগ:</span>
+                                <span class="ml-2">${candidate.department}</span>
+                            </div>` : ''}
+                            
+                            ${candidate.hall ? `<div class="mb-3">
+                                <span class="text-sm font-medium text-gray-600">হল:</span>
+                                <span class="ml-2">${candidate.hall}</span>
+                            </div>` : ''}
+                            
+                            ${candidate.session ? `<div class="mb-3">
+                                <span class="text-sm font-medium text-gray-600">সেশন:</span>
+                                <span class="ml-2">${candidate.session}</span>
+                            </div>` : ''}
+                        </div>
+
+                        <!-- Social Links -->
+                        ${candidate.facebook_url || candidate.twitter_url || candidate.email ? `
+                            <div class="bg-gray-50 rounded-lg p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">যোগাযোগ</h3>
+                                <div class="space-y-2">
+                                    ${candidate.facebook_url ? `<a href="${candidate.facebook_url}" target="_blank" class="flex items-center text-blue-600 hover:text-blue-800 transition-colors">
+                                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                        </svg>
+                                        Facebook
+                                    </a>` : ''}
+                                    
+                                    ${candidate.twitter_url ? `<a href="${candidate.twitter_url}" target="_blank" class="flex items-center text-blue-400 hover:text-blue-600 transition-colors">
+                                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                                        </svg>
+                                        Twitter
+                                    </a>` : ''}
+                                </div>
+                            </div>
+                        ` : ''}
                     </div>
                 </div>
-                
-                <div class="flex-1">
-                    <div class="bg-gradient-to-br from-slate-600 to-cyan-900 text-white rounded-xl p-6 mb-6">
-                        <h2 id="modal-title" class="text-3xl lg:text-4xl font-bold mb-2">${candidate.name_bangla || candidate.title}</h2>
-                        <p class="text-xl lg:text-2xl mb-2">${candidate.position || ''}</p>
-                        ${candidate.ballot_number ? `<p class="text-lg lg:text-xl">ব্যালট নং: ${candidate.ballot_number}</p>` : ''}
+
+                <!-- Right Column - Detailed Information -->
+                <div class="lg:col-span-2">
+                    <div class="space-y-8">
+                        <!-- Personal Information -->
+                        <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                            <div class="bg-primary-green text-white px-6 py-4">
+                                <h3 class="text-xl font-semibold">ব্যক্তিগত তথ্য</h3>
+                            </div>
+                            <div class="p-6 space-y-4">
+                                ${candidate.father_name ? `<div>
+                                    <span class="font-medium text-gray-700">পিতার নাম:</span>
+                                    <span class="ml-2">${candidate.father_name}</span>
+                                    ${candidate.father_profession ? ` (${candidate.father_profession})` : ''}
+                                </div>` : ''}
+                                
+                                ${candidate.mother_name ? `<div>
+                                    <span class="font-medium text-gray-700">মাতার নাম:</span>
+                                    <span class="ml-2">${candidate.mother_name}</span>
+                                    ${candidate.mother_profession ? ` (${candidate.mother_profession})` : ''}
+                                </div>` : ''}
+                                
+                                ${candidate.permanent_address ? `<div>
+                                    <span class="font-medium text-gray-700">স্থায়ী ঠিকানা:</span>
+                                    <span class="ml-2">${candidate.permanent_address}</span>
+                                </div>` : ''}
+                            </div>
+                        </div>
+
+                        <!-- Educational Information -->
+                        ${(candidate.ssc_school || candidate.hsc_college || candidate.graduation_university) ? `
+                            <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                                <div class="bg-primary-blue text-white px-6 py-4">
+                                    <h3 class="text-xl font-semibold">শিক্ষাগত যোগ্যতা</h3>
+                                </div>
+                                <div class="p-6 space-y-6">
+                                    ${candidate.ssc_school ? `<div>
+                                        <h4 class="font-semibold text-gray-800 mb-2">এসএসসি</h4>
+                                        <div class="bg-gray-50 p-4 rounded">
+                                            <p><strong>প্রতিষ্ঠান:</strong> ${candidate.ssc_school}</p>
+                                            ${candidate.ssc_gpa ? `<p><strong>জিপিএ:</strong> ${candidate.ssc_gpa}</p>` : ''}
+                                            ${candidate.ssc_year ? `<p><strong>পাশের বছর:</strong> ${candidate.ssc_year}</p>` : ''}
+                                        </div>
+                                    </div>` : ''}
+                                    
+                                    ${candidate.hsc_college ? `<div>
+                                        <h4 class="font-semibold text-gray-800 mb-2">এইচএসসি</h4>
+                                        <div class="bg-gray-50 p-4 rounded">
+                                            <p><strong>প্রতিষ্ঠান:</strong> ${candidate.hsc_college}</p>
+                                            ${candidate.hsc_gpa ? `<p><strong>জিপিএ:</strong> ${candidate.hsc_gpa}</p>` : ''}
+                                            ${candidate.hsc_year ? `<p><strong>পাশের বছর:</strong> ${candidate.hsc_year}</p>` : ''}
+                                        </div>
+                                    </div>` : ''}
+                                    
+                                    ${candidate.graduation_university ? `<div>
+                                        <h4 class="font-semibold text-gray-800 mb-2">স্নাতক</h4>
+                                        <div class="bg-gray-50 p-4 rounded">
+                                            <p><strong>বিশ্ববিদ্যালয়:</strong> ${candidate.graduation_university}</p>
+                                            ${candidate.graduation_subject ? `<p><strong>বিষয়:</strong> ${candidate.graduation_subject}</p>` : ''}
+                                            ${candidate.graduation_cgpa ? `<p><strong>সিজিপিএ:</strong> ${candidate.graduation_cgpa}</p>` : ''}
+                                            ${candidate.graduation_year ? `<p><strong>পাশের বছর:</strong> ${candidate.graduation_year}</p>` : ''}
+                                        </div>
+                                    </div>` : ''}
+                                </div>
+                            </div>
+                        ` : ''}
+
+                        <!-- Vision and Achievements -->
+                        ${(candidate.vision || candidate.special_achievements || candidate.political_journey) ? `
+                            <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                                <div class="bg-primary-red text-white px-6 py-4">
+                                    <h3 class="text-xl font-semibold">ভবিষ্যৎ পরিকল্পনা ও অভিজ্ঞতা</h3>
+                                </div>
+                                <div class="p-6 space-y-6">
+                                    ${candidate.vision ? `<div>
+                                        <h4 class="font-semibold text-gray-800 mb-3">দৃষ্টিভঙ্গি ও পরিকল্পনা</h4>
+                                        <div class="prose max-w-none text-gray-700">
+                                            ${candidate.vision.replace(/\n/g, '<br>')}
+                                        </div>
+                                    </div>` : ''}
+                                    
+                                    ${candidate.special_achievements ? `<div>
+                                        <h4 class="font-semibold text-gray-800 mb-3">বিশেষ অর্জন</h4>
+                                        <div class="prose max-w-none text-gray-700">
+                                            ${candidate.special_achievements.replace(/\n/g, '<br>')}
+                                        </div>
+                                    </div>` : ''}
+                                    
+                                    ${candidate.political_journey ? `<div>
+                                        <h4 class="font-semibold text-gray-800 mb-3">রাজনৈতিক অভিজ্ঞতা</h4>
+                                        <div class="prose max-w-none text-gray-700">
+                                            ${candidate.political_journey.replace(/\n/g, '<br>')}
+                                        </div>
+                                    </div>` : ''}
+                                </div>
+                            </div>
+                        ` : ''}
+
+                        <!-- Gallery -->
+                        ${candidate.gallery && candidate.gallery.length > 0 ? `
+                            <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                                <div class="bg-gray-700 text-white px-6 py-4">
+                                    <h3 class="text-xl font-semibold">গ্যালারি</h3>
+                                </div>
+                                <div class="p-6">
+                                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                        ${candidate.gallery.map(img => `
+                                            <img src="${img.url}" alt="Gallery Image" 
+                                                 class="w-full h-32 object-cover rounded-lg cursor-pointer hover:opacity-75 transition-opacity gallery-image"
+                                                 data-full-url="${img.full_url}">
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        ` : ''}
+
+                        <!-- Content/Bio -->
+                        ${candidate.content ? `
+                            <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                                <div class="bg-gray-600 text-white px-6 py-4">
+                                    <h3 class="text-xl font-semibold">বিস্তারিত</h3>
+                                </div>
+                                <div class="p-6">
+                                    <div class="prose max-w-none text-gray-700">
+                                        ${candidate.content}
+                                    </div>
+                                </div>
+                            </div>
+                        ` : ''}
+
+                        <!-- Contact Form -->
+                        ${candidate.email ? `
+                            <div class="bg-gray-50 rounded-lg border border-gray-200 overflow-hidden">
+                                <div class="bg-gray-600 text-white px-6 py-4">
+                                    <h3 class="text-xl font-semibold">যোগাযোগ করুন</h3>
+                                </div>
+                                <div class="p-6">
+                                    <form id="candidate-contact-form" class="space-y-4">
+                                        <input type="hidden" name="candidate_id" value="${candidate.id}">
+                                        
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div>
+                                                <label for="contact-name" class="block text-sm font-medium text-gray-700 mb-1">আপনার নাম *</label>
+                                                <input type="text" id="contact-name" name="name" required
+                                                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-green focus:border-transparent">
+                                            </div>
+                                            <div>
+                                                <label for="contact-email" class="block text-sm font-medium text-gray-700 mb-1">আপনার ইমেইল *</label>
+                                                <input type="email" id="contact-email" name="email" required
+                                                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-green focus:border-transparent">
+                                            </div>
+                                        </div>
+                                        
+                                        <div>
+                                            <label for="contact-phone" class="block text-sm font-medium text-gray-700 mb-1">ফোন নম্বর</label>
+                                            <input type="tel" id="contact-phone" name="phone"
+                                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-green focus:border-transparent">
+                                        </div>
+                                        
+                                        <div>
+                                            <label for="contact-message" class="block text-sm font-medium text-gray-700 mb-1">বার্তা *</label>
+                                            <textarea id="contact-message" name="message" rows="4" required
+                                                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-green focus:border-transparent"
+                                                      placeholder="আপনার বার্তা লিখুন..."></textarea>
+                                        </div>
+                                        
+                                        <button type="submit" 
+                                                class="w-full bg-primary-green hover:bg-primary-blue text-white font-bold py-3 px-6 rounded-md transition-colors duration-300">
+                                            বার্তা পাঠান
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        ` : ''}
                     </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                        ${this.generateInfoCard('বিভাগ', candidate.department)}
-                        ${this.generateInfoCard('হল', candidate.hall)}
-                        ${this.generateInfoCard('সেশন', candidate.session)}
-                        ${this.generateInfoCard('স্থায়ী ঠিকানা', candidate.permanent_address)}
-                    </div>
                 </div>
             </div>
         `;
-    }
 
-    generateInfoCard(label, value) {
-        if (!value) return '';
+        this.modalContent.innerHTML = content;
 
-        return `
-            <div class="bg-slate-100 rounded-lg p-4">
-                <h4 class="font-semibold text-gray-700 mb-1">${label}</h4>
-                <p class="text-gray-800">${value}</p>
-            </div>
-        `;
-    }
-
-    generateEducationSection(candidate) {
-        const hasEducation = candidate.ssc_school || candidate.hsc_college || candidate.graduation_university;
-        if (!hasEducation) return '';
-
-        return `
-            <div class="content-section">
-                <h3 class="text-2xl font-bold text-gray-800 mb-6">শিক্ষাজীবন</h3>
-                <div class="space-y-6">
-                    ${this.generateEducationCard('এসএসসি', candidate.ssc_school, candidate.ssc_gpa, candidate.ssc_year, 'from-green-200 to-green-100 border-green-500', 'border-green-100')}
-                    ${this.generateEducationCard('এইচএসসি', candidate.hsc_college, candidate.hsc_gpa, candidate.hsc_year, 'from-blue-200 to-blue-100 border-blue-500', 'border-blue-100')}
-                    ${this.generateEducationCard('স্নাতক', candidate.graduation_university, candidate.graduation_cgpa, candidate.graduation_year, 'from-purple-200 to-purple-100 border-purple-500', 'border-purple-100', candidate.graduation_subject)}
-                </div>
-            </div>
-        `;
-    }
-
-    generateEducationCard(level, institution, grade, year, colorClass, borderClass, subject = null) {
-        if (!institution && !grade && !year) return '';
-
-        return `
-            <div class="bg-gradient-to-r ${colorClass} rounded-lg p-6 border-l-4">
-                <h4 class="text-xl font-bold mb-4 text-slate-700 border-b ${borderClass}">${level}</h4>
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-2 text-lg">
-                    ${institution ? `
-                        <div>
-                            <span class="font-semibold text-gray-700">প্রতিষ্ঠান:</span>
-                            <p class="text-gray-800">${institution}</p>
-                        </div>
-                    ` : ''}
-                    ${grade ? `
-                        <div>
-                            <span class="font-semibold text-gray-700">ফলাফল:</span>
-                            <p class="text-gray-800">${grade}</p>
-                        </div>
-                    ` : ''}
-                    ${year ? `
-                        <div>
-                            <span class="font-semibold text-gray-700">বছর:</span>
-                            <p class="text-gray-800">${year}</p>
-                        </div>
-                    ` : ''}
-                    ${subject ? `
-                        <div>
-                            <span class="font-semibold text-gray-700">বিষয়:</span>
-                            <p class="text-gray-800">${subject}</p>
-                        </div>
-                    ` : ''}
-                </div>
-            </div>
-        `;
-    }
-
-    generateFamilySection(candidate) {
-        const hasFamily = candidate.father_name || candidate.mother_name;
-        if (!hasFamily) return '';
-
-        return `
-            <div class="content-section">
-                <h3 class="text-2xl font-bold text-gray-800 mb-6">পারিবারিক তথ্য</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    ${candidate.father_name ? `
-                        <div class="bg-slate-100 rounded-lg p-6">
-                            <h4 class="font-semibold text-gray-700 mb-2">পিতার নাম</h4>
-                            <p class="text-gray-800 mb-1">${candidate.father_name}</p>
-                            ${candidate.father_profession ? `<p class="text-lg text-gray-600">পেশা: ${candidate.father_profession}</p>` : ''}
-                        </div>
-                    ` : ''}
-                    
-                    ${candidate.mother_name ? `
-                        <div class="bg-slate-100 rounded-lg p-6">
-                            <h4 class="font-semibold text-gray-700 mb-2">মাতার নাম</h4>
-                            <p class="text-gray-800 mb-1">${candidate.mother_name}</p>
-                            ${candidate.mother_profession ? `<p class="text-lg text-gray-600">পেশা: ${candidate.mother_profession}</p>` : ''}
-                        </div>
-                    ` : ''}
-                </div>
-            </div>
-        `;
-    }
-
-    generateContentSection(candidate) {
-        if (!candidate.content) return '';
-
-        return `
-            <div class="content-section">
-                <h3 class="text-2xl font-bold text-gray-800 mb-6">জীবনী</h3>
-                <div class="bg-white rounded-lg p-6 prose prose-lg max-w-none">
-                    ${candidate.content.replace(/\n/g, '<br>')}
-                </div>
-            </div>
-        `;
-    }
-
-    generateVisionSection(candidate) {
-        if (!candidate.vision) return '';
-
-        return `
-            <div class="content-section">
-                <h3 class="text-2xl font-bold text-gray-800 mb-6">ভবিষ্যৎ পরিকল্পনা ও দৃষ্টিভঙ্গি</h3>
-                <div class="bg-slate-100 rounded-lg p-6">
-                    <p class="text-gray-700 leading-relaxed">${candidate.vision.replace(/\n/g, '<br>')}</p>
-                </div>
-            </div>
-        `;
-    }
-
-    generatePoliticalJourneySection(candidate) {
-        if (!candidate.political_journey) return '';
-
-        return `
-            <div class="content-section">
-                <h3 class="text-2xl font-bold text-gray-800 mb-6">রাজনৈতিক যাত্রা</h3>
-                <div class="bg-slate-100 rounded-lg p-6">
-                    <p class="text-gray-700 leading-relaxed">${candidate.political_journey.replace(/\n/g, '<br>')}</p>
-                </div>
-            </div>
-        `;
-    }
-
-    generateAchievementsSection(candidate) {
-        if (!candidate.special_achievements) return '';
-
-        return `
-            <div class="content-section">
-                <h3 class="text-2xl font-bold text-gray-800 mb-6">বিশেষ অর্জন</h3>
-                <div class="bg-slate-100 rounded-lg p-6">
-                    <p class="text-gray-700 leading-relaxed">${candidate.special_achievements.replace(/\n/g, '<br>')}</p>
-                </div>
-            </div>
-        `;
-    }
-
-    generateGallerySection(candidate) {
-        if (!candidate.gallery || candidate.gallery.length === 0) return '';
-
-        const galleryHtml = candidate.gallery.map(image => `
-            <img src="${image.url}" alt="Gallery Image" 
-                 class="w-full h-48 object-cover rounded-lg cursor-pointer hover:opacity-80 transition-opacity shadow-md hover:shadow-lg gallery-image"
-                 data-full-url="${image.full_url}">
-        `).join('');
-
-        return `
-            <div class="content-section">
-                <h3 class="text-2xl font-bold text-gray-800 mb-6">ছবি গ্যালারি</h3>
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    ${galleryHtml}
-                </div>
-            </div>
-        `;
-    }
-
-    generateSocialLinksSection(candidate) {
-        const hasSocial = candidate.facebook_url || candidate.twitter_url;
-        if (!hasSocial) return '';
-
-        return `
-            <div class="content-section">
-                <h3 class="text-2xl font-bold text-gray-800 mb-6">সামাজিক যোগাযোগ</h3>
-                <div class="flex flex-wrap gap-4">
-                    ${candidate.facebook_url ? `
-                        <a href="${candidate.facebook_url}" target="_blank" 
-                           class="flex items-center space-x-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                            </svg>
-                            <span>Facebook</span>
-                        </a>
-                    ` : ''}
-                    
-                    ${candidate.twitter_url ? `
-                        <a href="${candidate.twitter_url}" target="_blank" 
-                           class="flex items-center space-x-2 bg-blue-400 text-white px-6 py-3 rounded-lg hover:bg-blue-500 transition-colors">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                            </svg>
-                            <span>Twitter</span>
-                        </a>
-                    ` : ''}
-                </div>
-            </div>
-        `;
-    }
-
-    generateContactFormSection(candidate) {
-        if (!candidate.email) return '';
-
-        return `
-            <div class="bg-gray-50 rounded-lg p-6 mb-16">
-                <h3 class="text-xl font-bold text-gray-800 mb-4">যোগাযোগ করুন</h3>
-                <form id="candidate-contact-form" class="space-y-4">
-                    <input type="hidden" name="candidate_id" value="${candidate.id}">
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label for="contact-name" class="block text-lg font-medium text-gray-700 mb-1">নাম *</label>
-                            <input type="text" id="contact-name" name="name" required
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-green focus:border-transparent">
-                        </div>
-                        <div>
-                            <label for="contact-email" class="block text-lg font-medium text-gray-700 mb-1">ইমেইল *</label>
-                            <input type="email" id="contact-email" name="email" required
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-green focus:border-transparent">
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label for="contact-phone" class="block text-lg font-medium text-gray-700 mb-1">ফোন</label>
-                        <input type="tel" id="contact-phone" name="phone"
-                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-green focus:border-transparent">
-                    </div>
-                    
-                    <div>
-                        <label for="contact-message" class="block text-lg font-medium text-gray-700 mb-1">বার্তা *</label>
-                        <textarea id="contact-message" name="message" rows="4" required
-                                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-green focus:border-transparent"
-                                  placeholder="আপনার বার্তা লিখুন..."></textarea>
-                    </div>
-                    
-                    <button type="submit" 
-                            class="w-full bg-primary-green hover:bg-primary-red cursor-pointer inline-block text-white font-bold py-3 px-6 rounded-md transition-all duration-300">
-                        বার্তা পাঠান
-                    </button>
-                </form>
-            </div>
-        `;
+        // Initialize any interactive elements (keep original functionality)
+        this.initializeModalContent(candidate.id, !!candidate.email);
     }
 
     initializeModalContent(candidateId, hasContactForm) {
@@ -434,9 +435,29 @@ export class CandidateModal {
             img.addEventListener('click', () => {
                 const fullUrl = img.getAttribute('data-full-url');
                 if (fullUrl) {
-                    this.openImageModal(fullUrl);
+                    this.showLightbox(fullUrl);
                 }
             });
+        });
+    }
+
+    showLightbox(imageUrl) {
+        const lightbox = document.createElement('div');
+        lightbox.className = 'fixed inset-0 z-70 bg-black bg-opacity-90 flex items-center justify-center p-4';
+        lightbox.innerHTML = `
+        <div class="relative max-w-full max-h-full">
+            <button class="absolute -top-12 right-0 text-white hover:text-gray-300 text-2xl font-bold">&times;</button>
+            <img src="${imageUrl}" alt="Gallery Image" class="max-w-full max-h-full object-contain rounded-lg">
+        </div>
+    `;
+
+        this.modal.appendChild(lightbox);
+
+        // Close on click anywhere or button
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox || e.target.closest('button')) {
+                this.modal.removeChild(lightbox);
+            }
         });
     }
 
@@ -526,6 +547,11 @@ export class CandidateModal {
 
         if (this.modalContent) {
             this.modalContent.innerHTML = '';
+        }
+
+        // Remove hash from URL when closing
+        if (window.location.hash.startsWith('#candidate-')) {
+            history.replaceState(null, null, window.location.pathname + window.location.search);
         }
 
         // Cancel any pending request
@@ -625,7 +651,7 @@ export class CandidateModal {
         if (!this.modal) return;
 
         const focusableElements = this.modal.querySelectorAll(
-            'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select, [tabindex]:not([tabindex="-1"])'
+            'a[href], button, textarea, input[type="text"], input[type="email"], input[type="tel"], input[type="radio"], input[type="checkbox"], select, [tabindex]:not([tabindex="-1"])'
         );
 
         if (focusableElements.length === 0) return;
@@ -663,7 +689,9 @@ export class CandidateModal {
     }
 
     handleEscape() {
-        this.closeModal();
+        if (this.isModalOpen()) {
+            this.closeModal();
+        }
     }
 
     // Public API methods
@@ -673,7 +701,18 @@ export class CandidateModal {
 
     getCurrentCandidateId() {
         const form = this.modalContent?.querySelector('#candidate-contact-form');
-        return form?.querySelector('input[name="candidate_id"]')?.value || null;
+        const candidateIdInput = form?.querySelector('input[name="candidate_id"]');
+        if (candidateIdInput) {
+            return parseInt(candidateIdInput.value);
+        }
+
+        // Fallback to hash
+        const hash = window.location.hash;
+        if (hash.startsWith('#candidate-')) {
+            return parseInt(hash.replace('#candidate-', ''));
+        }
+
+        return null;
     }
 
     clearCache() {
@@ -694,7 +733,5 @@ export class CandidateModal {
 
         // Close modal
         this.closeModal();
-
-        // Remove event listeners would go here in a full implementation
     }
 }
