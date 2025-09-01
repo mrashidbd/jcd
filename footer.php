@@ -22,7 +22,7 @@
 
                     <!-- Social Media Links -->
                     <div class="flex space-x-4">
-                        <a href="https://facebook.com/jcdducsu" target="_blank"
+                        <a href="https://www.facebook.com/bangladesh.jcd" target="_blank"
                            class="bg-blue-600 hover:bg-blue-700 text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
@@ -156,21 +156,15 @@
     <div class="footer-bottom bg-gray-950 border-t border-gray-800 py-6">
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                <div class="text-gray-400 text-sm">
-                    <p>&copy; <?php echo date('Y'); ?> বাংলাদেশ জাতীয়তাবাদী ছাত্রদল, ঢাকা বিশ্ববিদ্যালয়। সকল অধিকার সংরক্ষিত।</p>
-                </div>
-
-                <div class="flex items-center space-x-6">
-                    <a href="/privacy-policy" class="text-gray-400 hover:text-primary-green text-sm transition-colors duration-300">গোপনীয়তা নীতি</a>
-                    <a href="/terms-of-use" class="text-gray-400 hover:text-primary-green text-sm transition-colors duration-300">ব্যবহারের শর্তাবলী</a>
-                    <a href="/sitemap" class="text-gray-400 hover:text-primary-green text-sm transition-colors duration-300">সাইটম্যাপ</a>
+                <div class="text-gray-400 text-sm max-w-4xl mx-auto text-center">
+                    <p>&copy; <?php echo date('Y'); ?> বাংলাদেশ জাতীয়তাবাদী ছাত্রদল, ঢাকা বিশ্ববিদ্যালয়। সর্বস্বত্ব সংরক্ষিত।</p>
                 </div>
             </div>
 
             <!-- Developer Credit -->
             <div class="text-center mt-4 pt-4 border-t border-gray-800">
-                <p class="text-gray-500 text-xs">
-                    Developed with ❤️ by <a href="//bnpbd.org/" class="text-primary-green hover:text-primary-blue transition-colors">তথ্য ও প্রযুক্তি দপ্তর, বিএনপি।</a>
+                <p class="text-gray-500 text-sm">
+                    Developed with ❤️ by <a href="//bnpbd.org/" target="_blank" class="text-green-600 hover:text-yellow-400 transition-colors">তথ্য ও প্রযুক্তি দপ্তর, বিএনপি।</a>
                 </p>
             </div>
         </div>

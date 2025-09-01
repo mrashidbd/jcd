@@ -43,4 +43,4 @@ function ducsu_jcd_init() {
 }
 
 // Initialize theme - CHANGE THIS LINE
-add_action('init', 'ducsu_jcd_init', 1); // Changed from 'after_setup_theme' to 'init' with priority 1
+add_action('after_setup_theme', 'ducsu_jcd_init'); // Changed from 'after_setup_theme' to 'init' with priority 1

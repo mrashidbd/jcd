@@ -541,11 +541,13 @@ export class CandidateModal {
     showLoading() {
         if (this.loadingSpinner) {
             this.loadingSpinner.classList.remove('hidden');
+            this.loadingSpinner.classList.add('flex');
         }
     }
 
     hideLoading() {
         if (this.loadingSpinner) {
+            this.loadingSpinner.classList.remove('flex');
             this.loadingSpinner.classList.add('hidden');
         }
     }
