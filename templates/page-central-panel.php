@@ -77,7 +77,7 @@ get_header(); ?>
                                     </p>
                                 </div>
                                 <div class="mb-4">
-                                    <h3 class="text-xl text-center font-bold text-teal-700 mb-2">
+                                    <h3 class="text-2xl text-center font-bold text-teal-800 mb-2">
                                         <?php echo esc_html($name_bangla ?: get_the_title()); ?>
                                     </h3>
                                 </div>
@@ -149,7 +149,7 @@ get_header(); ?>
     </section>
 
     <!-- Candidate Details Modal - Full Width and Mobile Responsive -->
-    <div id="candidate-modal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-start justify-center pt-4 pb-4 px-2 md:px-4 overflow-y-auto">
+    <div id="candidate-modal" class="fixed inset-0 z-50 hidden bg-black/50 flex items-start justify-center pt-4 pb-4 px-2 md:px-4 overflow-y-auto">
         <div class="bg-white rounded-lg shadow-xl w-full max-w-7xl max-h-full overflow-hidden relative mx-auto my-auto">
             <button id="close-modal" class="absolute top-1 right-1 z-60 cursor-pointer text-gray-500 bg-white border-2 border-gray-300 rounded-full p-2 hover:text-red-500 hover:border-red-500 transition-colors">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -163,7 +163,7 @@ get_header(); ?>
     </div>
 
     <!-- Loading Spinner -->
-    <div id="loading-spinner" class="fixed inset-0 z-60 hidden bg-black bg-opacity-50 items-center justify-center">
+    <div id="loading-spinner" class="fixed inset-0 z-60 hidden bg-black items-center justify-center">
         <div class="bg-white rounded-lg p-8 flex items-center space-x-4">
             <svg class="animate-spin h-8 w-8 text-teal-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>

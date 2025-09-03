@@ -53,88 +53,85 @@ get_header(); ?>
         <?php endif; ?>
     </section>
 
-<section class="my-48"></section>
+
+    <!-- Special CTA Section -->
+    <section class="my-4 md:my-8">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-2xl md:text-4xl font-bold mb-4 text-green-900">"প্রতিশ্রুতি নয়, পরিবর্তনে প্রতিজ্ঞাবদ্ধ"</h2>
+                <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto">
+                    ঢাকা বিশ্ববিদ্যালয় কেন্দ্রীয় ছাত্র সংসদ (ডাকসু) ও হল সংসদ নির্বাচন ২০২৫ - এ বাংলাদেশ জাতীয়তাবাদী ছাত্রদল সমর্থিত প্যানেলকে নির্বাচিত করুন।
+                </p>
+                <svg class="w-8 h-8 rotate-90 mx-auto text-green-800/35" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </div>
+        </div>
+    </section>
 
     <!-- Central Panel Section -->
     <section
-            class="central-panel-section min-h-[700px] py-20 bg-cover bg-center relative flex items-center justify-center"
-            style="background-image: linear-gradient(135deg, rgba(30, 183, 224, 0.4), rgba(166, 169, 135, 0.3)), url('<?php echo home_url(); ?>/wp-content/themes/jcd-ducsu/assets/images/central-bg.jpg');">
+            class="hall-panel-section md:min-h-[600px] py-20 bg-cover bg-center relative flex items-center justify-center bg-transparent">
         <div class="container mx-auto px-4">
-            <div class="text-center text-white mb-12">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4">কেন্দ্রীয় প্যানেল</h2>
-                <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto">ঢাকা বিশ্ববিদ্যালয় কেন্দ্রীয় ছাত্র সংসদ (ডাকসু) ও হল সংসদ নির্বাচন ২০২৫ - এর কেন্দ্রীয় সংসদে বাংলাদেশ জাতীয়তাবাদী ছাত্রদল সমর্থিত পদপ্রার্থীদের বিস্তারিত</p>
-                <a href="<?php echo home_url(); ?>/central-panel"
-                   class="inline-block bg-primary-red hover:bg-primary-green text-white font-bold py-3 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105">
-                    সব প্রার্থী দেখুন
-                </a>
+            <div class="flex flex-row">
+                <div class="h-full w-full hidden md:block"></div>
+                <div class="text-center mb-12 h-full w-full z-20">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4 text-white/90">শিক্ষার্থীবান্ধব ক্যাম্পাস</h2>
+                    <p class="text-lg md:text-xl px-8 mb-8 text-white/80">ঢাকা বিশ্ববিদ্যালয় কেবল একটি শিক্ষা প্রতিষ্ঠান নয়। এটি বাংলাদেশের ইতিহাস, সংস্কৃতি, সংগ্রাম ও অর্জনের অবিচ্ছেদ্য অংশ। সেই গৌরবময় ধারাবাহিকতায় আমাদের প্রতিশ্রুতি একটি আধুনিক, নিরাপদ, গণতান্ত্রিক ও শিক্ষার্থীবান্ধব ক্যাম্পাস বিনির্মাণ।</p>
+                    <a href="<?php echo home_url(); ?>/central-panel"
+                       class="inline-block bg-purple-700/80 hover:bg-purple-800 text-gray-50/90 font-bold py-3 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105">
+                        কেন্দ্রীয় সংসদ
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute h-full w-full flex flex-row bg-gradient-to-r from-indigo-500/85 md:from-indigo-500/5 from-10% via-indigo-500/80 via-40% to-teal-500 to-90%">
+            <div class="-z-10 h-full w-full bg-cover bg-center"
+                 style="background-image:url('<?php echo home_url(); ?>/wp-content/themes/jcd-ducsu/assets/images/tsc.png');"></div>
+            <div class="h-full w-full hidden md:block">
             </div>
         </div>
     </section>
 
     <!-- Hall Panel Section -->
     <section
-            class="hall-panel-section min-h-[700px] py-20 bg-cover bg-center relative flex items-center justify-center bg-transparent">
+            class="hall-panel-section md:min-h-[600px] py-20 bg-cover bg-center relative flex items-center justify-center bg-transparent">
         <div class="container mx-auto px-4">
             <div class="flex flex-row">
-                <div class="h-full w-full"></div>
-                <div class="text-center text-white mb-12 h-full w-full">
-                    <h2 class="text-4xl md:text-5xl font-bold mb-4">হল প্যানেল</h2>
-                    <p class="text-lg md:text-xl mb-8">আপনার হলের প্রার্থীদের সাথে পরিচিত হন এবং তাদের ভবিষ্যৎ পরিকল্পনা
-                        জানুন</p>
+                <div class="text-center mb-12 h-full w-full z-20">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4 text-white/90">আমাদের প্রতিজ্ঞা</h2>
+                    <p class="text-lg md:text-xl px-8 mb-8 text-white/80">প্রতিশ্রুতি নয়, বাংলাদেশ জাতীয়তাবাদী ছাত্রদল পরিবর্তনে প্রতিজ্ঞাবদ্ধ। আমরা বিশ্বাস করি, আপনাদের সহযোগিতা, অংশগ্রহণ ও সমর্থনই ঢাকা বিশ্ববিদ্যালয়কে দেশের গণতান্ত্রিক মূল্যবোধ ও প্রগতির এক অটুট সূতিকাগার হিসেবে প্রতিষ্ঠিত করবে।</p>
                     <a href="<?php echo home_url(); ?>/hall-panels"
-                       class="inline-block bg-primary-red hover:bg-primary-blue text-white font-bold py-3 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105">
-                        সব হল দেখুন
+                       class="inline-block bg-teal-700/80 hover:bg-teal-800 text-gray-50/90 font-bold py-3 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105">
+                        হল সংসদ
                     </a>
                 </div>
+                <div class="h-full w-full hidden md:block"></div>
             </div>
         </div>
 
-        <div class="absolute -z-10 h-full w-full flex flex-row">
-            <div class="z-10 h-full w-full bg-cover"
-                 style="background-image:url('/ducsu/wp-content/themes/jcd-ducsu/assets/images/central-bg.jpg');"></div>
-            <div class="h-full w-full" style="background-image: linear-gradient(135deg, rgba(30, 183, 224, 0.4), rgba(166, 169, 135, 0.3))">
-
+        <div class="absolute h-full w-full flex flex-row bg-gradient-to-l from-indigo-500/5 from-10% via-indigo-400/80 via-40% to-violet-500 to-90%">
+            <div class="h-full w-full hidden md:block">
             </div>
+            <div class="-z-10 h-full w-full bg-cover bg-center"
+                 style="background-image:url('<?php echo home_url(); ?>/wp-content/themes/jcd-ducsu/assets/images/oporajeo_bangla.png');"></div>
         </div>
     </section>
 
     <!-- Manifesto Section -->
-    <section class="manifesto-section py-20 bg-cover bg-center relative"
-             style="background-image: linear-gradient(rgba(232, 37, 44, 0.8), rgba(232, 37, 44, 0.8)), url('/ducsu/wp-content/themes/jcd-ducsu/assets/images/manifesto-bg.jpg');">
+    <section class="manifesto-section md:min-h-[400px] py-20 bg-cover bg-center relative"
+             style="background-image: linear-gradient(to bottom right, rgba(0, 95, 89, 0.9) 20%, rgba(69, 85, 108, 0.95) 90%), url('<?php echo home_url(); ?>/wp-content/themes/jcd-ducsu/assets/images/razu.png');">
         <div class="container mx-auto px-4">
-            <div class="text-center text-white mb-12">
+            <div class="text-center text-white/85 mb-12">
                 <h2 class="text-4xl md:text-5xl font-bold mb-4">আমাদের ইশতেহার</h2>
-                <p class="text-lg md:text-xl mb-8">শিক্ষার্থীদের উন্নয়ন এবং কল্যাণের জন্য আমাদের প্রতিশ্রুতি ও
-                    পরিকল্পনা</p>
+                <p class="text-lg md:text-xl mb-8">
+                    ফ্যাসিবাদবিরোধী আন্দোলনে নজিরবিহীন দমন-নিপীড়নের শিকার হওয়া এবং সর্বদা অগ্রণী নেতৃত্ব প্রদানকারী সংগঠন হিসেবে, আমরা ১০টি মূল অঙ্গীকার সম্বলিত নির্বাচনী ইশতেহার ঘোষণা করছি, যা ঢাকা বিশ্ববিদ্যালয়ের শিক্ষা ব্যবস্থাকে আরও যুগোপযোগী ও আধুনিক করে তুলবে এবং গড়ে তুলবে একটি নিরাপদ, শিক্ষার্থীবান্ধব ক্যাম্পাস। আমরা বিশ্বাস করি, এই ১০টি প্রধান পরিকল্পনায় শিক্ষার্থীদের আশা-আকাঙ্ক্ষার প্রতিফলন ঘটবে এবং আমরা সবাই মিলে তা বাস্তবায়নে কাজ করব, ইনশাআল্লাহ।
+                </p>
                 <a href="/manifesto"
                    class="inline-block bg-primary-blue hover:bg-primary-green text-white font-bold py-3 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105">
                     সম্পূর্ণ ইশতেহার পড়ুন
                 </a>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-                <?php
-                $manifesto_items = ducsu_get_manifesto_items(3);
-
-                if ($manifesto_items->have_posts()) :
-                    while ($manifesto_items->have_posts()) : $manifesto_items->the_post();
-                        ?>
-                        <div class="manifesto-card bg-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition-all duration-300">
-                            <div class="bg-primary-red text-white rounded-full w-12 h-12 flex items-center justify-center mb-4">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd"
-                                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                          clip-rule="evenodd"></path>
-                                </svg>
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-3"><?php the_title(); ?></h3>
-                            <p class="text-gray-600 text-sm"><?php echo wp_trim_words(get_the_content(), 20, '...'); ?></p>
-                        </div>
-                    <?php
-                    endwhile;
-                    wp_reset_postdata();
-                endif;
-                ?>
             </div>
         </div>
     </section>

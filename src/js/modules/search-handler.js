@@ -543,8 +543,6 @@ export class SearchHandler {
         const query = this.searchInput.value.trim();
         if (query.length >= 2) {
             this.performSearch(query);
-        } else {
-            this.showSearchSuggestions();
         }
     }
 
@@ -684,30 +682,6 @@ export class SearchHandler {
             </div>
         `;
     }
-
-    showSearchSuggestions() {
-        if (!this.searchResults) return;
-
-        const suggestions = [
-            'কেন্দ্রীয় প্যানেল',
-            'হল প্যানেল',
-            'ইশতিহার',
-            'প্রার্থী',
-            'নির্বাচন'
-        ];
-
-        let html = '<div class="py-4"><p class="text-gray-600 text-sm mb-4">জনপ্রিয় অনুসন্ধান:</p><div class="flex flex-wrap gap-2">';
-
-        suggestions.forEach(suggestion => {
-            html += '<button class="search-suggestion px-3 py-1 bg-gray-100 hover:bg-primary-green hover:text-white rounded-full text-sm transition-colors duration-300" data-query="' + suggestion + '">' + suggestion + '</button>';
-        });
-
-        html += '</div></div>';
-        this.searchResults.innerHTML = html;
-
-        this.bindSearchSuggestions();
-    }
-
     loadSearchSuggestions() {
         const stored = localStorage.getItem('ducsu_search_suggestions');
         if (stored) {
@@ -845,7 +819,6 @@ export class SearchHandler {
             if (this.searchInput) {
                 setTimeout(() => {
                     this.searchInput.focus();
-                    this.showSearchSuggestions();
                 }, 100);
             }
         }

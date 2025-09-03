@@ -19,7 +19,12 @@
     h2.wp-block-heading{
         @apply text-xl leading-loose mt-8 mb-4 bg-slate-50 p-4 rounded-md shadow-xs;
     }
-
+    #external-iframe {
+        margin-top: -200px;
+    }
+    .manifesto-section::after{
+        @apply bg-gradient-to-l from-indigo-500/5 from-10% via-indigo-400/80 via-40% to-violet-500 to-90%;
+    }
 
 
 

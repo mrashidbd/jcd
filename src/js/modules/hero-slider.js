@@ -133,7 +133,7 @@ export class HeroSlider {
         this.pauseAutoPlay(); // Clear existing interval
         this.autoPlayInterval = setInterval(() => {
             this.nextSlide();
-        }, 3000);
+        }, 3500);
         this.isPlaying = true;
     }
 

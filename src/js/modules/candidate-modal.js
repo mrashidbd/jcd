@@ -445,9 +445,9 @@ export class CandidateModal {
         const lightbox = document.createElement('div');
         lightbox.className = 'fixed inset-0 z-70 bg-black bg-opacity-90 flex items-center justify-center p-4';
         lightbox.innerHTML = `
-        <div class="relative max-w-full max-h-full">
-            <button class="absolute -top-12 right-0 text-white hover:text-gray-300 text-2xl font-bold">&times;</button>
-            <img src="${imageUrl}" alt="Gallery Image" class="max-w-full max-h-full object-contain rounded-lg">
+        <div class="relative max-w-auto max-h-[90vh]">
+            <button class="absolute top-2 right-2 border-2 border-slate-100/80 bg-slate-800/60 hover:bg-slate-800/100 rounded text-slate-100 hover:text-slate-200 px-4 py-2 text-2xl cursor-pointer font-bold leading-none">&times;</button>
+            <img src="${imageUrl}" alt="Gallery Image" class="max-w-auto max-h-[90vh] object-contain rounded-lg">
         </div>
     `;
 

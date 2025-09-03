@@ -27,6 +27,7 @@ require_once DUCSU_INCLUDES_PATH . '/ajax-handlers.php';
 require_once DUCSU_INCLUDES_PATH . '/helper-functions.php';
 require_once DUCSU_INCLUDES_PATH . '/admin-functions.php';
 require_once DUCSU_INCLUDES_PATH . '/walker-classes.php';
+require_once DUCSU_INCLUDES_PATH . '/meta-functions.php';
 
 /**
  * Initialize theme features immediately
@@ -43,4 +44,12 @@ function ducsu_jcd_init() {
 }
 
 // Initialize theme - CHANGE THIS LINE
-add_action('after_setup_theme', 'ducsu_jcd_init'); // Changed from 'after_setup_theme' to 'init' with priority 1
+add_action('after_setup_theme', 'ducsu_jcd_init');
+
+// Allow external resources for iframe content
+function modify_csp_for_iframe() {
+    if (is_page_template('page-iframe.php')) {
+        header("Content-Security-Policy: frame-src 'self' https://ducsu.du.ac.bd; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://code.jquery.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://code.jquery.com https://ducsu.du.ac.bd;");
+    }
+}
+add_action('send_headers', 'modify_csp_for_iframe');

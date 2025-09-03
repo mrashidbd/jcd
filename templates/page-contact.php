@@ -10,7 +10,7 @@ get_header(); ?>
     <section class="page-header py-20 relative overflow-hidden bg-no-repeat bg-center bg-cover" style="background-image: linear-gradient(135deg, rgba(0, 213, 190, 0.8), rgba(255, 240, 133, 0.9)), url('/ducsu/wp-content/themes/jcd-ducsu/assets/images/central-bg.jpg');">
         <div class="container mx-auto px-4 text-center text-slate-700">
             <h1 class="text-4xl md:text-6xl font-bold mb-4">যোগাযোগ</h1>
-            <p class="text-lg md:text-xl max-w-2xl mx-auto">আমাদের সাথে যোগাযোগ করুন এবং আপনার মতামত, পরামর্শ ও সহযোগিতা জানান</p>
+            <p class="text-lg md:text-xl max-w-2xl mx-auto">আপনার মতামত, প্রশ্ন অথবা পরামর্শ জানাতে আমাদের সাথে যোগাযোগ করুন।</p>
         </div>
     </section>
 
