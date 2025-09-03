@@ -55,7 +55,7 @@ export default defineConfig({
         },
 
         // CSS optimizations
-        cssCodeSplit: false, // Keep CSS in one file for WordPress
+        cssCodeSplit: true, // Keep CSS in one file for WordPress
     },
 
     server: {

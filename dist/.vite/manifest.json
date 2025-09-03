@@ -1,0 +1,19 @@
+{
+  "src/css/input.css": {
+    "file": "css.CVpu71NO.css",
+    "src": "src/css/input.css",
+    "isEntry": true,
+    "names": [
+      "css.css"
+    ]
+  },
+  "src/js/main.js": {
+    "file": "main.BDdj15tL.js",
+    "name": "main",
+    "src": "src/js/main.js",
+    "isEntry": true,
+    "css": [
+      "css.CVpu71NO.css"
+    ]
+  }
+}

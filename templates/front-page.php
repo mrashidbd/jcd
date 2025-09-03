@@ -125,11 +125,11 @@ get_header(); ?>
         <div class="container mx-auto px-4">
             <div class="text-center text-white/85 mb-12">
                 <h2 class="text-4xl md:text-5xl font-bold mb-4">আমাদের ইশতেহার</h2>
-                <p class="text-lg md:text-xl mb-8">
+                <p class="text-lg md:text-xl mb-8 px-2 md:max-w-6xl mx-auto">
                     ফ্যাসিবাদবিরোধী আন্দোলনে নজিরবিহীন দমন-নিপীড়নের শিকার হওয়া এবং সর্বদা অগ্রণী নেতৃত্ব প্রদানকারী সংগঠন হিসেবে, আমরা ১০টি মূল অঙ্গীকার সম্বলিত নির্বাচনী ইশতেহার ঘোষণা করছি, যা ঢাকা বিশ্ববিদ্যালয়ের শিক্ষা ব্যবস্থাকে আরও যুগোপযোগী ও আধুনিক করে তুলবে এবং গড়ে তুলবে একটি নিরাপদ, শিক্ষার্থীবান্ধব ক্যাম্পাস। আমরা বিশ্বাস করি, এই ১০টি প্রধান পরিকল্পনায় শিক্ষার্থীদের আশা-আকাঙ্ক্ষার প্রতিফলন ঘটবে এবং আমরা সবাই মিলে তা বাস্তবায়নে কাজ করব, ইনশাআল্লাহ।
                 </p>
-                <a href="/manifesto"
-                   class="inline-block bg-primary-blue hover:bg-primary-green text-white font-bold py-3 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105">
+                <a href="<?php echo home_url(); ?>/manifesto"
+                   class="inline-block bg-yellow-600/80 hover:bg-yellow-800 text-gray-50/90 font-bold py-3 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105">
                     সম্পূর্ণ ইশতেহার পড়ুন
                 </a>
             </div>

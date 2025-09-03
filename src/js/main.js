@@ -3,11 +3,12 @@
  * This file imports and initializes all feature modules
  */
 
+import '../css/input.css'
+
 // Import all modules
 import { HeroSlider } from './modules/hero-slider.js';
 import { SearchHandler } from './modules/search-handler.js';
 import { CandidateModal } from './modules/candidate-modal.js';
-// import { ScrollAnimations } from './modules/scroll-animations.js';
 import { ContactForms } from './modules/contact-forms.js';
 //import { Utils } from './modules/utils.js';
 

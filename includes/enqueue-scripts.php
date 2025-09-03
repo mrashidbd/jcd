@@ -29,7 +29,7 @@ class DUCSU_Enqueue_Scripts {
             wp_enqueue_style('mytheme-main-css', 'http://localhost:5173/src/css/input.css', [], null);
         } else {
             // Production mode
-            $manifest_path = DUCSU_THEME_PATH . '/dist/manifest.json';
+            $manifest_path = DUCSU_THEME_PATH . '/dist/.vite/manifest.json';
             if (file_exists($manifest_path)) {
                 $manifest = json_decode(file_get_contents($manifest_path), true);
                 $css_path = $manifest['src/css/input.css']['file'];

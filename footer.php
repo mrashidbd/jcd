@@ -115,28 +115,6 @@
         </div>
     </div>
 
-    <!-- Newsletter Section -->
-    <div class="newsletter-section bg-gray-800 border-t border-gray-700 py-12">
-        <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto text-center">
-                <h3 class="text-2xl font-bold text-white mb-4">আপডেট পেতে সাবস্ক্রাইব করুন</h3>
-                <p class="text-gray-300 mb-6">নির্বাচনের সর্বশেষ খবর ও আপডেট পেতে আমাদের নিউজলেটার সাবস্ক্রাইব করুন</p>
-
-                <form id="newsletter-form" class="flex flex-col sm:flex-row max-w-md mx-auto space-y-4 sm:space-y-0 sm:space-x-4">
-                    <input type="email" name="email" placeholder="আপনার ইমেইল ঠিকানা" required
-                           class="flex-1 px-4 py-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-green focus:border-transparent">
-                    <button type="submit"
-                            class="bg-primary-green hover:bg-primary-blue text-white font-medium px-6 py-3 rounded-lg transition-colors duration-300 flex items-center justify-center">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
-                        </svg>
-                        সাবস্ক্রাইব
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-
     <!-- Bottom Footer -->
     <div class="footer-bottom bg-gray-950 border-t border-gray-800 py-6">
         <div class="container mx-auto px-4">
@@ -166,52 +144,6 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Newsletter form
-        const newsletterForm = document.getElementById('newsletter-form');
-        if (newsletterForm) {
-            newsletterForm.addEventListener('submit', async function(e) {
-                e.preventDefault();
-
-                const submitBtn = this.querySelector('button[type="submit"]');
-                const originalText = submitBtn.innerHTML;
-
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = `
-                <svg class="animate-spin w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                প্রক্রিয়াধীন...
-            `;
-
-                try {
-                    const formData = new FormData(this);
-                    formData.append('action', 'ducsu_newsletter_subscribe');
-                    formData.append('nonce', ducsu_ajax.nonce);
-
-                    const response = await fetch(ducsu_ajax.ajax_url, {
-                        method: 'POST',
-                        body: formData
-                    });
-
-                    const data = await response.json();
-
-                    if (data.success) {
-                        showNotification('সফলভাবে সাবস্ক্রাইব হয়েছে! ধন্যবাদ।', 'success');
-                        this.reset();
-                    } else {
-                        showNotification(data.data || 'সাবস্ক্রিপশনে সমস্যা হয়েছে।', 'error');
-                    }
-                } catch (error) {
-                    console.error('Newsletter subscription error:', error);
-                    showNotification('সাবস্ক্রিপশনে সমস্যা হয়েছে। পরে চেষ্টা করুন।', 'error');
-                } finally {
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = originalText;
-                }
-            });
-        }
-
         // Scroll to top functionality
         const scrollToTopBtn = document.getElementById('scroll-to-top');
 
@@ -234,58 +166,6 @@
                     top: 0,
                     behavior: 'smooth'
                 });
-            });
-        }
-
-        // Notification function
-        function showNotification(message, type = 'info') {
-            const notification = document.createElement('div');
-            notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-all duration-300 transform translate-x-full ${
-                type === 'error' ? 'bg-red-500 text-white' :
-                    type === 'success' ? 'bg-green-500 text-white' :
-                        'bg-blue-500 text-white'
-            }`;
-
-            notification.innerHTML = `
-            <div class="flex items-center space-x-3">
-                ${type === 'error' ?
-                '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>' :
-                '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>'
-            }
-                <span>${message}</span>
-                <button class="ml-4 hover:opacity-75">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                    </svg>
-                </button>
-            </div>
-        `;
-
-            document.body.appendChild(notification);
-
-            // Show notification
-            setTimeout(() => {
-                notification.classList.remove('translate-x-full');
-            }, 100);
-
-            // Auto hide after 5 seconds
-            setTimeout(() => {
-                notification.classList.add('translate-x-full');
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.parentNode.removeChild(notification);
-                    }
-                }, 300);
-            }, 5000);
-
-            // Close button functionality
-            notification.querySelector('button').addEventListener('click', () => {
-                notification.classList.add('translate-x-full');
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.parentNode.removeChild(notification);
-                    }
-                }, 300);
             });
         }
     });
